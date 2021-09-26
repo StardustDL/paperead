@@ -30,13 +30,24 @@ class Material(Description[MaterialMetadata]):
     @property
     def notes(self) -> Optional[NoteRepository]:
         if hasattr(self, '_notes'):
-            return self.notes
+            return self._notes
         else:
             return None
 
     @notes.setter
     def notes(self, value: NoteRepository):
         self._notes = value
+
+    @property
+    def assets(self) -> Optional[pathlib.Path]:
+        if hasattr(self, '_assets'):
+            return self._assets
+        else:
+            return None
+
+    @assets.setter
+    def assets(self, value: pathlib.Path):
+        self._assets = value
 
 
 class MaterialRepository(DescriptionRepository[Material]):
@@ -61,9 +72,13 @@ class MaterialRepository(DescriptionRepository[Material]):
 
     def _getNotesPath(self, path: pathlib.Path) -> pathlib.Path:
         return path.parent.joinpath("notes")
+    
+    def _getAssetsPath(self, path: pathlib.Path) -> pathlib.Path:
+        return path.parent.joinpath("assets")
 
     def __postget__(self, path: pathlib.Path, item: Material) -> None:
         item.notes = NoteRepository(self._getNotesPath(path))
+        item.assets = self._getAssetsPath(path)
 
     def __postset__(self, path: pathlib.Path, item: Material) -> None:
         subroot = path.parent
