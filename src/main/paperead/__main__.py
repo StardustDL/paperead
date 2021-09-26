@@ -1,5 +1,6 @@
 import logging
 import time
+import pathlib
 from typing import Optional
 
 import click
@@ -14,10 +15,10 @@ def run() -> None:
 
 @click.group(invoke_without_command=True)
 @click.pass_context
-@click.option('-D', '--directory', type=click.Path(exists=True, file_okay=False, resolve_path=True), default=".", help="Path to working directory.")
+@click.option('-D', '--directory', type=click.Path(exists=True, file_okay=False, resolve_path=True, path_type=pathlib.Path), default=".", help="Path to working directory.")
 @click.option('-v', '--verbose', count=True, default=0, type=click.IntRange(0, 4))
 @click.option("--version", is_flag=True, default=False, help="Show the version.")
-def main(ctx=None, directory: str = ".", verbose: int = 0, version: bool = False) -> None:
+def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: bool = False) -> None:
     """Paperead (https://github.com/StardustDL/paperead)"""
     click.echo(f"Welcome to Paperead v{__version__}!")
     click.echo(f"Working directory: {click.format_filename(directory)}")
