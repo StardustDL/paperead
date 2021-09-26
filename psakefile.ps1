@@ -11,7 +11,7 @@ Task Build -depends Restore {
     Set-Location src/web
     Write-Output "📦 Build web"
 
-    Write-Output "{ ""commit"": ""$(git rev-parse HEAD)"", ""shortCommit"": ""$(git rev-parse --short HEAD)"", ""date"": ""$(Get-date)"" }" > ./public/build.json
+    Exec { Write-Output "{ ""commit"": ""$(git rev-parse HEAD)"", ""shortCommit"": ""$(git rev-parse --short HEAD)"", ""date"": ""$(Get-date)"" }" > ./public/build.json }
 
     Exec { npm run build }
 

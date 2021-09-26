@@ -8,17 +8,19 @@ from . import __version__
 
 
 @click.command()
-def run(schema: str, preview: bool = False) -> None:
+def run() -> None:
     pass
 
 
 @click.group(invoke_without_command=True)
 @click.pass_context
+@click.option('-D', '--directory', type=click.Path(exists=True, file_okay=False, resolve_path=True), default=".", help="Path to working directory.")
 @click.option('-v', '--verbose', count=True, default=0, type=click.IntRange(0, 4))
 @click.option("--version", is_flag=True, default=False, help="Show the version.")
-def main(ctx=None, verbose: int = 0, version: bool = False) -> None:
+def main(ctx=None, directory: str = ".", verbose: int = 0, version: bool = False) -> None:
     """Paperead (https://github.com/StardustDL/paperead)"""
     click.echo(f"Welcome to Paperead v{__version__}!")
+    click.echo(f"Working directory: {click.format_filename(directory)}")
 
     logger = logging.getLogger("Cli-Main")
 
