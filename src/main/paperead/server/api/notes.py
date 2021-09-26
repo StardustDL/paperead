@@ -1,6 +1,7 @@
 from paperead.repository.notes import Note, NoteMetadata
 from flask import json, jsonify, abort, request, send_from_directory
 from dataclasses import asdict
+from dateutil.parser import parse
 from . import app
 from .. import env
 
@@ -42,6 +43,8 @@ def updateNote(id: str):
     
     data: dict = request.get_json()
     metadata = data.pop("metadata")
+    metadata["creation"] = parse(metadata["creation"])          # isoformat
+    metadata["modification"] = parse(metadata["modification"])  # isoformat
     metaobj = NoteMetadata(**metadata)
     obj = Note(metaobj, **data)
     

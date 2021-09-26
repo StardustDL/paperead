@@ -1,6 +1,7 @@
 from paperead.repository.materials import Material, MaterialMetadata
 from flask import json, jsonify, abort, request, send_from_directory
 from dataclasses import asdict
+from dateutil.parser import parse
 from . import app
 from .. import env
 
@@ -28,8 +29,12 @@ def deleteMaterial(id: str):
 def updateMaterial():
     data: dict = request.get_json()
     metadata = data.pop("metadata")
+    metadata["creation"] = parse(metadata["creation"])          # isoformat
+    metadata["modification"] = parse(metadata["modification"])  # isoformat
     metaobj = MaterialMetadata(**metadata)
     obj = Material(metaobj, **data)
+
+    print(obj)
 
     env.repo.update(obj)
     return obj.id

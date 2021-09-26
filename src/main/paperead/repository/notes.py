@@ -51,6 +51,11 @@ if __name__ == "__main__":
     a.content = "# abc\n"
     manager.update(a)
 
+    print(a)
+    import time
+
+    time.sleep(1)
+
     print(manager["a"])
 
     print(list(manager))
