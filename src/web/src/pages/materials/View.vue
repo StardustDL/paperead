@@ -4,9 +4,11 @@ import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NTime
 import { useRoute } from 'vue-router'
 import { Book } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
+import PageLayout from '../../components/PageLayout.vue'
 import MarkdownPreview from '../../components/MarkdownPreview.vue'
 
 import { useStore } from '../../services/store'
+import MaterialMetadataViewer from '../../components/metadata/MaterialMetadataViewer.vue'
 
 const route = useRoute();
 const store = useStore();
@@ -14,20 +16,22 @@ const params = <{
     id: string
 }>route.params;
 
+const headerHeight = 120;
+
 const data = await store.state.materials.get(params.id);
 </script>
 
 <script lang="ts">
 export default {
     components: {
-        Book,
+        Book
     }
 }
 </script>
 
 <template>
-    <n-layout style="height: 100%;">
-        <n-layout-header bordered style="height: 18%">
+    <PageLayout>
+        <template #header>
             <n-page-header :subtitle="data.id">
                 <template #title>{{ data.metadata.name }}</template>
                 <template #header>
@@ -49,38 +53,33 @@ export default {
                     </n-avatar>
                 </template>
                 <template #footer>
-                    <n-space>
-                        <span>Creation:</span>
-                        <n-time :time="data.metadata.creation" type="relative"></n-time>
-                        <span>Modification:</span>
-                        <n-time :time="data.metadata.modification" type="relative"></n-time>
-                    </n-space>
+                    <MaterialMetadataViewer :data="data.metadata"/>
                 </template>
             </n-page-header>
-        </n-layout-header>
-        <n-layout style="height: 82%" has-sider sider-placement="right">
-            <n-layout-content
-                content-style="padding: 10px;"
-                :native-scrollbar="false"
-                style="height: 100%"
-            >
-                <MarkdownPreview :value="data.content" />
+        </template>
+        <n-layout has-sider sider-placement="right" style="height: 100%;">
+                <n-layout-content
+                    style="height: 100%;"
+                    content-style="padding: 10px;"
+                    :native-scrollbar="false"
+                >
+                    <MarkdownPreview :value="data.content" />
 
-                <n-back-top :right="200"/>
-            </n-layout-content>
-            <n-layout-sider
-                collapse-mode="transform"
-                :collapsed-width="120"
-                :width="240"
-                :native-scrollbar="false"
-                show-trigger="arrow-circle"
-                content-style="padding: 24px;"
-                bordered
-            >
-                <p>asdasd</p>
-            </n-layout-sider>
-        </n-layout>
-    </n-layout>
+                    <n-back-top :right="200" />
+                </n-layout-content>
+                <n-layout-sider
+                    collapse-mode="transform"
+                    :collapsed-width="120"
+                    :width="240"
+                    :native-scrollbar="false"
+                    show-trigger="arrow-circle"
+                    content-style="padding: 24px;"
+                    bordered
+                >
+                    <p>asdasd</p>
+                </n-layout-sider>
+            </n-layout>
+    </PageLayout>
 </template>
 
 <style scoped>

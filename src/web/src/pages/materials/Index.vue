@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar } from 'naive-ui'
 import { Files } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
+import PageLayout from '../../components/PageLayout.vue'
 import MaterialItem from '../../components/MaterialItem.vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useStore } from '../../services/store'
@@ -22,8 +23,8 @@ export default {
 </script>
 
 <template>
-    <n-layout style="height: 100%;">
-        <n-layout-header bordered style="height: 18%">
+    <PageLayout>
+        <template #header>
             <n-page-header subtitle="所有材料">
                 <template #title>Materials</template>
                 <template #header>
@@ -45,22 +46,24 @@ export default {
                     #footer
                 >Totally {{ items.length }} material{{ items.length > 1 ? 's' : '' }}.</template>
             </n-page-header>
-        </n-layout-header>
+        </template>
         <n-layout-content
             content-style="padding: 10px;"
-            style="height: 82%"
+            style="height: 100%"
             :native-scrollbar="false"
         >
-            <suspense v-for="item in items" :key="item">
-                <template #default>
-                    <MaterialItem :id="item"></MaterialItem>
-                </template>
-                <template #fallback>
-                    <n-skeleton text :repeat="2" />
-                </template>
-            </suspense>
+            <n-space vertical>
+                <suspense v-for="item in items" :key="item">
+                    <template #default>
+                        <MaterialItem :id="item"></MaterialItem>
+                    </template>
+                    <template #fallback>
+                        <n-skeleton text :repeat="2" />
+                    </template>
+                </suspense>
+            </n-space>
         </n-layout-content>
-    </n-layout>
+    </PageLayout>
 </template>
 
 <style scoped>

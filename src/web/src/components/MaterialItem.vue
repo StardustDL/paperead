@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 import { NThing, NIcon, NAvatar, NTime, NSpace, NCard, NEllipsis } from 'naive-ui'
 import { useRoute } from 'vue-router'
-import { Book } from '@vicons/tabler'
+import { Book, Clock } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
-import { MaterialRepository } from '../services/repository'
+import MaterialMetadataViewer from './metadata/MaterialMetadataViewer.vue'
 
 import { useStore } from '../services/store'
 
@@ -21,6 +21,7 @@ const data = await store.state.materials.get(props.id);
 export default {
     components: {
         Book,
+        Clock,
     }
 }
 </script>
@@ -31,14 +32,9 @@ export default {
             <router-link :to="`/materials/${data.id}`">{{ data.metadata.name }}</router-link>
         </template>
         <template #header-extra></template>
-        <n-ellipsis :line-clamp="5">{{ data.content }}</n-ellipsis>
+        <n-ellipsis :tooltip="false" :line-clamp="5">{{ data.content }}</n-ellipsis>
         <template #action>
-            <n-space>
-                <span>Creation:</span>
-                <n-time :time="data.metadata.creation" type="relative"></n-time>
-                <span>Modification:</span>
-                <n-time :time="data.metadata.modification" type="relative"></n-time>
-            </n-space>
+            <MaterialMetadataViewer :data="data.metadata" />
         </template>
     </n-card>
 </template>
