@@ -17,6 +17,8 @@ Task Build -depends Restore {
 
     Copy-Item -Recurse ./dist ../../dist/web
 
+    Copy-Item -Recurse ./dist ../../src/main/paperead/server/wwwroot
+
     Set-Location ../..
 
     $readme = $(Get-Childitem "README.md")[0]
@@ -73,6 +75,7 @@ Task Demo {
 Task Test -depends Install, Demo, Uninstall
 
 Task Clean {
+    Remove-Item -Recurse ./src/main/paperead/server/wwwroot
     foreach ($dist in Get-Childitem ./dist) {
         Write-Output "🗑 Remove $dist"
         Remove-Item -Recurse $dist
