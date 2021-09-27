@@ -1,7 +1,7 @@
 import os
 import pathlib
 import itertools
-from typing import Iterator, Optional
+from typing import Dict, Iterator, Optional
 import yaml
 from dataclasses import dataclass, field, asdict
 import datetime
@@ -12,7 +12,7 @@ from . import Description, DescriptionMetadata, DescriptionRepository
 
 @dataclass
 class NoteMetadata(DescriptionMetadata):
-    pass
+    extra: Dict[str, str] = field(default_factory=dict)
 
 
 @dataclass

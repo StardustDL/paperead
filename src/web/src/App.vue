@@ -11,7 +11,7 @@ console.log(route);
 </script>
 
 <template>
-  <n-config-provider>
+  <n-config-provider style="height: 100%">
     <n-message-provider>
       <n-global-style />
       <suspense>
@@ -22,7 +22,6 @@ console.log(route);
           <n-spin :size="80" id="loading-spin" />
         </template>
       </suspense>
-      <n-back-top :right="100" />
     </n-message-provider>
   </n-config-provider>
 </template>
@@ -32,5 +31,11 @@ console.log(route);
   text-align: center;
   width: 100%;
   height: 100vh;
+}
+</style>
+
+<style>
+html, body, #app {
+  height: 100%;
 }
 </style>

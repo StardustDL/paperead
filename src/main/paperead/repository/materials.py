@@ -4,7 +4,7 @@ from paperead.repository import Description, DescriptionMetadata, DescriptionRep
 from paperead.repository.notes import NoteRepository
 import pathlib
 import itertools
-from typing import Iterator, List, Optional
+from typing import Dict, Iterator, List, Optional
 import yaml
 from dataclasses import dataclass, field, asdict
 import datetime
@@ -14,8 +14,9 @@ import shutil
 
 @dataclass
 class MaterialMetadata(DescriptionMetadata):
-    targets: List[str] = field(default_factory=list)
+    targets: Dict[str, str] = field(default_factory=dict)
     tags: List[str] = field(default_factory=list)
+    extra: Dict[str, str] = field(default_factory=dict)
 
 
 @dataclass

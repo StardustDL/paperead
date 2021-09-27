@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, h } from 'vue'
-import { NGrid, NGi, NLayout, NLayoutSider, NLayoutContent, NLayoutHeader, NMenu, NPageHeader, NText, NIcon } from 'naive-ui'
+import { NGrid, NGi, NLayout, NLayoutSider, NLayoutContent, NLayoutHeader, NMenu, NPageHeader, NText, NIcon, NSpin, NAvatar } from 'naive-ui'
 import { Notebook, Home, Files } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
@@ -47,8 +47,8 @@ export default {
 </script>
 
 <template>
-    <n-layout>
-        <n-layout-header style="padding: 12px;" bordered>
+    <n-layout style="height: 100%">
+        <n-layout-header style="padding: 8px; height: 7%" bordered>
             <n-page-header subtitle="阅读与笔记">
                 <template #extra>
                     <suspense>
@@ -56,11 +56,11 @@ export default {
                     </suspense>
                 </template>
                 <template #avatar>
-                    <n-icon>
-                        <icon size="large">
+                    <n-avatar size="large">
+                        <n-icon>
                             <notebook />
-                        </icon>
-                    </n-icon>
+                        </n-icon>
+                    </n-avatar>
                 </template>
                 <template #title>
                     <n-text type="info">Reading</n-text>&nbsp;and
@@ -68,24 +68,28 @@ export default {
                 </template>
             </n-page-header>
         </n-layout-header>
-        <n-layout-content>
-            <n-layout has-sider>
+        <n-layout-content style="height: 93%;">
+            <n-layout has-sider style="height: 100%;">
                 <n-layout-sider
                     collapse-mode="width"
                     :collapsed-width="48"
                     :width="180"
-                    show-trigger="arrow-circle"
+                    show-trigger="bar"
                     bordered
                 >
-                    <n-menu v-model:value="menuActiveKey" @update:value="onMenuClick" :options="menuOptions" />
+                    <n-menu
+                        v-model:value="menuActiveKey"
+                        @update:value="onMenuClick"
+                        :options="menuOptions"
+                    />
                 </n-layout-sider>
-                <n-layout-content content-style="padding: 24px;">
+                <n-layout-content content-style="padding: 15px;">
                     <suspense>
                         <template #default>
                             <router-view></router-view>
                         </template>
                         <template #fallback>
-                            <n-spin :size="80" id="loading-spin" />
+                            <n-spin :size="80" id="loading-spin" style="width: 100%" />
                         </template>
                     </suspense>
                 </n-layout-content>

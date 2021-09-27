@@ -99,7 +99,7 @@ class DescriptionRepository(ABC, Generic[TD]):
     def __getitem__(self, key: str) -> TD:
         if key in self:
             path = self.__descriptionPath__(key)
-            result = self.__description__(key, path.read_text())
+            result = self.__description__(key, path.read_text(encoding="utf-8"))
             self.__postget__(path, result)
             return result
         else:

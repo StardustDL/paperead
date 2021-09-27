@@ -3,7 +3,8 @@ export interface MaterialMetadataDto {
     modification: string;
     name: string;
     tags: string[];
-    targets: string[];
+    targets: { string: string };
+    extra: { string: string };
 }
 
 export interface MaterialDto {
@@ -17,7 +18,8 @@ export interface MaterialMetadata {
     modification: Date;
     name: string;
     tags: string[];
-    targets: string[];
+    targets: { string: string };
+    extra: { string: string };
 }
 
 export interface Material {

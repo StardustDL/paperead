@@ -9,4 +9,4 @@ if __name__ == "__main__":
 
     env.repo = MaterialRepository(pathlib.Path(__file__).parent.parent.parent.parent.parent.joinpath("temp").joinpath("materials"))
 
-    api.app.run(host="0.0.0.0", port=8000, debug=True)
+    api.app.run(host="0.0.0.0", port=3649, debug=True)
