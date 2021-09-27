@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useStore } from '../services/store'
 import VditorPreview from "vditor";
 import "vditor/dist/index.css";
+import { isRelativeUrl } from '../helpers';
 
 const store = useStore();
 
@@ -21,8 +22,8 @@ onMounted(async () => {
     let tagAs = element.value!.getElementsByTagName("a");
     for (let i = 0; i < tagAs.length; i++) {
         let item = tagAs.item(i);
-        let rawHref = item?.getAttribute("href");
-        if (rawHref?.startsWith("./") || rawHref?.startsWith("../")) {
+        let rawHref = item?.getAttribute("href") as string;
+        if (isRelativeUrl(rawHref)) {
             item?.setAttribute("href", `${baseApiUrl}/${rawHref}`);
         }
     }
@@ -31,7 +32,7 @@ onMounted(async () => {
         for (let i = 0; i < tags.length; i++) {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
-            if (rawSrc?.startsWith("./") || rawSrc?.startsWith("../")) {
+            if (isRelativeUrl(rawSrc as string)) {
                 item?.setAttribute("src", `${baseApiUrl}/${rawSrc}`);
             }
         }
@@ -41,7 +42,7 @@ onMounted(async () => {
         for (let i = 0; i < tags.length; i++) {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
-            if (rawSrc?.startsWith("./") || rawSrc?.startsWith("../")) {
+            if (isRelativeUrl(rawSrc as string)) {
                 item?.setAttribute("src", `${baseApiUrl}/${rawSrc}`);
             }
         }
@@ -51,7 +52,7 @@ onMounted(async () => {
         for (let i = 0; i < tags.length; i++) {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
-            if (rawSrc?.startsWith("./") || rawSrc?.startsWith("../")) {
+            if (isRelativeUrl(rawSrc as string)) {
                 item?.setAttribute("src", `${baseApiUrl}/${rawSrc}`);
             }
         }

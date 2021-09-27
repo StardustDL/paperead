@@ -1,3 +1,4 @@
+import { isRelativeUrl } from '../helpers';
 import { Material, MaterialDto, MaterialMetadata } from '../models/materials'
 import { Note, NoteDto, NoteMetadata, NoteMetadataDto } from '../models/notes'
 
@@ -54,6 +55,12 @@ export class MaterialRepository {
         await fetch(`${this.baseUrl}/materials/${id}`, {
             method: "DELETE"
         });
+    }
+
+    resolveRelativeUrl(id: string, url: string = "."){
+        if(isRelativeUrl(url))
+            return `${this.baseUrl}/materials/${id}/${url}`
+        return url;
     }
 }
 

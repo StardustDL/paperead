@@ -1,24 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar } from 'naive-ui'
-import { Files } from '@vicons/tabler'
+import { Notes } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
 import PageLayout from '../../components/PageLayout.vue'
-import MaterialItem from '../../components/MaterialItem.vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import NoteItem from '../../components/NoteItem.vue'
+import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router'
 import { useStore } from '../../services/store'
 
 const store = useStore();
 const router = useRouter();
+const route = useRoute();
+const params = <{
+    id: string
+}>route.params;
 
-const items = await store.state.materials.all();
+const items = await store.state.materials.notes(params.id).all();
+
+const material = await store.state.materials.get(params.id);
+document.title = `Notes - ${material.metadata.name} - Materials - Paperead`
 
 </script>
 
 <script lang="ts">
 export default {
     components: {
-        Files,
+        Notes,
     }
 }
 </script>
@@ -26,33 +33,39 @@ export default {
 <template>
     <PageLayout>
         <template #header>
-            <n-page-header subtitle="所有材料" @back="() => router.back()">
-                <template #title>Materials</template>
+            <n-page-header subtitle="所有笔记" @back="() => router.back()">
+                <template #title>Notes</template>
                 <template #header>
                     <n-breadcrumb>
                         <n-breadcrumb-item>
                             <router-link to="/">Paperead</router-link>
                         </n-breadcrumb-item>
-                        <n-breadcrumb-item>Materials</n-breadcrumb-item>
+                        <n-breadcrumb-item>
+                            <router-link to="/materials">Materials</router-link>
+                        </n-breadcrumb-item>
+                        <n-breadcrumb-item>
+                            <router-link :to="`/materials/${params.id}`">{{ params.id }}</router-link>
+                        </n-breadcrumb-item>
+                        <n-breadcrumb-item>Notes</n-breadcrumb-item>
                     </n-breadcrumb>
                 </template>
                 <template #avatar>
                     <n-avatar>
                         <n-icon>
-                            <files />
+                            <notes />
                         </n-icon>
                     </n-avatar>
                 </template>
                 <template
                     #footer
-                >Totally {{ items.length }} material{{ items.length > 1 ? 's' : '' }}.</template>
+                >Totally {{ items.length }} note{{ items.length > 1 ? 's' : '' }}.</template>
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">
             <n-space vertical>
                 <suspense v-for="item in items" :key="item">
                     <template #default>
-                        <MaterialItem :id="item"></MaterialItem>
+                        <NoteItem :id="params.id" :noteId="item"></NoteItem>
                     </template>
                     <template #fallback>
                         <n-skeleton text :repeat="2" />
