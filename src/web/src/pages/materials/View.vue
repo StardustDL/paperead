@@ -64,7 +64,14 @@ export default {
                 content-style="padding: 10px;"
                 :native-scrollbar="false"
             >
-                <MarkdownPreview :value="data.content" />
+                 <suspense>
+                    <template #default>
+                        <MarkdownPreview :value="data.content" :base-api-url="`${store.state.apiUrl}/materials/${data.id}`"/>
+                    </template>
+                    <template #fallback>
+                        <n-skeleton text :repeat="10" />
+                    </template>
+                </suspense>
 
                 <n-back-top :right="200" />
             </n-layout-content>
