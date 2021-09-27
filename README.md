@@ -2,7 +2,7 @@
 
 ![](https://github.com/StardustDL/paperpead/workflows/CI/badge.svg) ![](https://img.shields.io/github/license/StardustDL/paperpead.svg) [![](https://img.shields.io/pypi/v/paperpead.svg?logo=pypi)](https://pypi.org/project/paperpead/) [![Downloads](https://pepy.tech/badge/paperpead)](https://pepy.tech/project/paperpead)
 
-[Schemdule](https://github.com/StardustDL/paperpead) is a tiny tool using script as schema to schedule one day and remind you to do something during a day.
+[Paperead](https://github.com/StardustDL/paperpead) A tiny tool to present and manage your reading and notes.
 
 - Platform ![](https://img.shields.io/badge/Linux-yes-success?logo=linux) ![](https://img.shields.io/badge/Windows-yes-success?logo=windows) ![](https://img.shields.io/badge/MacOS-yes-success?logo=apple) ![](https://img.shields.io/badge/BSD-yes-success?logo=freebsd)
 - Python ![](https://img.shields.io/pypi/implementation/paperpead.svg?logo=pypi) ![](https://img.shields.io/pypi/pyversions/paperpead.svg?logo=pypi) ![](https://img.shields.io/pypi/wheel/paperpead.svg?logo=pypi)
@@ -27,4 +27,19 @@ pipx install paperead
 
 # Upgrade
 pipx upgrade paperead
+```
+
+## Development
+
+```sh
+# Run backend
+
+cd src/main
+python -m paperead -D "path/to/dataDir" serve
+# endpoint: http://localhost:3649/api
+
+# Run frontend
+cd src/web
+npm run dev
+# endpoint: http://localhost:3000
 ```

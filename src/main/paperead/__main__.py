@@ -8,9 +8,13 @@ import click
 from . import __version__
 
 
+workingDir = pathlib.Path(".")
+
+
 @click.command()
-def run() -> None:
-    pass
+def serve() -> None:
+    from .server import run
+    run.runInDirectory(workingDir)
 
 
 @click.group(invoke_without_command=True)
@@ -18,10 +22,16 @@ def run() -> None:
 @click.option('-D', '--directory', type=click.Path(exists=True, file_okay=False, resolve_path=True, path_type=pathlib.Path), default=".", help="Path to working directory.")
 @click.option('-v', '--verbose', count=True, default=0, type=click.IntRange(0, 4))
 @click.option("--version", is_flag=True, default=False, help="Show the version.")
-def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: bool = False) -> None:
+def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: bool = False) -> None:   
     """Paperead (https://github.com/StardustDL/paperead)"""
+
+    global workingDir
+
     click.echo(f"Welcome to Paperead v{__version__}!")
-    click.echo(f"Working directory: {click.format_filename(directory)}")
+
+    workingDir = directory
+
+    click.echo(f"Working directory: {click.format_filename(workingDir)}")
 
     logger = logging.getLogger("Cli-Main")
 
@@ -42,7 +52,7 @@ def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: boo
         exit(0)
 
 
-main.add_command(run)
+main.add_command(serve)
 
 if __name__ == '__main__':
     main()
