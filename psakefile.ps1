@@ -7,11 +7,11 @@ Task Restore {
     Set-Location ../..
 }
 
-Task Build -depends Restore {
+Task Rebuild {
     Set-Location src/web
     Write-Output "📦 Build web"
 
-    Exec { Write-Output "{ ""commit"": ""$(git rev-parse HEAD)"", ""shortCommit"": ""$(git rev-parse --short HEAD)"", ""date"": ""$(Get-date)"" }" > ./public/build.json }
+    Exec { Write-Output "{ ""commit"": ""$(git rev-parse HEAD)"", ""shortCommit"": ""$(git rev-parse --short HEAD)"", ""date"": ""$(Get-date -AsUTC -Format 'u')"" }" > ./public/build.json }
 
     Exec { npm run build }
 
@@ -32,6 +32,8 @@ Task Build -depends Restore {
     
     Set-Location ../..
 }
+
+Task Build -depends Restore, Rebuild
 
 Task Deploy -depends Build {
     Exec { python -m twine upload --skip-existing --repository pypi "dist/main/*" }
@@ -76,10 +78,11 @@ Task Test -depends Install, Demo, Uninstall
 
 Task Clean {
     Remove-Item -Recurse ./src/main/paperead/server/wwwroot
-    foreach ($dist in Get-Childitem ./dist) {
-        Write-Output "🗑 Remove $dist"
-        Remove-Item -Recurse $dist
-    }
+    # foreach ($dist in Get-Childitem ./dist) {
+    #     Write-Output "🗑 Remove $dist"
+    #     Remove-Item -Recurse $dist
+    # }
+    Remove-Item -Recurse ./dist
     foreach ($egg in Get-Childitem -Recurse *.egg-info) {
         Write-Output "🗑 Remove $egg"
         Remove-Item -Recurse $egg

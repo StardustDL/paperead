@@ -29,6 +29,14 @@ pipx install paperead
 pipx upgrade paperead
 ```
 
+## Usage
+
+```sh
+paperead -D "path/to/dataDir" serve
+```
+
+Then visit `http://localhost:3649`.
+
 ## Development
 
 ```sh

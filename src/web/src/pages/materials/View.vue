@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NBreadcrumb, NCollapse, NCollapseItem, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton, NList, NListItem } from 'naive-ui'
+import { NPageHeader, NSpace, NBreadcrumb, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
 import { Book, ArrowRight, ExternalLink, InfoSquare, Notes } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
@@ -29,7 +29,6 @@ let targetOptions: {
 }[] = [];
 
 for (let key in data.metadata.targets) {
-    console.log(key);
     targetOptions.push({
         label: key,
         key: key,

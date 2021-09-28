@@ -9,7 +9,7 @@ export interface State {
 
 export const key: InjectionKey<Store<State>> = Symbol()
 
-const defaultApiUrl = "http://localhost:3649/api";
+const defaultApiUrl = import.meta.env.DEV ? "http://localhost:3649/api" : "/api";
 
 export const store = createStore<State>({
     state() {

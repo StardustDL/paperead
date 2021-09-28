@@ -1,0 +1,4 @@
+include paperead/server/wwwroot/*.html
+include paperead/server/wwwroot/*.json
+include paperead/server/wwwroot/assets/*.js
+include paperead/server/wwwroot/assets/*.css

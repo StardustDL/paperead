@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NBreadcrumb, NCollapse, NCollapseItem, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton, NList, NListItem } from 'naive-ui'
+import { NPageHeader, NSpace, NBreadcrumb, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
 import { FileText } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'

@@ -6,7 +6,6 @@ import { useRoute } from 'vue-router'
 import { NGlobalStyle, NConfigProvider, NSpin, NBackTop, NMessageProvider, NSpace, NImage } from 'naive-ui'
 
 const route = useRoute();
-console.log(route);
 
 </script>
 
