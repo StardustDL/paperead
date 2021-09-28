@@ -6,7 +6,6 @@ from flask import abort, json, jsonify, request, send_from_directory
 from paperead.repository.materials import Material, MaterialMetadata
 
 from .. import env
-# from ..markdown import rewriteMarkdownWithBaseUrl, rewriteBackMarkdownWithBaseUrl
 from . import app
 
 
@@ -21,7 +20,6 @@ def getMaterial(id: str):
         abort(404)
     item = env.repo[id]
 
-    # item.content = rewriteMarkdownWithBaseUrl(item.content, f"{env.baseUrl}/api/materials/{item.id}")
     return jsonify(item)
 
 
@@ -42,8 +40,6 @@ def updateMaterial():
 
     metaobj = MaterialMetadata(**metadata)
     obj = Material(metaobj, **data)
-
-    # obj.content = rewriteBackMarkdownWithBaseUrl(obj.content, f"{env.baseUrl}/api/materials/{obj.id}")
 
     env.repo.update(obj)
     return obj.id
