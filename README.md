@@ -1,13 +1,11 @@
-<!--[![Paperead](https://socialify.git.ci/StardustDL/paperpead/image?description=1&font=Bitter&forks=1&issues=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light)](https://github.com/StardustDL/paperpead)-->
+[![Paperead](https://socialify.git.ci/StardustDL/paperead/image?description=1&font=Bitter&forks=1&issues=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light)](https://github.com/StardustDL/paperead)
 
-# Paperead
+![](https://github.com/StardustDL/paperead/workflows/CI/badge.svg) ![](https://img.shields.io/github/license/StardustDL/paperead.svg) [![](https://img.shields.io/pypi/v/paperead.svg?logo=pypi)](https://pypi.org/project/paperead/) [![Downloads](https://pepy.tech/badge/paperead)](https://pepy.tech/project/paperead)
 
-![](https://github.com/StardustDL/paperpead/workflows/CI/badge.svg) ![](https://img.shields.io/github/license/StardustDL/paperpead.svg) [![](https://img.shields.io/pypi/v/paperpead.svg?logo=pypi)](https://pypi.org/project/paperpead/) [![Downloads](https://pepy.tech/badge/paperpead)](https://pepy.tech/project/paperpead)
-
-[Paperead](https://github.com/StardustDL/paperpead) A tiny tool to present and manage your reading and notes.
+[Paperead](https://github.com/StardustDL/paperead) A tiny tool to present and manage your reading and notes.
 
 - Platform ![](https://img.shields.io/badge/Linux-yes-success?logo=linux) ![](https://img.shields.io/badge/Windows-yes-success?logo=windows) ![](https://img.shields.io/badge/MacOS-yes-success?logo=apple) ![](https://img.shields.io/badge/BSD-yes-success?logo=freebsd)
-- Python ![](https://img.shields.io/pypi/implementation/paperpead.svg?logo=pypi) ![](https://img.shields.io/pypi/pyversions/paperpead.svg?logo=pypi) ![](https://img.shields.io/pypi/wheel/paperpead.svg?logo=pypi)
+- Python ![](https://img.shields.io/pypi/implementation/paperead.svg?logo=pypi) ![](https://img.shields.io/pypi/pyversions/paperead.svg?logo=pypi) ![](https://img.shields.io/pypi/wheel/paperead.svg?logo=pypi)
 
 ## Install
 
@@ -45,7 +43,7 @@ paperead new/rm/list --help
 paperead -D "path/to/dataDir" <COMMANDS>
 ```
 
-### Serve Website
+### Website Server
 
 ```sh
 paperead serve
@@ -54,6 +52,23 @@ paperead -D "path/to/dataDir" serve
 ```
 
 Then visit `http://localhost:3649`.
+
+RESTful APIs:
+
+- `/api/materials/`
+  - GET: Get all ids for materials
+  - POST: Create or update a material
+- `/api/materials/<id>`
+  - GET: Get data of the material
+  - DELETE: Delete the material
+- `/api/materials/<id>/assets/<path>`
+  - GET: Access assets of the material
+- `/api/materials/<id>/notes/`
+  - GET: Get all ids for notes of the material
+  - POST: Create or update a note of the material
+- `/api/materials/<id>/notes/<nid>`
+  - GET: Get data of the note of the material
+  - DELETE: Delete the note of the material
 
 ## Data Directory
 
