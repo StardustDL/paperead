@@ -29,10 +29,10 @@ export default {
                 <n-time :time="props.creation" type="relative"></n-time>
             </n-space>
         </template>
-        <span>Creation: </span>
+        <span>Creation:</span>
         <n-time :time="props.creation" type="relative"></n-time>
-        <br/>
-        <span>Modification: </span>
+        <br />
+        <span>Modification:</span>
         <n-time :time="modification" type="relative"></n-time>
     </n-tooltip>
 </template>

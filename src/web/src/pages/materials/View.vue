@@ -77,7 +77,10 @@ export default {
                 </template>
                 <template #extra>
                     <n-space>
-                        <n-button :bordered="false" @click="router.push(`/materials/${data.id}/notes`)">
+                        <n-button
+                            :bordered="false"
+                            @click="router.push(`/materials/${data.id}/notes`)"
+                        >
                             <template #icon>
                                 <n-icon>
                                     <notes />

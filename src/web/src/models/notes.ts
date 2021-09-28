@@ -2,7 +2,7 @@ export interface NoteMetadataDto {
     creation: string;
     modification: string;
     name: string;
-    extra: {string: string};
+    extra: { string: string };
 }
 
 export interface NoteDto {
@@ -15,7 +15,7 @@ export interface NoteMetadata {
     creation: Date;
     modification: Date;
     name: string;
-    extra: {string: string};
+    extra: { string: string };
 }
 
 export interface Note {

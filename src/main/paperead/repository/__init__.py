@@ -1,12 +1,14 @@
-from abc import ABC, abstractmethod
+import datetime
+import itertools
 import os
 import pathlib
-import itertools
+from abc import ABC, abstractmethod
+from dataclasses import asdict, dataclass, field
 from typing import Any, Generic, Iterator, Optional, TypeVar
+
 import yaml
-from dataclasses import dataclass, field, asdict
-import datetime
 from dateutil.tz import tzlocal
+
 from .. import fsutils
 
 
@@ -88,7 +90,7 @@ class DescriptionRepository(ABC, Generic[TD]):
 
     def __postdel__(self, id: str, path: pathlib.Path) -> None:
         pass
-    
+
     def __oniter__(self, path: pathlib.Path) -> str:
         return path.stem
 
@@ -99,7 +101,8 @@ class DescriptionRepository(ABC, Generic[TD]):
     def __getitem__(self, key: str) -> TD:
         if key in self:
             path = self.__descriptionPath__(key)
-            result = self.__description__(key, path.read_text(encoding="utf-8"))
+            result = self.__description__(
+                key, path.read_text(encoding="utf-8"))
             self.__postget__(path, result)
             return result
         else:
@@ -125,12 +128,11 @@ class DescriptionRepository(ABC, Generic[TD]):
     def __len__(self) -> int:
         return sum((1 for _ in self.root.glob(self.__descriptionGlob__())))
 
-    def create(self, id: str) -> TD:
+    def create(self, id: str) -> None:
         if id in self:
             raise Exception(f"Description with id '{id}' exists.")
         result = self.__description__(id)
         self.update(result)
-        return result
 
     def update(self, item: TD) -> None:
         path = self.__descriptionPath__(item.id)

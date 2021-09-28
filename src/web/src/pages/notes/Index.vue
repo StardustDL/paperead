@@ -56,9 +56,7 @@ export default {
                         </n-icon>
                     </n-avatar>
                 </template>
-                <template
-                    #footer
-                >Totally {{ items.length }} note{{ items.length > 1 ? 's' : '' }}.</template>
+                <template #footer>Totally {{ items.length }} note{{ items.length > 1 ? 's' : '' }}.</template>
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">

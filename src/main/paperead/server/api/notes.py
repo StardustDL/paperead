@@ -1,9 +1,12 @@
-from paperead.repository.notes import Note, NoteMetadata
-from flask import json, jsonify, abort, request, send_from_directory
 from dataclasses import asdict
+
 from dateutil.parser import parse
-from . import app
+from flask import abort, json, jsonify, request, send_from_directory
+
+from paperead.repository.notes import Note, NoteMetadata
+
 from .. import env
+from . import app
 
 
 @app.route("/api/materials/<id>/notes/")
@@ -40,14 +43,14 @@ def deleteNote(id: str, nid: str):
 def updateNote(id: str):
     if id not in env.repo:
         abort(404)
-    
+
     data: dict = request.get_json()
     metadata = data.pop("metadata")
     metadata["creation"] = parse(metadata["creation"])          # isoformat
     metadata["modification"] = parse(metadata["modification"])  # isoformat
     metaobj = NoteMetadata(**metadata)
     obj = Note(metaobj, **data)
-    
+
     material = env.repo[id]
     material.notes.update(obj)
     return obj.id

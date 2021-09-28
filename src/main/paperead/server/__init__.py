@@ -1,17 +1,22 @@
+import mimetypes
 import pathlib
 from typing import Optional
-import mimetypes
+
+from flask import Flask
+
+from flask_cors import CORS
+
 from ..repository.materials import MaterialRepository
+
 
 class Environment:
     def __init__(self, repo: MaterialRepository) -> None:
         self.repo = repo
         self.baseUrl = ""
 
+
 env: Environment = Environment(MaterialRepository(pathlib.Path(".")))
 
-from flask import Flask
-from flask_cors import CORS
 
 mimetypes.add_type("text/css", ".css")
 mimetypes.add_type("text/javascript", ".js")

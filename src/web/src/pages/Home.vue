@@ -37,14 +37,11 @@ export default {
                         </n-icon>
                     </n-avatar>
                 </template>
-                <template
-                    #footer
-                >API Server: {{ store.state.apiUrl }}</template>
+                <template #footer>API Server: {{ store.state.apiUrl }}</template>
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">
-            <n-space vertical>
-            </n-space>
+            <n-space vertical></n-space>
         </n-layout-content>
     </PageLayout>
 </template>

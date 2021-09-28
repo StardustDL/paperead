@@ -34,7 +34,9 @@ const route = useRoute();
 </style>
 
 <style>
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
 }
 </style>

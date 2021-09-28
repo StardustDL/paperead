@@ -90,9 +90,9 @@ Task Clean {
 }
 
 Task Format {
-    autopep8 -r --in-place .
+    autopep8 -r --in-place ./src/main
 
-    foreach ($file in Get-Childitem "*.py" -Recurse) {
+    foreach ($file in Get-Childitem "./src/main/**/*.py" -Recurse) {
         isort $file
     }
 }

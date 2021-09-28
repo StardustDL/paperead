@@ -57,8 +57,8 @@ export class MaterialRepository {
         });
     }
 
-    resolveRelativeUrl(id: string, url: string = "."){
-        if(isRelativeUrl(url))
+    resolveRelativeUrl(id: string, url: string = ".") {
+        if (isRelativeUrl(url))
             return `${this.baseUrl}/materials/${id}/${url}`
         return url;
     }

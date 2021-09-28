@@ -1,15 +1,18 @@
-import os
-from paperead import fsutils
-from paperead.repository import Description, DescriptionMetadata, DescriptionRepository
-from paperead.repository.notes import NoteRepository
-import pathlib
-import itertools
-from typing import Dict, Iterator, List, Optional
-import yaml
-from dataclasses import dataclass, field, asdict
 import datetime
-from dateutil.tz import tzlocal
+import itertools
+import os
+import pathlib
 import shutil
+from dataclasses import asdict, dataclass, field
+from typing import Dict, Iterator, List, Optional
+
+import yaml
+from dateutil.tz import tzlocal
+
+from paperead import fsutils
+from paperead.repository import (Description, DescriptionMetadata,
+                                 DescriptionRepository)
+from paperead.repository.notes import NoteRepository
 
 
 @dataclass
@@ -73,7 +76,7 @@ class MaterialRepository(DescriptionRepository[Material]):
 
     def _getNotesPath(self, path: pathlib.Path) -> pathlib.Path:
         return path.parent.joinpath("notes")
-    
+
     def _getAssetsPath(self, path: pathlib.Path) -> pathlib.Path:
         return path.parent.joinpath("assets")
 
@@ -85,7 +88,7 @@ class MaterialRepository(DescriptionRepository[Material]):
         subroot = path.parent
         fsutils.ensureDirectory(subroot.joinpath("assets"))
         fsutils.ensureDirectory(subroot.joinpath("notes"))
-    
+
     def __postdel__(self, id: str, path: pathlib.Path) -> None:
         shutil.rmtree(path.parent)
 

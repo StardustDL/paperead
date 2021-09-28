@@ -1,10 +1,11 @@
+import datetime
+import itertools
 import os
 import pathlib
-import itertools
+from dataclasses import asdict, dataclass, field
 from typing import Dict, Iterator, Optional
+
 import yaml
-from dataclasses import dataclass, field, asdict
-import datetime
 from dateutil.tz import tzlocal
 
 from . import Description, DescriptionMetadata, DescriptionRepository

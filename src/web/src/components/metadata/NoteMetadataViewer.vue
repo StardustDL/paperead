@@ -15,9 +15,6 @@ const props = defineProps<{
 
 <template>
     <n-space>
-        <MetadataTimeViewer
-            :creation="data.creation"
-            :modification="data.modification"
-        />
+        <MetadataTimeViewer :creation="data.creation" :modification="data.modification" />
     </n-space>
 </template>

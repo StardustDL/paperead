@@ -22,7 +22,10 @@ const floatHeader = props.floatHeader ?? false;
         <n-layout-header bordered :style="`height: ${headerHeight}px;`">
             <slot name="header"></slot>
         </n-layout-header>
-        <n-layout-content :style="`height: calc(100% - ${headerHeight}px);`" :native-scrollbar="false">
+        <n-layout-content
+            :style="`height: calc(100% - ${headerHeight}px);`"
+            :native-scrollbar="false"
+        >
             <slot name="default"></slot>
             <n-back-top :right="100"></n-back-top>
         </n-layout-content>

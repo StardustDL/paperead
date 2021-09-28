@@ -1,8 +1,8 @@
-from marko.md_renderer import MarkdownRenderer
-from marko import Markdown
 import pathlib
 import re
 
+from marko import Markdown
+from marko.md_renderer import MarkdownRenderer
 
 regex = re.compile(
     r'^(?:http|ftp)s?://'  # http:// or https://
@@ -12,6 +12,7 @@ regex = re.compile(
     r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
     r'(?::\d+)?'  # optional port
     r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
 
 class CustomMDRenderer(MarkdownRenderer):
     def resolve_link_dest(self, dest: str) -> str:
@@ -71,4 +72,3 @@ if __name__ == "__main__":
 
     print(r)
     print(rb)
-

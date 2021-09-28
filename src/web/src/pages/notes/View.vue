@@ -38,7 +38,7 @@ export default {
 <template>
     <PageLayout float-header>
         <template #header>
-            <n-page-header :subtitle="data.id" @back="()=>router.back()">
+            <n-page-header :subtitle="data.id" @back="() => router.back()">
                 <template #title>{{ data.metadata.name }}</template>
                 <template #header>
                     <n-breadcrumb>
