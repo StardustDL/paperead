@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar } from 'naive-ui'
+import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NPagination, NLayout, NLayoutFooter, NLayoutContent, NLayoutHeader, NAvatar } from 'naive-ui'
 import { Files } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
 import PageLayout from '../../components/PageLayout.vue'
 import MaterialItem from '../../components/MaterialItem.vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useStore } from '../../services/store'
+import PaginationList from '../../components/PaginationList.vue'
 
 const store = useStore();
 const router = useRouter();
 
 const items = await store.state.materials.all();
-
 </script>
 
 <script lang="ts">
@@ -49,16 +49,11 @@ export default {
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">
-            <n-space vertical>
-                <suspense v-for="item in items" :key="item">
-                    <template #default>
-                        <MaterialItem :id="item"></MaterialItem>
-                    </template>
-                    <template #fallback>
-                        <n-skeleton text :repeat="2" />
-                    </template>
-                </suspense>
-            </n-space>
+            <PaginationList :items="items">
+                <template v-slot:default="slotProps">
+                    <MaterialItem :id="slotProps.item"></MaterialItem>
+                </template>
+            </PaginationList>
         </n-layout-content>
     </PageLayout>
 </template>

@@ -1,13 +1,13 @@
 {
   "name": "paperead-web",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "naive-ui": "^2.19.2",
+    "naive-ui": "^2.19.3",
     "vditor": "^3.8.7",
     "vue": "^3.2.13",
     "vue-router": "^4.0.11",

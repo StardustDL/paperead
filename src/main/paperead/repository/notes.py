@@ -8,12 +8,13 @@ from typing import Dict, Iterator, Optional
 import yaml
 from dateutil.tz import tzlocal
 
-from . import Description, DescriptionMetadata, DescriptionRepository
+from . import Description, DescriptionRepository
+from .base import BaseMetadata
 
 
 @dataclass
-class NoteMetadata(DescriptionMetadata):
-    extra: Dict[str, str] = field(default_factory=dict)
+class NoteMetadata(BaseMetadata):
+    pass
 
 
 @dataclass

@@ -4,7 +4,7 @@ import { NThing, NIcon, NAvatar, NTime, NSpace, NCard, NEllipsis } from 'naive-u
 import { useRoute } from 'vue-router'
 import { Book, Clock } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
-import NoteMetadataViewer from './metadata/NoteMetadataViewer.vue'
+import MetadataViewer from './metadata/MetadataViewer.vue'
 
 import { useStore } from '../services/store'
 
@@ -35,7 +35,7 @@ export default {
         <template #header-extra></template>
         <n-ellipsis :tooltip="false" :line-clamp="5">{{ data.content }}</n-ellipsis>
         <template #action>
-            <NoteMetadataViewer :data="data.metadata" />
+            <MetadataViewer :data="data.metadata" />
         </template>
     </n-card>
 </template>

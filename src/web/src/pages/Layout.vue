@@ -48,12 +48,14 @@ export default {
 
 <template>
     <n-layout style="height: 100%">
-        <n-layout-header style="padding: 8px; height: 7%" bordered>
+        <n-layout-header style="padding: 8px; height: 55px" bordered>
             <n-page-header subtitle="阅读与笔记">
                 <template #extra>
-                    <suspense>
-                        <ProjectStatus />
-                    </suspense>
+                    <div class="status">
+                        <suspense>
+                            <ProjectStatus />
+                        </suspense>
+                    </div>
                 </template>
                 <template #avatar>
                     <n-avatar size="large">
@@ -68,7 +70,7 @@ export default {
                 </template>
             </n-page-header>
         </n-layout-header>
-        <n-layout-content style="height: 93%;">
+        <n-layout-content style="height: calc(100% - 55px);">
             <n-layout has-sider style="height: 100%;">
                 <n-layout-sider
                     collapse-mode="width"
@@ -76,6 +78,7 @@ export default {
                     :width="180"
                     show-trigger="bar"
                     bordered
+                    :native-scrollbar="false"
                 >
                     <n-menu
                         v-model:value="menuActiveKey"
@@ -97,3 +100,11 @@ export default {
         </n-layout-content>
     </n-layout>
 </template>
+
+<style scoped>
+@media screen and (max-width: 960px) {
+    .status {
+        display: none;
+    }
+}
+</style>

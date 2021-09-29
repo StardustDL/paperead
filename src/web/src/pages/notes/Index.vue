@@ -7,6 +7,7 @@ import PageLayout from '../../components/PageLayout.vue'
 import NoteItem from '../../components/NoteItem.vue'
 import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router'
 import { useStore } from '../../services/store'
+import PaginationList from '../../components/PaginationList.vue'
 
 const store = useStore();
 const router = useRouter();
@@ -60,16 +61,11 @@ export default {
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">
-            <n-space vertical>
-                <suspense v-for="item in items" :key="item">
-                    <template #default>
-                        <NoteItem :id="params.id" :noteId="item"></NoteItem>
-                    </template>
-                    <template #fallback>
-                        <n-skeleton text :repeat="2" />
-                    </template>
-                </suspense>
-            </n-space>
+            <PaginationList :items="items">
+                <template v-slot:default="slotProps">
+                    <NoteItem :id="params.id" :noteId="slotProps.item"></NoteItem>
+                </template>
+            </PaginationList>
         </n-layout-content>
     </PageLayout>
 </template>

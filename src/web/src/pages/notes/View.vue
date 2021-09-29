@@ -8,7 +8,8 @@ import PageLayout from '../../components/PageLayout.vue'
 import MarkdownPreview from '../../components/MarkdownPreview.vue'
 
 import { useStore } from '../../services/store'
-import NoteMetadataViewer from '../../components/metadata/NoteMetadataViewer.vue'
+import MetadataViewer from '../../components/metadata/MetadataViewer.vue'
+import MetadataDetailViewer from '../../components/metadata/MetadataDetailViewer.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -24,7 +25,6 @@ const data = await store.state.materials.notes(params.id).get(params.noteId);
 
 const material = await store.state.materials.get(params.id);
 document.title = `${data.metadata.name} - Notes - ${material.metadata.name} - Materials - Paperead`;
-
 </script>
 
 <script lang="ts">
@@ -64,8 +64,11 @@ export default {
                         </n-icon>
                     </n-avatar>
                 </template>
+                <template #extra>
+                    <MetadataDetailViewer :target-base-url="store.state.materials.resolveRelativeUrl(params.id, './notes')" :data="data.metadata"/>
+                </template>
                 <template #footer>
-                    <NoteMetadataViewer :data="data.metadata" />
+                    <MetadataViewer :data="data.metadata" />
                 </template>
             </n-page-header>
         </template>
@@ -74,7 +77,7 @@ export default {
                 <template #default>
                     <MarkdownPreview
                         :value="data.content"
-                        :base-api-url="store.state.materials.resolveRelativeUrl(params.id, './notes')"
+                        :base-url="store.state.materials.resolveRelativeUrl(params.id, './notes')"
                     />
                 </template>
                 <template #fallback>

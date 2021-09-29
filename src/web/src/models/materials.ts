@@ -1,10 +1,6 @@
-export interface MaterialMetadataDto {
-    creation: string;
-    modification: string;
-    name: string;
-    tags: string[];
-    targets: { [key: string]: string };
-    extra: { [key: string]: string };
+import { BaseMetadata, BaseMetadataDto } from "."
+
+export interface MaterialMetadataDto extends BaseMetadataDto {
 }
 
 export interface MaterialDto {
@@ -13,13 +9,7 @@ export interface MaterialDto {
     metadata: MaterialMetadataDto;
 }
 
-export interface MaterialMetadata {
-    creation: Date;
-    modification: Date;
-    name: string;
-    tags: string[];
-    targets: { [key: string]: string };
-    extra: { [key: string]: string };
+export interface MaterialMetadata extends BaseMetadata {
 }
 
 export interface Material {

@@ -9,10 +9,10 @@ const store = useStore();
 
 const props = defineProps<{
     value: string,
-    baseApiUrl?: string
+    baseUrl?: string
 }>();
 
-const baseApiUrl = props.baseApiUrl ?? "";
+const baseUrl = props.baseUrl ?? "";
 
 const element = ref<HTMLDivElement>();
 
@@ -24,7 +24,7 @@ onMounted(async () => {
         let item = tagAs.item(i);
         let rawHref = item?.getAttribute("href") as string;
         if (isRelativeUrl(rawHref)) {
-            item?.setAttribute("href", `${baseApiUrl}/${rawHref}`);
+            item?.setAttribute("href", `${baseUrl}/${rawHref}`);
         }
     }
     {
@@ -33,7 +33,7 @@ onMounted(async () => {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
             if (isRelativeUrl(rawSrc as string)) {
-                item?.setAttribute("src", `${baseApiUrl}/${rawSrc}`);
+                item?.setAttribute("src", `${baseUrl}/${rawSrc}`);
             }
         }
     }
@@ -43,7 +43,7 @@ onMounted(async () => {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
             if (isRelativeUrl(rawSrc as string)) {
-                item?.setAttribute("src", `${baseApiUrl}/${rawSrc}`);
+                item?.setAttribute("src", `${baseUrl}/${rawSrc}`);
             }
         }
     }
@@ -53,7 +53,7 @@ onMounted(async () => {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
             if (isRelativeUrl(rawSrc as string)) {
-                item?.setAttribute("src", `${baseApiUrl}/${rawSrc}`);
+                item?.setAttribute("src", `${baseUrl}/${rawSrc}`);
             }
         }
     }

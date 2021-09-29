@@ -3,7 +3,7 @@ import pathlib
 from paperead.repository.materials import MaterialRepository
 
 
-def runInDirectory(path: pathlib.Path, port: int = 3649):
+def runInDirectory(path: pathlib.Path, port: int = 3649, debug: bool = False):
     from . import app
     from . import api, env
     from .api import materials
@@ -13,4 +13,4 @@ def runInDirectory(path: pathlib.Path, port: int = 3649):
     env.baseUrl = f"http://localhost:{port}"
     env.repo = MaterialRepository(path)
 
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=debug)

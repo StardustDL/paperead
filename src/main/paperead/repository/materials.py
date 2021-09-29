@@ -9,17 +9,16 @@ from typing import Dict, Iterator, List, Optional
 import yaml
 from dateutil.tz import tzlocal
 
-from paperead import fsutils
-from paperead.repository import (Description, DescriptionMetadata,
+from .. import fsutils
+from . import (Description,
                                  DescriptionRepository)
-from paperead.repository.notes import NoteRepository
+from .base import BaseMetadata
+from .notes import NoteRepository
 
 
 @dataclass
-class MaterialMetadata(DescriptionMetadata):
-    targets: Dict[str, str] = field(default_factory=dict)
-    tags: List[str] = field(default_factory=list)
-    extra: Dict[str, str] = field(default_factory=dict)
+class MaterialMetadata(BaseMetadata):
+    pass
 
 
 @dataclass

@@ -1,8 +1,6 @@
-export interface NoteMetadataDto {
-    creation: string;
-    modification: string;
-    name: string;
-    extra: { string: string };
+import { BaseMetadataDto, BaseMetadata } from ".";
+
+export interface NoteMetadataDto extends BaseMetadataDto {
 }
 
 export interface NoteDto {
@@ -11,11 +9,7 @@ export interface NoteDto {
     metadata: NoteMetadataDto;
 }
 
-export interface NoteMetadata {
-    creation: Date;
-    modification: Date;
-    name: string;
-    extra: { string: string };
+export interface NoteMetadata extends BaseMetadata {
 }
 
 export interface Note {

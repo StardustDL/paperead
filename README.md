@@ -108,18 +108,7 @@ Description in Markdown.
 
 ### Notes
 
-`<material>/notes/<note>.md` contains the metadata and the content for the note for the material.
-
-```
----
-# Metadata in YAML
-name: Name
-creation: 2021-09-26 09:00:00+00:00
-modification: 2021-09-26 09:00:00+00:00
----
-
-Content in Markdown.
-```
+`<material>/notes/<note>.md` contains the metadata (the structure is as same as material's description) and the content for the note for the material.
 
 ### Assets
 
