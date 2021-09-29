@@ -21,8 +21,7 @@ const currentPageSize = ref(5);
 
 function refreshItems() {
     let start = (currentPage.value - 1) * currentPageSize.value;
-    selectedItems.value = items.slice(start, start + currentPageSize.value)
-    console.log(selectedItems.value);
+    selectedItems.value = items.slice(start, start + currentPageSize.value);
 }
 
 function onUpdatePage(page: number) {
@@ -60,6 +59,7 @@ export default {
         </suspense>
 
         <n-pagination
+            style="justify-content: center; margin-top: 20px;"
             :item-count="items.length"
             :page-size="currentPageSize"
             :page="currentPage"
@@ -69,10 +69,6 @@ export default {
             @update-page="onUpdatePage"
             @update-page-size="onUpdatePageSize"
         >
-            <template
-                #prefix="{ itemCount, startIndex }"
-            >从第 {{ startIndex }} 项开始, 共 {{ itemCount }} 项</template>
-            <template #suffix="{ endIndex }">从第 {{ endIndex }} 项结束</template>
         </n-pagination>
     </n-space>
 </template>

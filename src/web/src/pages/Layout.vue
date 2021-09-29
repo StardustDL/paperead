@@ -34,7 +34,6 @@ const menuOptions = [
 async function onMenuClick(key: string, item: any) {
     await router.push(item.route);
 }
-
 </script>
 
 
@@ -78,6 +77,7 @@ export default {
                     :width="180"
                     show-trigger="bar"
                     bordered
+                    :default-collapsed="true"
                     :native-scrollbar="false"
                 >
                     <n-menu

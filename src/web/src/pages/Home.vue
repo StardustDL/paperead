@@ -37,7 +37,9 @@ export default {
                         </n-icon>
                     </n-avatar>
                 </template>
-                <template #footer>API Server: {{ store.state.apiUrl }}</template>
+                <template #footer>
+                    API Server:&nbsp;<a :href="store.state.apiUrl">{{ store.state.apiUrl }}</a>
+                </template>
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">

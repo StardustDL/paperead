@@ -21,10 +21,11 @@ def setWorkingDirectory(wdir: pathlib.Path):
 
 
 @click.command()
-def serve() -> None:
+@click.option("-P", "--port", default=3649, help="Port to bind.")
+def serve(port: int = 3649) -> None:
     """Serve websites."""
     from .server import run
-    run.run(repo)
+    run.run(repo, port=port)
 
 
 @click.command()

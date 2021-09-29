@@ -3,7 +3,7 @@ import os
 
 import click
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 
 def get_app_directory():

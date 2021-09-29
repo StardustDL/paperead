@@ -1,8 +1,9 @@
 import pathlib
+
 import click
-import tornado.wsgi
-import tornado.ioloop
 import tornado.httpserver
+import tornado.ioloop
+import tornado.wsgi
 
 from paperead.repository.materials import MaterialRepository
 

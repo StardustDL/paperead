@@ -10,8 +10,7 @@ import yaml
 from dateutil.tz import tzlocal
 
 from .. import fsutils
-from . import (Description,
-                                 DescriptionRepository)
+from . import Description, DescriptionRepository
 from .base import BaseMetadata
 from .notes import NoteRepository
 
@@ -90,28 +89,3 @@ class MaterialRepository(DescriptionRepository[Material]):
 
     def __postdel__(self, id: str, path: pathlib.Path) -> None:
         shutil.rmtree(path.parent)
-
-
-if __name__ == "__main__":
-    m = MaterialMetadata("name")
-    m.tags.append("123")
-    m.targets.append("www.example.com")
-    text = m.toText()
-    print(text)
-    print(MaterialMetadata.fromText(text))
-
-    m = Material(MaterialMetadata("a"), "a")
-    print(m)
-
-    manager = MaterialRepository(pathlib.Path(
-        __file__).parent.parent.parent.parent.parent.joinpath("temp").joinpath("materials"))
-
-    del manager["a"]
-
-    a = manager.create("a")
-    a.content = "# abc\n"
-    manager.update(a)
-
-    print(manager["a"])
-
-    print(list(manager))

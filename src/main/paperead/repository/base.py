@@ -13,6 +13,7 @@ from paperead import fsutils
 from paperead.repository import (Description, DescriptionMetadata,
                                  DescriptionRepository)
 
+
 @dataclass
 class BaseMetadata(DescriptionMetadata):
     targets: Dict[str, str] = field(default_factory=dict)
