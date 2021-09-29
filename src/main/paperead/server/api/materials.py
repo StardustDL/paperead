@@ -5,7 +5,7 @@ from flask import abort, json, jsonify, request, send_from_directory
 
 from paperead.repository.materials import Material, MaterialMetadata
 
-from .. import env
+from paperead.env import env
 from . import app
 
 

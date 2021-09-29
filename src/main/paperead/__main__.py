@@ -10,28 +10,24 @@ from click.exceptions import ClickException
 from . import __version__
 from .repository.materials import MaterialRepository
 
-workingDir = pathlib.Path(".")
-repo = MaterialRepository(workingDir)
+from .env import env
 
 
 def setWorkingDirectory(wdir: pathlib.Path):
-    global workingDir, repo
-    workingDir = wdir
-    repo = MaterialRepository(workingDir)
+    env.setPath(wdir)
 
 
 @click.command()
-@click.option("-P", "--port", default=3649, help="Port to bind.")
-def serve(port: int = 3649) -> None:
+def serve() -> None:
     """Serve websites."""
     from .server import run
-    run.run(repo, port=port)
+    run.run()
 
 
 @click.command()
 @click.argument("id")
 def new(id: str) -> None:
-    repo.create(id)
+    env.repo.create(id)
 
 
 @click.command()
@@ -40,10 +36,10 @@ def new(id: str) -> None:
 def new(id: str, note: str = "") -> None:
     """Create a new material or note."""
     if note:
-        if id not in repo:
+        if id not in env.repo:
             raise ClickException(f"Not found material with id '{id}'.")
 
-        material = repo[id]
+        material = env.repo[id]
         if note in material.notes:
             raise ClickException(
                 f"Note with id '{note}' exists for material with id '{id}'.")
@@ -53,10 +49,10 @@ def new(id: str, note: str = "") -> None:
         click.echo(
             f"Created note with id '{note}' for material with id '{id}'.")
     else:
-        if id in repo:
+        if id in env.repo:
             raise ClickException(f"Material with id '{id}' exists.")
 
-        repo.create(id)
+        env.repo.create(id)
 
         click.echo(f"Created material with id '{id}'.")
 
@@ -68,10 +64,10 @@ def rm(id: str, note: str = "") -> None:
     """Remove a material or note."""
 
     if note:
-        if id not in repo:
+        if id not in env.repo:
             raise ClickException(f"Not found material with id '{id}'.")
 
-        material = repo[id]
+        material = env.repo[id]
         if note not in material.notes:
             raise ClickException(
                 f"Not found note with id '{note}' for material with id '{id}'.")
@@ -81,10 +77,10 @@ def rm(id: str, note: str = "") -> None:
         click.echo(
             f"Removed note with id '{note}' for material with id '{id}'.")
     else:
-        if id not in repo:
+        if id not in env.repo:
             raise ClickException(f"Not found material with id '{id}'.")
 
-        del repo[id]
+        del env.repo[id]
 
         click.echo(f"Removed material with id '{id}'.")
 
@@ -96,15 +92,15 @@ def list(id: str = "") -> None:
     """List materials and notes."""
 
     if id:
-        if id not in repo:
+        if id not in env.repo:
             raise ClickException(f"Not found material with id '{id}'.")
 
-        material = repo[id]
+        material = env.repo[id]
 
         for item in material.notes:
             click.echo(item)
     else:
-        for item in repo:
+        for item in env.repo:
             click.echo(item)
 
 
@@ -134,7 +130,7 @@ def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: boo
 
     logger.debug(f"Logging level: {loggingLevel}")
 
-    logger.info(f"Working directory: {click.format_filename(workingDir)}")
+    logger.info(f"Working directory: {click.format_filename(env.path)}")
 
     if version:
         click.echo(f"Paperead v{__version__}")

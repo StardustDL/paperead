@@ -76,11 +76,12 @@ Paperead works in a data directory. The directory's structure is like the follow
 
 ```
 /
-    material1/
-        description.md
-        assets/
-        notes/
-            note1.md
+  paperead.ini  
+  material1/
+    description.md
+    assets/
+    notes/
+      note1.md
 ```
 
 ### Material Description
@@ -114,6 +115,15 @@ Description in Markdown.
 
 `<material>/assets/` contains all additional files for the material, this will be directly served as static files,
 and all `.md` files for the material can access these files by using `./assets/...` or `../assets/...` (just relative path).
+
+### Configuration
+
+`paperead.ini` contains configuration. If it is not existed, default configuration will be used.
+
+```ini
+[server]
+port = 3649
+```
 
 ## Development
 

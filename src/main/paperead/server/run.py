@@ -8,23 +8,21 @@ import tornado.wsgi
 from paperead.repository.materials import MaterialRepository
 
 
-def run(repo: MaterialRepository, port: int = 3649, debug: bool = False):
+def run(debug: bool = False):
+    from ..env import env
     from . import app
-    from . import api, env
+    from . import api
     from .api import materials
     from .api import notes
     from . import frontend
 
-    env.baseUrl = f"http://localhost:{port}"
-    env.repo = repo
-
     if debug:
-        app.run(host="0.0.0.0", port=port, debug=debug)
+        app.run(host="0.0.0.0", port=env.serverConfig.port, debug=debug)
     else:
-        click.echo(f"Listening on port {port}...")
-        click.echo(f"Visit {env.baseUrl} to Paperead.")
+        click.echo(f"Listening on port {env.serverConfig.port}...")
+        click.echo(f"Visit http://localhost:{env.baseUrl} to Paperead.")
 
         container = tornado.wsgi.WSGIContainer(app)
         http_server = tornado.httpserver.HTTPServer(container)
-        http_server.listen(port)
+        http_server.listen(env.serverConfig.port)
         tornado.ioloop.IOLoop.current().start()
