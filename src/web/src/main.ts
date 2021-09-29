@@ -5,6 +5,7 @@ import { store, key } from './services/store'
 
 import App from './App.vue'
 import Home from './pages/Home.vue'
+import NotFound from './pages/NotFound.vue'
 import MaterialIndex from './pages/materials/Index.vue'
 import MaterialView from './pages/materials/View.vue'
 import NoteIndex from './pages/notes/Index.vue'
@@ -46,6 +47,13 @@ const routes = [
             title: 'Loading... - Notes - Loading... - Materials - Paperead'
         }
     },
+    {
+        path: '/:path*',
+        component: NotFound,
+        meta: {
+            title: 'Not found - Paperead'
+        }
+    }
 ];
 
 const router = createRouter({
@@ -54,6 +62,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
+    console.log(to);
     document.title = (to.meta.title as any).toString();
     return true;
 });

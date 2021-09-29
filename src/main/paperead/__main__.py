@@ -11,19 +11,25 @@ from . import __version__
 from .repository.materials import MaterialRepository
 
 workingDir = pathlib.Path(".")
+repo = MaterialRepository(workingDir)
+
+
+def setWorkingDirectory(wdir: pathlib.Path):
+    global workingDir, repo
+    workingDir = wdir
+    repo = MaterialRepository(workingDir)
 
 
 @click.command()
 def serve() -> None:
     """Serve websites."""
     from .server import run
-    run.runInDirectory(workingDir)
+    run.run(repo)
 
 
 @click.command()
 @click.argument("id")
 def new(id: str) -> None:
-    repo = MaterialRepository(workingDir)
     repo.create(id)
 
 
@@ -32,8 +38,6 @@ def new(id: str) -> None:
 @click.option("-N", "--note", default="", help="Create a new note with specified id.")
 def new(id: str, note: str = "") -> None:
     """Create a new material or note."""
-    repo = MaterialRepository(workingDir)
-
     if note:
         if id not in repo:
             raise ClickException(f"Not found material with id '{id}'.")
@@ -61,7 +65,6 @@ def new(id: str, note: str = "") -> None:
 @click.option("-N", "--note", default="", help="Remove a note with specified id.")
 def rm(id: str, note: str = "") -> None:
     """Remove a material or note."""
-    repo = MaterialRepository(workingDir)
 
     if note:
         if id not in repo:
@@ -90,7 +93,6 @@ def rm(id: str, note: str = "") -> None:
 # @click.option("-N", "--note", default="", help="List notes for material with specified id.")
 def list(id: str = "") -> None:
     """List materials and notes."""
-    repo = MaterialRepository(workingDir)
 
     if id:
         if id not in repo:
@@ -113,11 +115,9 @@ def list(id: str = "") -> None:
 def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: bool = False) -> None:
     """Paperead (https://github.com/StardustDL/paperead)"""
 
-    global workingDir
-
     # click.echo(f"Welcome to Paperead v{__version__}!")
 
-    workingDir = directory
+    setWorkingDirectory(directory)
 
     logger = logging.getLogger("Cli-Main")
 

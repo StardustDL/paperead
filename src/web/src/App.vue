@@ -3,14 +3,16 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import Layout from './pages/Layout.vue'
 import { useRoute } from 'vue-router'
-import { NGlobalStyle, NConfigProvider, NSpin, NBackTop, NMessageProvider, NSpace, NImage } from 'naive-ui'
+import { NGlobalStyle, NConfigProvider, NSpin, NBackTop, NMessageProvider, NSpace, NImage, useOsTheme, darkTheme } from 'naive-ui'
 
 const route = useRoute();
+
+const osThemeRef = useOsTheme();
 
 </script>
 
 <template>
-  <n-config-provider style="height: 100%">
+  <n-config-provider style="height: 100%" :theme="(osThemeRef == 'dark' ? darkTheme : null)">
     <n-message-provider>
       <n-global-style />
       <suspense>

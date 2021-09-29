@@ -68,6 +68,11 @@ export default {
             show-size-picker
             @update-page="onUpdatePage"
             @update-page-size="onUpdatePageSize"
-        ></n-pagination>
+        >
+            <template
+                #prefix="{ itemCount, startIndex }"
+            >从第 {{ startIndex }} 项开始, 共 {{ itemCount }} 项</template>
+            <template #suffix="{ endIndex }">从第 {{ endIndex }} 项结束</template>
+        </n-pagination>
     </n-space>
 </template>
