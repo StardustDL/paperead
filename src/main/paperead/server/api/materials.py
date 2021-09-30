@@ -10,11 +10,13 @@ from . import app
 
 
 @app.route("/api/materials/")
+@app.route("/api/materials/index.json")
 def allMaterial():
     return jsonify([id for id in env.repo])
 
 
-@app.route("/api/materials/<id>", methods=["GET"])
+@app.route("/api/materials/<id>/", methods=["GET"])
+@app.route("/api/materials/<id>/index.json", methods=["GET"])
 def getMaterial(id: str):
     if id not in env.repo:
         abort(404)
@@ -23,7 +25,7 @@ def getMaterial(id: str):
     return jsonify(item)
 
 
-@app.route("/api/materials/<id>", methods=["DELETE"])
+@app.route("/api/materials/<id>/", methods=["DELETE"])
 def deleteMaterial(id: str):
     if id not in env.repo:
         abort(404)

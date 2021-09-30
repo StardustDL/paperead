@@ -9,12 +9,12 @@ export class MaterialRepository {
     }
 
     async all() {
-        let results = await fetch(`${this.baseUrl}/materials/`);
+        let results = await fetch(`${this.baseUrl}/materials/index.json`);
         return <string[]>(await results.json());
     }
 
     async get(id: string) {
-        let results = await fetch(`${this.baseUrl}/materials/${id}`);
+        let results = await fetch(`${this.baseUrl}/materials/${id}/index.json`);
         let raw = <MaterialDto>(await results.json());
 
         let item: Material = {
@@ -71,12 +71,12 @@ export class NoteRepository {
     }
 
     async all() {
-        let results = await fetch(`${this.baseUrl}/notes/`);
+        let results = await fetch(`${this.baseUrl}/notes/index.json`);
         return <string[]>(await results.json());
     }
 
     async get(id: string) {
-        let results = await fetch(`${this.baseUrl}/notes/${id}`);
+        let results = await fetch(`${this.baseUrl}/notes/${id}/index.json`);
         let raw = <NoteDto>(await results.json());
 
         let item: Note = {
@@ -110,7 +110,7 @@ export class NoteRepository {
     }
 
     async delete(id: string) {
-        await fetch(`${this.baseUrl}/notes/${id}`, {
+        await fetch(`${this.baseUrl}/notes/${id}/`, {
             method: "DELETE"
         });
     }

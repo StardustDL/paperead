@@ -56,18 +56,18 @@ Then visit `http://localhost:3649`.
 RESTful APIs:
 
 - `/api/materials/`
-  - GET: Get all ids for materials
+  - GET (`index.json`): Get all ids for materials
   - POST: Create or update a material
-- `/api/materials/<id>`
-  - GET: Get data of the material
+- `/api/materials/<id>/`
+  - GET (`index.json`): Get data of the material
   - DELETE: Delete the material
 - `/api/materials/<id>/assets/<path>`
   - GET: Access assets of the material
 - `/api/materials/<id>/notes/`
-  - GET: Get all ids for notes of the material
+  - GET (`index.json`): Get all ids for notes of the material
   - POST: Create or update a note of the material
-- `/api/materials/<id>/notes/<nid>`
-  - GET: Get data of the note of the material
+- `/api/materials/<id>/notes/<nid>/`
+  - GET (`index.json`): Get data of the note of the material
   - DELETE: Delete the note of the material
 
 ## Data Directory

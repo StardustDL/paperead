@@ -10,6 +10,7 @@ from . import app
 
 
 @app.route("/api/materials/<id>/notes/")
+@app.route("/api/materials/<id>/notes/index.json")
 def allNote(id: str):
     if id not in env.repo:
         abort(404)
@@ -17,7 +18,8 @@ def allNote(id: str):
     return jsonify([item for item in material.notes])
 
 
-@app.route("/api/materials/<id>/notes/<nid>", methods=["GET"])
+@app.route("/api/materials/<id>/notes/<nid>/", methods=["GET"])
+@app.route("/api/materials/<id>/notes/<nid>/index.json", methods=["GET"])
 def getNote(id: str, nid: str):
     if id not in env.repo:
         abort(404)
@@ -28,7 +30,7 @@ def getNote(id: str, nid: str):
     return jsonify(item)
 
 
-@app.route("/api/materials/<id>/notes/<nid>", methods=["DELETE"])
+@app.route("/api/materials/<id>/notes/<nid>/", methods=["DELETE"])
 def deleteNote(id: str, nid: str):
     if id not in env.repo:
         abort(404)
