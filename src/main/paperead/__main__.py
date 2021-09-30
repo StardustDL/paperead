@@ -20,8 +20,16 @@ def setWorkingDirectory(wdir: pathlib.Path):
 @click.command()
 def serve() -> None:
     """Serve websites."""
-    from .server import run
-    run.run()
+    from .server import entrypoint
+    entrypoint.serve()
+
+
+@click.command()
+@click.option("-P", "--py", is_flag=True, default=False, help="Create simple server python script.")
+def build(py: bool = False) -> None:
+    """Build static website."""
+    from .server import entrypoint
+    entrypoint.build(py)
 
 
 @click.command()
@@ -138,6 +146,7 @@ def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: boo
 
 
 main.add_command(serve)
+main.add_command(build)
 main.add_command(new)
 main.add_command(rm)
 main.add_command(list)

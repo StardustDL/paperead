@@ -8,6 +8,7 @@ from .repository.materials import MaterialRepository
 @dataclass
 class ServerConfig:
     port: int = 3649
+    dist: str = "./dist"
 
 
 class Environment:
@@ -30,7 +31,7 @@ class Environment:
             if "server" in sections:
                 dic = {key: value for key, value in config.items("server")}
                 self.serverConfig = ServerConfig(
-                    port=int(dic.get("port", "3649")))
+                    port=int(dic.get("port", "3649")), dist=dic.get("dist", "./dist"))
 
 
 env: Environment = Environment(pathlib.Path("."))

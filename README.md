@@ -70,6 +70,28 @@ RESTful APIs:
   - GET (`index.json`): Get data of the note of the material
   - DELETE: Delete the note of the material
 
+Paperead can also build a static website.
+
+```sh
+paperead build
+```
+
+The built website will be at `./dist`, which can be hosted in any static HTTP server.
+
+> Before building, existed `dist` directory will be deleted. So DO NOT make your files in `dist` directory.
+
+If you want a simple local server, use `-P` option.
+Paperead will generate a python script `serve.py` in the `dist` directory to serve the static website.
+The script has no third-party dependencies. Only Python standard library is needed.
+
+```sh
+paperead build -P
+
+cd dist
+python serve.py
+```
+
+
 ## Data Directory
 
 Paperead works in a data directory. The directory's structure is like the following.
@@ -111,6 +133,8 @@ Description in Markdown.
 
 `<material>/notes/<note>.md` contains the metadata (the structure is as same as material's description) and the content for the note for the material.
 
+- Do **NOT** use space in note ID.
+
 ### Assets
 
 `<material>/assets/` contains all additional files for the material, this will be directly served as static files,
@@ -123,6 +147,7 @@ and all `.md` files for the material can access these files by using `./assets/.
 ```ini
 [server]
 port = 3649
+dist = ./dist
 ```
 
 ## Development
