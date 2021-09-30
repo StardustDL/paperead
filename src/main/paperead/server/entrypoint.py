@@ -65,13 +65,15 @@ def build(pyscript: bool = False):
             mdir.joinpath("index.json").write_bytes(
                 c.get(f"/api/materials/{mid}/").data)
 
-            click.echo(f"Generating assets for material {mid}.")
+            click.echo(f"  Generating assets for material {mid}.")
 
-            shutil.copytree(
-                repo.root.joinpath(mid).joinpath("assets"),
-                mdir.joinpath("assets"))
+            assets = repo.root.joinpath(mid).joinpath("assets")
+            if assets.exists():
+                shutil.copytree(
+                    assets,
+                    mdir.joinpath("assets"))
 
-            click.echo(f"Generating notes of material {mid}.")
+            click.echo(f"  Generating notes of material {mid}.")
 
             ndist = mdir.joinpath("notes")
             os.mkdir(ndist)
@@ -81,7 +83,7 @@ def build(pyscript: bool = False):
             nrepo = repo[mid].notes
 
             for nid in nrepo:
-                click.echo(f"Generating note {nid} of material {mid}.")
+                click.echo(f"    Generating note {nid} of material {mid}.")
 
                 ndir = ndist.joinpath(nid)
                 os.mkdir(ndir)
@@ -90,7 +92,7 @@ def build(pyscript: bool = False):
                     c.get(f"/api/materials/{mid}/notes/{nid}/").data)
 
     if pyscript:
-        click.echo("Generate simple server python script.")
+        click.echo("Generating simple server python script.")
         click.echo(f"Use 'python serve.py' in {dist} to serve.")
 
         shutil.copy(pathlib.Path(__file__).parent.joinpath(
