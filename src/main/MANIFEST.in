@@ -1,3 +1,4 @@
+include paperead/server/wwwroot/_redirects
 include paperead/server/wwwroot/*.html
 include paperead/server/wwwroot/*.json
 include paperead/server/wwwroot/*.ico
