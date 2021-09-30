@@ -29,6 +29,41 @@ jobs:
       with:
         name: dist
         path: ./dist
+  docs:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+        architecture: 'x64'
+    - name: Setup psake
+      run: Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name psake
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: dist
+        path: ./dist
+    - name: Generate documents
+      env:
+        PYTHONUTF8: 1
+      run: |
+        Invoke-psake docs
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: docs
+        path: ./docs/dist
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        token: ${{ secrets.PA_TOKEN }}
+        branch: gh-pages
+        folder: ./docs/dist
   integration-test:
     needs: build
     strategy:

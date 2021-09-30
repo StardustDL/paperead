@@ -76,6 +76,12 @@ Task Demo {
 
 Task Test -depends Install, Demo, Uninstall
 
+Task Gen-docs {
+    paperead -D ./docs build
+}
+
+Task Docs -depends Install, Gen-docs
+
 Task Clean {
     Remove-Item -Recurse ./src/main/paperead/server/wwwroot
     # foreach ($dist in Get-Childitem ./dist) {
