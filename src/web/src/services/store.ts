@@ -1,10 +1,10 @@
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
+import { Api } from './api';
 import { MaterialRepository } from './repository'
 
 export interface State {
-    apiUrl: string;
-    materials: MaterialRepository;
+    api: Api;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -14,14 +14,12 @@ const defaultApiUrl = import.meta.env.DEV ? "http://localhost:3649/api" : "/api"
 export const store = createStore<State>({
     state() {
         return {
-            apiUrl: defaultApiUrl,
-            materials: new MaterialRepository(defaultApiUrl),
+            api: new Api(defaultApiUrl)
         }
     },
     mutations: {
         setApiUrl(state, value: string) {
-            state.apiUrl = value;
-            state.materials = new MaterialRepository(state.apiUrl);
+            state.api = new Api(value);
         }
     }
 })

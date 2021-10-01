@@ -56,6 +56,8 @@ Then visit `http://localhost:3649`.
 
 RESTful APIs:
 
+- `/api/`
+  - GET (`index.json`): Get API metadata
 - `/api/materials/`
   - GET (`index.json`): Get all ids for materials
   - POST: Create or update a material

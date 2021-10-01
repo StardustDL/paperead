@@ -1,4 +1,5 @@
 import { isRelativeUrl } from '../helpers';
+import { ApiMetadata } from '../models';
 import { Material, MaterialDto, MaterialMetadata } from '../models/materials'
 import { Note, NoteDto, NoteMetadata, NoteMetadataDto } from '../models/notes'
 
@@ -9,12 +10,12 @@ export class MaterialRepository {
     }
 
     async all() {
-        let results = await fetch(`${this.baseUrl}/materials/index.json`);
+        let results = await fetch(`${this.baseUrl}/index.json`);
         return <string[]>(await results.json());
     }
 
     async get(id: string) {
-        let results = await fetch(`${this.baseUrl}/materials/${id}/index.json`);
+        let results = await fetch(`${this.baseUrl}/${id}/index.json`);
         let raw = <MaterialDto>(await results.json());
 
         let item: Material = {
@@ -29,7 +30,7 @@ export class MaterialRepository {
     }
 
     notes(id: string) {
-        return new NoteRepository(`${this.baseUrl}/materials/${id}`);
+        return new NoteRepository(`${this.baseUrl}/${id}/notes`);
     }
 
     async update(value: Material) {
@@ -42,7 +43,7 @@ export class MaterialRepository {
             },
         };
 
-        await fetch(`${this.baseUrl}/materials/`, {
+        await fetch(`${this.baseUrl}/`, {
             body: JSON.stringify(raw),
             method: "POST",
             headers: {
@@ -52,7 +53,7 @@ export class MaterialRepository {
     }
 
     async delete(id: string) {
-        await fetch(`${this.baseUrl}/materials/${id}`, {
+        await fetch(`${this.baseUrl}/${id}`, {
             method: "DELETE"
         });
     }
@@ -71,12 +72,12 @@ export class NoteRepository {
     }
 
     async all() {
-        let results = await fetch(`${this.baseUrl}/notes/index.json`);
+        let results = await fetch(`${this.baseUrl}/index.json`);
         return <string[]>(await results.json());
     }
 
     async get(id: string) {
-        let results = await fetch(`${this.baseUrl}/notes/${id}/index.json`);
+        let results = await fetch(`${this.baseUrl}/${id}/index.json`);
         let raw = <NoteDto>(await results.json());
 
         let item: Note = {
@@ -100,7 +101,7 @@ export class NoteRepository {
             },
         };
 
-        await fetch(`${this.baseUrl}/notes/`, {
+        await fetch(`${this.baseUrl}/`, {
             body: JSON.stringify(raw),
             method: "POST",
             headers: {
@@ -110,7 +111,7 @@ export class NoteRepository {
     }
 
     async delete(id: string) {
-        await fetch(`${this.baseUrl}/notes/${id}/`, {
+        await fetch(`${this.baseUrl}/${id}/`, {
             method: "DELETE"
         });
     }

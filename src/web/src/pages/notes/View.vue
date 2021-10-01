@@ -21,9 +21,9 @@ const params = <{
 
 const headerHeight = 120;
 
-const data = await store.state.materials.notes(params.id).get(params.noteId);
+const data = await store.state.api.materials.notes(params.id).get(params.noteId);
 
-const material = await store.state.materials.get(params.id);
+const material = await store.state.api.materials.get(params.id);
 document.title = `${data.metadata.name} - Notes - ${material.metadata.name} - Materials - Paperead`;
 </script>
 
@@ -65,7 +65,10 @@ export default {
                     </n-avatar>
                 </template>
                 <template #extra>
-                    <MetadataDetailViewer :target-base-url="store.state.materials.resolveRelativeUrl(params.id, './notes')" :data="data.metadata"/>
+                    <MetadataDetailViewer
+                        :target-base-url="store.state.api.materials.resolveRelativeUrl(params.id, './notes')"
+                        :data="data.metadata"
+                    />
                 </template>
                 <template #footer>
                     <MetadataViewer :data="data.metadata" />
@@ -77,7 +80,7 @@ export default {
                 <template #default>
                     <MarkdownPreview
                         :value="data.content"
-                        :base-url="store.state.materials.resolveRelativeUrl(params.id, './notes')"
+                        :base-url="store.state.api.materials.resolveRelativeUrl(params.id, './notes')"
                     />
                 </template>
                 <template #fallback>

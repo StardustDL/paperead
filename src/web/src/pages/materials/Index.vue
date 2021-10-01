@@ -12,7 +12,7 @@ import PaginationList from '../../components/PaginationList.vue'
 const store = useStore();
 const router = useRouter();
 
-const items = await store.state.materials.all();
+const items = await store.state.api.materials.all();
 </script>
 
 <script lang="ts">

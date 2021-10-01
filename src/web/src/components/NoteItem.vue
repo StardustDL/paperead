@@ -20,7 +20,7 @@ const props = defineProps<{
 const data = ref<Note | undefined>();
 
 async function loadData() {
-    data.value = await store.state.materials.notes(props.id).get(props.noteId);
+    data.value = await store.state.api.materials.notes(props.id).get(props.noteId);
 }
 
 onMounted(loadData);
@@ -42,7 +42,11 @@ export default {
             <router-link :to="`/materials/${props.id}/notes/${data.id}`">{{ data.metadata.name }}</router-link>
         </template>
         <template #header-extra></template>
-        <n-ellipsis :tooltip="false" :line-clamp="5" v-if="data.content.length > 0">{{ data.content }}</n-ellipsis>
+        <n-ellipsis
+            :tooltip="false"
+            :line-clamp="5"
+            v-if="data.content.length > 0"
+        >{{ data.content }}</n-ellipsis>
         <template #action>
             <MetadataViewer :data="data.metadata" />
         </template>

@@ -15,3 +15,7 @@ export interface BaseMetadata {
     targets: { [key: string]: string };
     extra: { [key: string]: string };
 }
+
+export interface ApiMetadata {
+    version: string;
+}

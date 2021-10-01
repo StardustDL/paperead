@@ -21,7 +21,8 @@ def serve(debug: bool = False):
         app.run(host="0.0.0.0", port=env.serverConfig.port, debug=debug)
     else:
         click.echo(f"Listening on port {env.serverConfig.port}...")
-        click.echo(f"Visit http://localhost:{env.serverConfig.port} to Paperead.")
+        click.echo(
+            f"Visit http://localhost:{env.serverConfig.port} to Paperead.")
 
         container = tornado.wsgi.WSGIContainer(app)
         http_server = tornado.httpserver.HTTPServer(container)
@@ -42,22 +43,27 @@ def build(pyscript: bool = False):
         click.echo(f"Delete existed dist at {dist.absolute()}.")
         shutil.rmtree(dist)
 
+    click.echo("Generating frontend.")
+
     shutil.copytree(wwwroot, dist)
 
     click.echo("Generating data.")
 
-    apidist = dist.joinpath("api")
-    os.mkdir(apidist)
-
-    mdist = apidist.joinpath("materials")
-    os.mkdir(mdist)
-
     with app.test_client() as c:
+        apidist = dist.joinpath("api")
+        os.mkdir(apidist)
+
+        apidist.joinpath("index.json").write_bytes(
+            c.get(f"/api/").data)
+
+        mdist = apidist.joinpath("materials")
+        os.mkdir(mdist)
+
         mdist.joinpath("index.json").write_bytes(
             c.get(f"/api/materials/").data)
 
         for mid in repo:
-            click.echo(f"Generating material {mid}.")
+            click.echo(f"  Generating material {mid}.")
 
             mdir = mdist.joinpath(mid)
             os.mkdir(mdir)
@@ -65,7 +71,7 @@ def build(pyscript: bool = False):
             mdir.joinpath("index.json").write_bytes(
                 c.get(f"/api/materials/{mid}/").data)
 
-            click.echo(f"  Generating assets for material {mid}.")
+            click.echo(f"    Generating assets.")
 
             assets = repo.root.joinpath(mid).joinpath("assets")
             if assets.exists():
@@ -73,7 +79,7 @@ def build(pyscript: bool = False):
                     assets,
                     mdir.joinpath("assets"))
 
-            click.echo(f"  Generating notes of material {mid}.")
+            click.echo(f"    Generating notes.")
 
             ndist = mdir.joinpath("notes")
             os.mkdir(ndist)
@@ -83,7 +89,7 @@ def build(pyscript: bool = False):
             nrepo = repo[mid].notes
 
             for nid in nrepo:
-                click.echo(f"    Generating note {nid} of material {mid}.")
+                click.echo(f"      Generating note {nid}.")
 
                 ndir = ndist.joinpath(nid)
                 os.mkdir(ndir)

@@ -16,9 +16,9 @@ const params = <{
     id: string
 }>route.params;
 
-const items = await store.state.materials.notes(params.id).all();
+const items = await store.state.api.materials.notes(params.id).all();
 
-const material = await store.state.materials.get(params.id);
+const material = await store.state.api.materials.get(params.id);
 document.title = `Notes - ${material.metadata.name} - Materials - Paperead`
 
 </script>

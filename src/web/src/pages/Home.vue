@@ -10,6 +10,8 @@ import { useStore } from '../services/store'
 const store = useStore();
 const router = useRouter();
 
+const version = import.meta.env.PACKAGE_VERSION;
+const apiMetadata = await store.state.api.metadata();
 </script>
 
 <script lang="ts">
@@ -37,13 +39,27 @@ export default {
                         </n-icon>
                     </n-avatar>
                 </template>
-                <template #footer>
-                    API Server:&nbsp;<a :href="store.state.apiUrl">{{ store.state.apiUrl }}</a>
-                </template>
             </n-page-header>
         </template>
         <n-layout-content content-style="padding: 10px;">
-            <n-space vertical></n-space>
+            <n-space vertical>
+                <span>
+                    Server:&nbsp;
+                    <a :href="store.state.api.baseUrl">{{ store.state.api.baseUrl }}</a>
+                </span>
+                <span>
+                    Client Version:&nbsp;
+                    <a
+                        :href="`https://github.com/StardustDL/paperead/releases/tag/v${version}`"
+                    >{{ version }}</a>
+                </span>
+                <span>
+                    Server Version:&nbsp;
+                    <a
+                        :href="`https://github.com/StardustDL/paperead/releases/tag/v${apiMetadata.version}`"
+                    >{{ apiMetadata.version }}</a>
+                </span>
+            </n-space>
         </n-layout-content>
     </PageLayout>
 </template>

@@ -74,11 +74,11 @@ Task Demo {
     Exec { paperead --help }
 }
 
-Task Test -depends Install, Demo, Uninstall
-
 Task Gen-docs {
     paperead -D ./docs build
 }
+
+Task Test -depends Install, Demo, Gen-docs, Uninstall
 
 Task Docs -depends Install, Gen-docs
 
