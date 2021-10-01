@@ -83,17 +83,6 @@ The built website will be at `./dist`, which can be hosted in any static HTTP se
 
 > Before building, existed `dist` directory will be deleted. So DO NOT make your files in `dist` directory.
 
-If you want a simple local server, use `-P` option.
-Paperead will generate a python script `serve.py` in the `dist` directory to serve the static website.
-The script has no third-party dependencies. Only Python standard library is needed.
-
-```sh
-paperead build -P
-
-cd dist
-python serve.py
-```
-
 
 ## Data Directory
 
@@ -101,7 +90,7 @@ Paperead works in a data directory. The directory's structure is like the follow
 
 ```
 /
-  paperead.ini  
+  .paperead.yml
   material1/
     description.md
     assets/
@@ -111,7 +100,7 @@ Paperead works in a data directory. The directory's structure is like the follow
 
 ### Material Description
 
-`<material>/description.md` contains the metadata and the description for the material.
+`<materialId>/description.md` contains the metadata and the description for the material.
 
 ```
 ---
@@ -132,25 +121,39 @@ extra:
 Description in Markdown.
 ```
 
+- Do **NOT** use space in material ID.
+
 ### Notes
 
-`<material>/notes/<note>.md` contains the metadata (the structure is as same as material's description) and the content for the note for the material.
+`<materialId>/notes/<noteId>.md` contains the metadata (the structure is as same as material's description) and the content for the note for the material.
 
 - Do **NOT** use space in note ID.
 
 ### Assets
 
-`<material>/assets/` contains all additional files for the material, this will be directly served as static files,
+`<materialId>/assets/` contains all additional files for the material, this will be directly served as static files,
 and all `.md` files for the material can access these files by using `./assets/...` or `../assets/...` (just relative path).
 
 ### Configuration
 
-`paperead.ini` contains configuration. If it is not existed, default configuration will be used.
+`.paperead.yml` contains configuration. If it is not existed, default configuration will be used.
 
-```ini
-[server]
-port = 3649
-dist = ./dist
+```yml
+server:
+  # Port to serve
+  port: 3649
+  
+build:
+  # Build output directory
+  dist: ./dist
+  # Static website host: empty, python, netlify
+  host: empty
+```
+
+You can use `init` command to generate default configuration file.
+
+```sh
+paperead init
 ```
 
 ## Development

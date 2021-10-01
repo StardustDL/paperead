@@ -75,7 +75,7 @@ Task Demo {
 }
 
 Task Gen-docs {
-    paperead -D ./docs build
+    Exec { paperead -D ./docs build }
 }
 
 Task Test -depends Install, Demo, Gen-docs, Uninstall

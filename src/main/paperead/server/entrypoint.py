@@ -30,12 +30,12 @@ def serve(debug: bool = False):
         tornado.ioloop.IOLoop.current().start()
 
 
-def build(pyscript: bool = False):
+def build():
     from ..env import env
 
     repo = env.repo
 
-    dist = pathlib.Path(env.serverConfig.dist)
+    dist = pathlib.Path(env.buildConfig.dist)
     if not dist.is_absolute():
         dist = pathlib.Path(env.path).joinpath(dist)
 
@@ -71,10 +71,11 @@ def build(pyscript: bool = False):
             mdir.joinpath("index.json").write_bytes(
                 c.get(f"/api/materials/{mid}/").data)
 
-            click.echo(f"    Generating assets.")
+            mdata = repo[mid]
 
-            assets = repo.root.joinpath(mid).joinpath("assets")
-            if assets.exists():
+            assets = mdata.assets
+            if assets and assets.exists():
+                click.echo(f"    Generating assets.")
                 shutil.copytree(
                     assets,
                     mdir.joinpath("assets"))
@@ -86,7 +87,7 @@ def build(pyscript: bool = False):
             ndist.joinpath("index.json").write_bytes(
                 c.get(f"/api/materials/{mid}/notes/").data)
 
-            nrepo = repo[mid].notes
+            nrepo = mdata.notes
 
             for nid in nrepo:
                 click.echo(f"      Generating note {nid}.")
@@ -97,9 +98,13 @@ def build(pyscript: bool = False):
                 ndir.joinpath("index.json").write_bytes(
                     c.get(f"/api/materials/{mid}/notes/{nid}/").data)
 
-    if pyscript:
-        click.echo("Generating simple server python script.")
+    staticPath = pathlib.Path(__file__).parent.joinpath("static")
+
+    if env.buildConfig.host == 'python':
+        click.echo("Generating files for python host.")
         click.echo(f"Use 'python serve.py' in {dist} to serve.")
 
-        shutil.copy(pathlib.Path(__file__).parent.joinpath(
-            "static.py"), dist.joinpath("serve.py"))
+        shutil.copyfile(staticPath.joinpath("__main__.py"), dist.joinpath("serve.py"))
+    elif env.buildConfig.host == 'netlify':
+        click.echo("Generating files for netlify host.")
+        shutil.copyfile(staticPath.joinpath("netlify").joinpath("netlify.toml"), dist.joinpath("netlify.toml"))

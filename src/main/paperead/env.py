@@ -1,14 +1,23 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 import pathlib
 from typing import Optional
-import configparser
 from .repository.materials import MaterialRepository
+import yaml
+
+DEFAULT_SERVER_PORT = 3649
+DEFAULT_BUILD_DIST = "./dist"
+DEFAULT_BUILD_HOST = "empty"
 
 
 @dataclass
 class ServerConfig:
-    port: int = 3649
-    dist: str = "./dist"
+    port: int = DEFAULT_SERVER_PORT
+
+
+@dataclass
+class BuildConfig:
+    dist: str = DEFAULT_BUILD_DIST
+    host: str = DEFAULT_BUILD_HOST
 
 
 class Environment:
@@ -19,19 +28,24 @@ class Environment:
         self.path = path
         self.repo = MaterialRepository(path)
 
-        self.configPath = self.path.joinpath("paperead.ini")
+        self.configPath = self.path.joinpath(".paperead.yml")
         self.serverConfig = ServerConfig()
+        self.buildConfig = BuildConfig()
 
         if self.configPath.exists() and self.configPath.is_file():
-            config = configparser.ConfigParser()
-            config.read_string(self.configPath.read_text(encoding="utf-8"))
+            text = self.configPath.read_text(encoding="utf-8")
+            raw = yaml.safe_load(text)
 
-            sections = config.sections()
+            if "server" in raw:
+                self.serverConfig = ServerConfig(**raw["server"])
+            if "build" in raw:
+                self.buildConfig = BuildConfig(**raw["build"])
 
-            if "server" in sections:
-                dic = {key: value for key, value in config.items("server")}
-                self.serverConfig = ServerConfig(
-                    port=int(dic.get("port", "3649")), dist=dic.get("dist", "./dist"))
+    def generateConfigFile(self):
+        self.configPath.write_text(yaml.safe_dump({
+            "server": asdict(ServerConfig()),
+            "build": asdict(BuildConfig())
+        }))
 
 
 env: Environment = Environment(pathlib.Path("."))

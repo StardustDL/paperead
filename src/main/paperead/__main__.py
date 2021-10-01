@@ -10,7 +10,7 @@ from click.exceptions import ClickException
 from . import __version__
 from .repository.materials import MaterialRepository
 
-from .env import env
+from .env import env, DEFAULT_BUILD_HOST, DEFAULT_BUILD_DIST, DEFAULT_SERVER_PORT
 
 
 def setWorkingDirectory(wdir: pathlib.Path):
@@ -18,24 +18,32 @@ def setWorkingDirectory(wdir: pathlib.Path):
 
 
 @click.command()
-def serve() -> None:
+@click.option("-p", "--port", default=None, help="Port to serve.")
+def serve(port: Optional[int] = None) -> None:
     """Serve websites."""
     from .server import entrypoint
+    if port:
+        env.serverConfig.port = port
     entrypoint.serve()
 
 
 @click.command()
-@click.option("-P", "--py", is_flag=True, default=False, help="Create simple server python script.")
-def build(py: bool = False) -> None:
+@click.option("-h", "--host", default=None, type=click.Choice(["empty", "python", "netlify"]), help="Host for the static website.")
+@click.option("-d", "--dist", default=None, help="Directory for building output.")
+def build(host: Optional[str] = None, dist: Optional[str] = None) -> None:
     """Build static website."""
     from .server import entrypoint
-    entrypoint.build(py)
+    if host:
+        env.buildConfig.host = host
+    if dist:
+        env.buildConfig.dist = dist
+    entrypoint.build()
 
 
 @click.command()
-@click.argument("id")
-def new(id: str) -> None:
-    env.repo.create(id)
+def init() -> None:
+    """Initialize config files of paperead."""
+    env.generateConfigFile()
 
 
 @click.command()
@@ -95,7 +103,6 @@ def rm(id: str, note: str = "") -> None:
 
 @click.command()
 @click.argument("id", default="")
-# @click.option("-N", "--note", default="", help="List notes for material with specified id.")
 def list(id: str = "") -> None:
     """List materials and notes."""
 
@@ -147,6 +154,7 @@ def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: boo
 
 main.add_command(serve)
 main.add_command(build)
+main.add_command(init)
 main.add_command(new)
 main.add_command(rm)
 main.add_command(list)
