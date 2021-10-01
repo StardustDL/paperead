@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { NThing, NIcon, NAvatar, NTime, NSpace, NCard, NEllipsis } from 'naive-ui'
 import { useRoute } from 'vue-router'
 import { Book, Clock } from '@vicons/tabler'
@@ -7,6 +7,7 @@ import { Icon } from '@vicons/utils'
 import MetadataViewer from './metadata/MetadataViewer.vue'
 
 import { useStore } from '../services/store'
+import { Note } from '../models/notes'
 
 const store = useStore();
 
@@ -15,7 +16,15 @@ const props = defineProps<{
     noteId: string,
 }>();
 
-const data = await store.state.materials.notes(props.id).get(props.noteId);
+
+const data = ref<Note | undefined>();
+
+async function loadData() {
+    data.value = await store.state.materials.notes(props.id).get(props.noteId);
+}
+
+onMounted(loadData);
+watch(props, loadData);
 </script>
 
 <script lang="ts">
@@ -28,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <n-card>
+    <n-card v-if="data">
         <template #header>
             <router-link :to="`/materials/${props.id}/notes/${data.id}`">{{ data.metadata.name }}</router-link>
         </template>

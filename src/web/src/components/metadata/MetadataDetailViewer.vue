@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, h } from 'vue'
+import { ref, h, computed } from 'vue'
 import { NPageHeader, NSpace, NBreadcrumb, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton } from 'naive-ui'
 import { Book, ArrowRight, ExternalLink, InfoSquare, Notes } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
@@ -16,25 +16,24 @@ const props = defineProps<{
     targetBaseUrl: string,
 }>();
 
-const data = props.data;
-
-let targetOptions: {
-    label: any,
-    key: string
-}[] = [];
-
-for (let key in data.targets) {
-    let target = data.targets[key];
-    let href = isRelativeUrl(target) ? `${props.targetBaseUrl}/${target}` : target;
-    console.log(href);
-    targetOptions.push({
-        label: () => h("a", {
-            target: "_blank",
-            href,
-        }, key),
-        key: key,
-    });
-}
+const targetOptions = computed(() => {
+    let result: {
+        label: any,
+        key: string
+    }[] = [];
+    for (let key in props.data.targets) {
+        let target = props.data.targets[key];
+        let href = isRelativeUrl(target) ? `${props.targetBaseUrl}/${target}` : target;
+        result.push({
+            label: () => h("a", {
+                target: "_blank",
+                href,
+            }, key),
+            key: key,
+        });
+    };
+    return result;
+})
 </script>
 
 <script lang="ts">

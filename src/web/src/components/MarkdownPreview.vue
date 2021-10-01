@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import { useStore } from '../services/store'
 import VditorPreview from "vditor";
 import "vditor/dist/index.css";
@@ -12,11 +12,11 @@ const props = defineProps<{
     baseUrl?: string
 }>();
 
-const baseUrl = props.baseUrl ?? "";
+const baseUrl = computed(() => props.baseUrl ?? "");
 
 const element = ref<HTMLDivElement>();
 
-onMounted(async () => {
+async function renderMarkdown() {
     await VditorPreview.preview(element.value!, props.value);
 
     let tagAs = element.value!.getElementsByTagName("a");
@@ -24,7 +24,7 @@ onMounted(async () => {
         let item = tagAs.item(i);
         let rawHref = item?.getAttribute("href") as string;
         if (isRelativeUrl(rawHref)) {
-            item?.setAttribute("href", `${baseUrl}/${rawHref}`);
+            item?.setAttribute("href", `${baseUrl.value}/${rawHref}`);
         }
     }
     {
@@ -33,7 +33,7 @@ onMounted(async () => {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
             if (isRelativeUrl(rawSrc as string)) {
-                item?.setAttribute("src", `${baseUrl}/${rawSrc}`);
+                item?.setAttribute("src", `${baseUrl.value}/${rawSrc}`);
             }
         }
     }
@@ -43,7 +43,7 @@ onMounted(async () => {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
             if (isRelativeUrl(rawSrc as string)) {
-                item?.setAttribute("src", `${baseUrl}/${rawSrc}`);
+                item?.setAttribute("src", `${baseUrl.value}/${rawSrc}`);
             }
         }
     }
@@ -53,11 +53,14 @@ onMounted(async () => {
             let item = tags.item(i);
             let rawSrc = item?.getAttribute("src");
             if (isRelativeUrl(rawSrc as string)) {
-                item?.setAttribute("src", `${baseUrl}/${rawSrc}`);
+                item?.setAttribute("src", `${baseUrl.value}/${rawSrc}`);
             }
         }
     }
-});
+}
+
+onMounted(renderMarkdown);
+watch(props, renderMarkdown);
 </script>
 
 <template>

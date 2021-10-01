@@ -21,7 +21,7 @@ def serve(debug: bool = False):
         app.run(host="0.0.0.0", port=env.serverConfig.port, debug=debug)
     else:
         click.echo(f"Listening on port {env.serverConfig.port}...")
-        click.echo(f"Visit http://localhost:{env.baseUrl} to Paperead.")
+        click.echo(f"Visit http://localhost:{env.serverConfig.port} to Paperead.")
 
         container = tornado.wsgi.WSGIContainer(app)
         http_server = tornado.httpserver.HTTPServer(container)
