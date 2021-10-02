@@ -6,7 +6,7 @@
 
 - Platform ![](https://img.shields.io/badge/Linux-yes-success?logo=linux) ![](https://img.shields.io/badge/Windows-yes-success?logo=windows) ![](https://img.shields.io/badge/MacOS-yes-success?logo=apple) ![](https://img.shields.io/badge/BSD-yes-success?logo=freebsd)
 - Python ![](https://img.shields.io/pypi/implementation/paperead.svg?logo=pypi) ![](https://img.shields.io/pypi/pyversions/paperead.svg?logo=pypi) ![](https://img.shields.io/pypi/wheel/paperead.svg?logo=pypi)
-- [Document](https://paperead.netlify.app/)
+- [Documents](https://paperead.netlify.app/)
 
 ## Install
 
@@ -16,144 +16,15 @@ Use pip:
 pip install paperead
 ```
 
-Or use pipx:
-
-```sh
-# Install pipx
-pip install --user pipx
-pipx ensurepath
-
-# Install Schemdule
-pipx install paperead
-
-# Upgrade
-pipx upgrade paperead
-```
-
 ## Usage
 
-### Command-line Management
-
-Create/Delete/List materials and notes.
-
 ```sh
-# Use current directory as data directory
-paperead new/rm/list --help
+paperead new first-material
+paperead new first-material -N first-note
 
-# Custom data directory
-paperead -D "path/to/dataDir" <COMMANDS>
-```
-
-### Website Server
-
-```sh
 paperead serve
 
-paperead -D "path/to/dataDir" serve
-```
-
-Then visit `http://localhost:3649`.
-
-RESTful APIs:
-
-- `/api/`
-  - GET (`index.json`): Get API metadata
-- `/api/materials/`
-  - GET (`index.json`): Get all ids for materials
-  - POST: Create or update a material
-- `/api/materials/<id>/`
-  - GET (`index.json`): Get data of the material
-  - DELETE: Delete the material
-- `/api/materials/<id>/assets/<path>`
-  - GET: Access assets of the material
-- `/api/materials/<id>/notes/`
-  - GET (`index.json`): Get all ids for notes of the material
-  - POST: Create or update a note of the material
-- `/api/materials/<id>/notes/<nid>/`
-  - GET (`index.json`): Get data of the note of the material
-  - DELETE: Delete the note of the material
-
-Paperead can also build a static website.
-
-```sh
-paperead build
-```
-
-The built website will be at `./dist`, which can be hosted in any static HTTP server.
-
-> Before building, existed `dist` directory will be deleted. So DO NOT make your files in `dist` directory.
-
-
-## Data Directory
-
-Paperead works in a data directory. The directory's structure is like the following.
-
-```
-/
-  .paperead.yml
-  material1/
-    description.md
-    assets/
-    notes/
-      note1.md
-```
-
-### Material Description
-
-`<materialId>/description.md` contains the metadata and the description for the material.
-
-```
----
-# Metadata in YAML
-name: Name
-creation: 2021-09-26 09:00:00+00:00
-modification: 2021-09-26 09:00:00+00:00
-targets:
-  image: "./assets/image.png"
-tags:
-- tag1
-- tag2
-extra:
-  key1: "value1"
-  key2: "value2"
----
-
-Description in Markdown.
-```
-
-- Do **NOT** use space in material ID.
-
-### Notes
-
-`<materialId>/notes/<noteId>.md` contains the metadata (the structure is as same as material's description) and the content for the note for the material.
-
-- Do **NOT** use space in note ID.
-
-### Assets
-
-`<materialId>/assets/` contains all additional files for the material, this will be directly served as static files,
-and all `.md` files for the material can access these files by using `./assets/...` or `../assets/...` (just relative path).
-
-### Configuration
-
-`.paperead.yml` contains configuration. If it is not existed, default configuration will be used.
-
-```yml
-server:
-  # Port to serve
-  port: 3649
-  
-build:
-  # Build output directory
-  dist: ./dist
-  # Static website host: empty, python, netlify
-  host: empty
-```
-
-You can use `init` command to generate default configuration file.
-
-```sh
-paperead init
+# Visit http://localhost:3649
 ```
 
 ## Development
