@@ -60,7 +60,7 @@ export class MaterialRepository {
 
     resolveRelativeUrl(id: string, url: string = ".") {
         if (isRelativeUrl(url))
-            return `${this.baseUrl}/materials/${id}/${url}`
+            return `${this.baseUrl}/${id}/${url}`
         return url;
     }
 }

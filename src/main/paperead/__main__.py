@@ -19,12 +19,13 @@ def setWorkingDirectory(wdir: pathlib.Path):
 
 @click.command()
 @click.option("-p", "--port", default=None, help="Port to serve.")
-def serve(port: Optional[int] = None) -> None:
+@click.option("-d", "--debug", is_flag=True, default=False, help="Debug mode.")
+def serve(port: Optional[int] = None, debug: bool = False) -> None:
     """Serve websites."""
     from .server import entrypoint
     if port:
         env.serverConfig.port = port
-    entrypoint.serve()
+    entrypoint.serve(debug)
 
 
 @click.command()
