@@ -9,7 +9,7 @@
   "dependencies": {
     "naive-ui": "^2.19.8",
     "vditor": "^3.8.7",
-    "vue": "^3.2.13",
+    "vue": "^3.2.20",
     "vue-router": "^4.0.11",
     "vuex": "^4.0.2"
   },
