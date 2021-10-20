@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-    <PageLayout float-header>
+    <PageLayout>
         <template #header>
             <n-page-header :subtitle="data.id" @back="() => router.back()">
                 <template #title>{{ data.metadata.name }}</template>
@@ -80,7 +80,7 @@ export default {
                 </template>
             </n-page-header>
         </template>
-        <n-layout-content content-style="padding: 10px;">
+        <n-layout-content style="height: 100%;">
             <suspense>
                 <template #default>
                     <MarkdownPreview

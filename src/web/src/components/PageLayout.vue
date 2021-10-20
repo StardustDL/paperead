@@ -2,14 +2,14 @@
 import { computed, onMounted, ref } from 'vue'
 import { NLayout, NLayoutContent, NLayoutHeader, NBackTop } from 'naive-ui'
 
-const props = defineProps<{ headerHeight?: number, floatHeader?: boolean }>();
+const props = defineProps<{ headerHeight?: number, scroll?: boolean }>();
 
 const headerHeight = computed(() => props.headerHeight ?? 130);
-const floatHeader = computed(() => props.floatHeader ?? false);
+const scroll = computed(() => props.scroll ?? false);
 </script>
 
 <template>
-    <n-layout style="height: 100%;" v-if="floatHeader" :native-scrollbar="false">
+    <n-layout style="height: 100%;" v-if="scroll" :native-scrollbar="false">
         <n-layout-header bordered :style="{ height: `${headerHeight}px` }">
             <slot name="header"></slot>
         </n-layout-header>
@@ -24,10 +24,8 @@ const floatHeader = computed(() => props.floatHeader ?? false);
         </n-layout-header>
         <n-layout-content
             :style="{ height: `calc(100% - ${headerHeight}px)` }"
-            :native-scrollbar="false"
         >
             <slot name="default"></slot>
-            <n-back-top :right="100"></n-back-top>
         </n-layout-content>
     </n-layout>
 </template>
