@@ -27,7 +27,8 @@ async function renderMarkdown() {
     await Vditor.preview(element.value!, props.value, {
         mode: theme.value,
         hljs: {
-            lineNumber: true
+            lineNumber: true,
+            style: theme.value == "dark" ? "dracula" : "github",
         },
         markdown: {
             toc: true,
@@ -92,7 +93,12 @@ watch(osThemeRef, renderMarkdown);
 </script>
 
 <template>
-    <n-layout style="height: 100%;" has-sider sider-placement="right" content-style="padding: 10px;">
+    <n-layout
+        style="height: 100%;"
+        has-sider
+        sider-placement="right"
+        content-style="padding: 10px;"
+    >
         <n-layout-content style="height: 100%;" :native-scrollbar="false">
             <div ref="element"></div>
             <n-back-top :right="250"></n-back-top>
@@ -106,7 +112,11 @@ watch(osThemeRef, renderMarkdown);
             bordered
             :default-collapsed="false"
         >
-            <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="padding: 10px;">
+            <n-layout-content
+                style="height: 100%;"
+                :native-scrollbar="false"
+                content-style="padding: 10px;"
+            >
                 <MarkdownPreviewOutline :element="element" ref="outline" />
             </n-layout-content>
         </n-layout-sider>
