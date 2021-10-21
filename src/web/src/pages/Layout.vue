@@ -87,7 +87,7 @@ export default {
                         :options="menuOptions"
                     />
                 </n-layout-sider>
-                <n-layout-content content-style="padding: 10px;">
+                <n-layout-content>
                     <suspense>
                         <template #default>
                             <router-view></router-view>

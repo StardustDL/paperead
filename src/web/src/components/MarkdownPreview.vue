@@ -28,6 +28,7 @@ const outline = ref<any>();
 const collapsed = ref<boolean>(true);
 const isFullscreen = ref<boolean>(false);
 const isReader = ref<boolean>(false);
+const hasOutline = ref<boolean>(false);
 
 const rootStyle = computed(() => {
     let result = {};
@@ -41,6 +42,7 @@ const rootStyle = computed(() => {
     else {
         result = {
             height: '100%',
+            padding: "5px 5px 5px 20px",
             ...result
         };
     }
@@ -61,7 +63,7 @@ async function renderMarkdown() {
         },
         hljs: {
             lineNumber: true,
-            style: theme.value == "dark" ? "dracula" : "github",
+            style: theme.value == "dark" ? "dracula" : (isReader.value ? "monokailight" : "github"),
         },
         markdown: {
             linkBase: baseUrl.value,
@@ -75,7 +77,7 @@ async function renderMarkdown() {
         },
     });
 
-    await outline.value.renderOutline();
+    hasOutline.value = await outline.value.renderOutline();
 
     {
         let tags = element.value!.getElementsByTagName("img");
@@ -101,6 +103,7 @@ function reader(enable: boolean = true) {
 onMounted(renderMarkdown);
 watch(props, renderMarkdown);
 watch(osThemeRef, renderMarkdown);
+watch(isReader, renderMarkdown);
 
 defineExpose({
     fullscreen,
@@ -121,7 +124,7 @@ export default {
 </script>
 
 <template>
-    <n-layout :style="rootStyle" has-sider sider-placement="right">
+    <n-layout :style="rootStyle" :has-sider="hasOutline" sider-placement="right">
         <n-layout-content
             style="height: 100%; background-color: inherit;"
             :native-scrollbar="false"
@@ -130,6 +133,7 @@ export default {
             <n-back-top :right="(collapsed ? 50 : 250)"></n-back-top>
         </n-layout-content>
         <n-layout-sider
+            v-show="hasOutline"
             style="height: 100%; background-color: inherit;"
             collapse-mode="width"
             :collapsed-width="0"
@@ -154,7 +158,11 @@ export default {
                                 </n-icon>
                             </template>
                         </n-button>
-                        <n-button title="Reader mode" @click="() => reader(!isReader)">
+                        <n-button
+                            title="Reader mode"
+                            @click="() => reader(!isReader)"
+                            v-if="osThemeRef != 'dark'"
+                        >
                             <template #icon>
                                 <n-icon>
                                     <BookmarkOff v-if="isReader" />

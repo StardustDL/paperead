@@ -38,7 +38,7 @@ function buildAnchorItem(element: HTMLLIElement) {
 
 async function renderOutline() {
     if (props.element == undefined)
-        return;
+        return false;
 
     let temp = document.createElement("div");
 
@@ -46,7 +46,7 @@ async function renderOutline() {
 
     if (temp.children.length == 0) {
         result.value = [];
-        return;
+        return false;
     }
 
     let ul = temp.children[0] as HTMLUListElement;
@@ -58,6 +58,8 @@ async function renderOutline() {
     }
 
     result.value = anchors;
+
+    return true;
 }
 
 onMounted(renderOutline);
