@@ -17,6 +17,14 @@ import tornado.wsgi
 def serve(debug: bool = False):
     from ..env import env
 
+    if env.serverConfig.auth:
+        app.config["BASIC_AUTH_USERNAME"] = "admin"
+        app.config["BASIC_AUTH_PASSWORD"] = env.serverConfig.auth
+        app.config["BASIC_AUTH_FORCE"] = True
+
+        from flask_basicauth import BasicAuth
+        BasicAuth(app)
+
     if debug:
         app.run(host="0.0.0.0", port=env.serverConfig.port, debug=debug)
     else:

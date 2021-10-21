@@ -12,6 +12,7 @@ DEFAULT_BUILD_HOST = "empty"
 @dataclass
 class ServerConfig:
     port: int = DEFAULT_SERVER_PORT
+    auth: str = ""
 
 
 @dataclass

@@ -23,7 +23,7 @@ Paperead works in a data directory. The directory's structure is like the follow
 
 ## Material Description
 
-`<materialId>/description.md` contains the metadata and the description for the material.
+`<materialId>/description.md` contains the metadata in the frontmatter and the description for the material.
 
 ```
 ---
@@ -56,25 +56,3 @@ Description in Markdown.
 
 `<materialId>/assets/` contains all additional files for the material, this will be directly served as static files,
 and all `.md` files for the material can access these files by using `./assets/...` or `../assets/...` (just relative path).
-
-## Configuration
-
-`.paperead.yml` contains configuration. If it is not existed, default configuration will be used.
-
-```yml
-server:
-  # Port to serve
-  port: 3649
-  
-build:
-  # Build output directory
-  dist: ./dist
-  # Static website host: empty, python, netlify
-  host: empty
-```
-
-You can use `init` command to generate default configuration file.
-
-```sh
-paperead init
-```

@@ -57,12 +57,18 @@ The content is modified from Vditor's demo.
 
 ### 图片
 
+![](assets/logo.svg)
+
 ```
+Use material-relative path:
+
+![](assets/image_file.png)
+
+Use external url:
+
 ![alt 文本](http://image-path.png)
 ![alt 文本](http://image-path.png "图片 Title 值")
 ```
-
-支持复制粘贴直接上传。
 
 ### 代码块
 
@@ -193,9 +199,15 @@ $$
 
 ### 多媒体
 
-支持 v.qq.com，youtube.com，youku.com，coub.com，facebook.com/video，dailymotion.com，.mp4，.m4v，.ogg，.ogv，.webm，.mp3，.wav 链接解析
+支持 v.qq.com，youtube.com，youku.com，coub.com，facebook.com/video，dailymotion.com，bilibili.com，.mp4，.m4v，.ogg，.ogv，.webm，.mp3，.wav 链接解析
 
 https://v.qq.com/x/cover/zf2z0xpqcculhcz/y0016tj0qvh.html
+
+Also support material-relative path
+
+```
+![](assets/audio_file.mp3)
+```
 
 ### 脚注
 
