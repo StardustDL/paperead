@@ -79,7 +79,6 @@ export default {
                     bordered
                     :default-collapsed="true"
                     :native-scrollbar="false"
-                    style="z-index: auto;"
                 >
                     <n-menu
                         v-model:value="menuActiveKey"

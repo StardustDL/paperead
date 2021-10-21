@@ -19,12 +19,15 @@ def setWorkingDirectory(wdir: pathlib.Path):
 
 @click.command()
 @click.option("-p", "--port", default=None, help="Port to serve.")
+@click.option("-a", "--auth", default=None, help="Password to protect the website (Basic Auth with username 'admin'), empty for public access.")
 @click.option("-d", "--debug", is_flag=True, default=False, help="Debug mode.")
-def serve(port: Optional[int] = None, debug: bool = False) -> None:
+def serve(port: Optional[int] = None, auth: Optional[str] = None, debug: bool = False) -> None:
     """Serve websites."""
     from .server import entrypoint
     if port:
         env.serverConfig.port = port
+    if auth is not None:  # support empty string
+        env.serverConfig.auth = auth
     entrypoint.serve(debug)
 
 

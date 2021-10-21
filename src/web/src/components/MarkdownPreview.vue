@@ -21,39 +21,12 @@ const baseUrl = computed(() => props.baseUrl ?? "");
 
 const theme = computed(() => osThemeRef.value == "dark" ? "dark" : "light");
 
-const readerBackgroundColor = "#f9f5e9";
-
 const element = ref<HTMLDivElement>();
 const outline = ref<any>();
 const collapsed = ref<boolean>(true);
 const isFullscreen = ref<boolean>(false);
-const isReader = computed(() => store.state.readerMode);
+const isReader = computed(() => store.state.readerMode && osThemeRef.value != "dark");
 const hasOutline = ref<boolean>(false);
-
-const rootStyle = computed(() => {
-    let result = {};
-    if (isFullscreen.value) {
-        result = {
-            height: '100%', width: '100%', position: 'fixed',
-            top: 0, bottom: 0, left: 0, right: 0, padding: "5px 5px 5px 200px",
-            ...result
-        };
-    }
-    else {
-        result = {
-            height: '100%',
-            padding: "5px 5px 5px 20px",
-            ...result
-        };
-    }
-    if (isReader.value) {
-        result = {
-            'background-color': readerBackgroundColor,
-            ...result,
-        };
-    }
-    return result;
-});
 
 async function renderMarkdown() {
     await Vditor.preview(element.value!, props.value, {
@@ -124,13 +97,16 @@ export default {
 </script>
 
 <template>
-    <n-layout :style="rootStyle" has-sider sider-placement="right">
+    <n-layout :class="(isFullscreen ? 'fullscreen' : 'normal')" has-sider sider-placement="right">
         <n-layout-content
             style="height: 100%; background-color: inherit;"
             :native-scrollbar="false"
         >
             <article ref="element" style="padding-bottom: 200px;"></article>
-            <n-back-top :right="(collapsed ? 50 : 250)"></n-back-top>
+            <n-back-top
+                :right="(collapsed ? 50 : 250)"
+                :style="(isFullscreen ? { 'z-index': 2 } : {})"
+            ></n-back-top>
         </n-layout-content>
         <n-layout-sider
             style="height: 100%; background-color: inherit;"
@@ -171,9 +147,46 @@ export default {
                         </n-button>
                     </n-button-group>
 
-                    <MarkdownPreviewOutline :element="element" ref="outline" v-show="hasOutline"/>
+                    <MarkdownPreviewOutline :element="element" ref="outline" v-show="hasOutline" />
                 </n-space>
             </n-layout-content>
         </n-layout-sider>
     </n-layout>
 </template>
+
+
+<style scoped>
+.fullscreen {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    z-index: 1;
+}
+.fullscreen article {
+    padding-left: 200px;
+    padding-right: 200px;
+}
+.normal {
+    height: 100%;
+    padding: 5px;
+}
+.normal article {
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+@media screen and (max-width: 960px) {
+    .fullscreen {
+        padding: 5px;
+    }
+    .fullscreen article {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+</style>

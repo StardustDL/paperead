@@ -20,9 +20,11 @@ const result = ref<AnchorItem[]>();
 function buildAnchorItem(element: HTMLLIElement) {
     let span = element.children[0] as HTMLSpanElement;
 
-    let title = span.getAttribute("data-target-id") ?? "";
+    let id = span.getAttribute("data-target-id") ?? "";
 
-    let result = new AnchorItem(title, `#${title}`);
+    let title = document.getElementById(id)?.innerText ?? id;
+
+    let result = new AnchorItem(title, `#${id}`);
 
     if (element.children.length > 1) {
         let ul = element.children[1] as HTMLUListElement;
