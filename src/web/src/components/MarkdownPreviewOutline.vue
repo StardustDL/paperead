@@ -13,7 +13,7 @@ const props = defineProps<{
     element?: HTMLElement,
 }>();
 
-const target = computed(()=>props.element);
+const target = computed(() => props.element);
 
 const result = ref<AnchorItem[]>();
 
@@ -70,7 +70,7 @@ defineExpose({
 
 
 <template>
-    <n-anchor :offset-target="element" :show-rail="false">
+    <n-anchor type="block" :listen-to="element" :ignore-gap="true">
         <MarkdownPreviewOutlineItem v-for="item in result" :key="item.href" :value="item" />
     </n-anchor>
 </template>

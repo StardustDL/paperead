@@ -79,6 +79,7 @@ export default {
                     bordered
                     :default-collapsed="true"
                     :native-scrollbar="false"
+                    style="z-index: auto;"
                 >
                     <n-menu
                         v-model:value="menuActiveKey"
@@ -86,7 +87,7 @@ export default {
                         :options="menuOptions"
                     />
                 </n-layout-sider>
-                <n-layout-content content-style="padding: 15px;">
+                <n-layout-content content-style="padding: 10px;">
                     <suspense>
                         <template #default>
                             <router-view></router-view>

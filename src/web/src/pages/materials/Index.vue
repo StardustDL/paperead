@@ -48,7 +48,7 @@ export default {
                 >Totally {{ items.length }} material{{ items.length > 1 ? 's' : '' }}.</template>
             </n-page-header>
         </template>
-        <n-layout-content content-style="padding: 10px;">
+        <n-layout-content content-style="padding: 10px;" :native-scrollbar="false" style="height: 100%;">
             <PaginationList :items="items">
                 <template v-slot:default="slotProps">
                     <MaterialItem :id="slotProps.item"></MaterialItem>

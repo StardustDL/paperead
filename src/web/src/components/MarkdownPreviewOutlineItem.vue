@@ -14,6 +14,10 @@ const props = defineProps<{
 
 <template>
     <n-anchor-link :title="props.value.title" :href="props.value.href">
-        <MarkdownPreviewOutlineItem v-for="item in props.value.children" :key="item.href" :value="item"/>
+        <MarkdownPreviewOutlineItem
+            v-for="item in props.value.children"
+            :key="item.href"
+            :value="item"
+        />
     </n-anchor-link>
 </template>
