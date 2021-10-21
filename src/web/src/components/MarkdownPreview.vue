@@ -27,7 +27,7 @@ const element = ref<HTMLDivElement>();
 const outline = ref<any>();
 const collapsed = ref<boolean>(true);
 const isFullscreen = ref<boolean>(false);
-const isReader = ref<boolean>(false);
+const isReader = computed(() => store.state.readerMode);
 const hasOutline = ref<boolean>(false);
 
 const rootStyle = computed(() => {
@@ -97,7 +97,7 @@ function fullscreen(enable: boolean = true) {
 }
 
 function reader(enable: boolean = true) {
-    isReader.value = enable;
+    store.commit("setReaderMode", enable);
 }
 
 onMounted(renderMarkdown);
@@ -124,7 +124,7 @@ export default {
 </script>
 
 <template>
-    <n-layout :style="rootStyle" :has-sider="hasOutline" sider-placement="right">
+    <n-layout :style="rootStyle" has-sider sider-placement="right">
         <n-layout-content
             style="height: 100%; background-color: inherit;"
             :native-scrollbar="false"
@@ -133,7 +133,6 @@ export default {
             <n-back-top :right="(collapsed ? 50 : 250)"></n-back-top>
         </n-layout-content>
         <n-layout-sider
-            v-show="hasOutline"
             style="height: 100%; background-color: inherit;"
             collapse-mode="width"
             :collapsed-width="0"
@@ -172,7 +171,7 @@ export default {
                         </n-button>
                     </n-button-group>
 
-                    <MarkdownPreviewOutline :element="element" ref="outline" />
+                    <MarkdownPreviewOutline :element="element" ref="outline" v-show="hasOutline"/>
                 </n-space>
             </n-layout-content>
         </n-layout-sider>
