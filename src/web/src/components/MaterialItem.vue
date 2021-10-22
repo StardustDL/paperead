@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { NThing, NIcon, NAvatar, NTime, NSpace, NCard, NEllipsis } from 'naive-ui'
-import { useRoute } from 'vue-router'
-import { Book, Clock } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { NCard, NEllipsis } from 'naive-ui'
+import { RouterLink } from 'vue-router'
 import MetadataViewer from './metadata/MetadataViewer.vue'
 
 import { useStore } from '../services/store'
@@ -26,21 +24,11 @@ onMounted(loadData);
 watch(props, loadData);
 </script>
 
-<script lang="ts">
-export default {
-    components: {
-        Book,
-        Clock,
-    }
-}
-</script>
-
 <template>
     <n-card v-if="data" hoverable>
         <template #header>
             <router-link :to="`/materials/${data.id}`">{{ data.metadata.name }}</router-link>
         </template>
-        <template #header-extra></template>
         <n-ellipsis
             :tooltip="false"
             :line-clamp="5"

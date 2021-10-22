@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch, h } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import { useStore } from '../services/store'
 import MarkdownPreviewOutline from './MarkdownPreviewOutline.vue';
-import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NAnchor, NAnchorLink, NBackTop, NAffix, NButton, NSpace, NIcon, NButtonGroup } from 'naive-ui'
-import { Maximize, Minimize, Bookmark, BookmarkOff } from '@vicons/tabler'
+import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NBackTop, NButton, NSpace, NIcon, NButtonGroup } from 'naive-ui'
+import { Maximize, Minimize } from '@vicons/tabler'
+import { EnableReaderIcon, DisableReaderIcon } from './icons';
 import Vditor from 'vditor';
 import "vditor/dist/index.css";
-import { isRelativeUrl } from '../helpers';
 
 const store = useStore();
 
@@ -69,6 +69,7 @@ function fullscreen(enable: boolean = true) {
     isFullscreen.value = enable;
 }
 
+
 function reader(enable: boolean = true) {
     store.commit("setReaderMode", enable);
 }
@@ -79,8 +80,7 @@ watch(osThemeRef, renderMarkdown);
 watch(isReader, renderMarkdown);
 
 defineExpose({
-    fullscreen,
-    reader
+    fullscreen
 });
 
 </script>
@@ -90,8 +90,8 @@ export default {
     components: {
         Maximize,
         Minimize,
-        Bookmark,
-        BookmarkOff,
+        EnableReaderIcon,
+        DisableReaderIcon,
     }
 }
 </script>
@@ -133,15 +133,11 @@ export default {
                                 </n-icon>
                             </template>
                         </n-button>
-                        <n-button
-                            title="Reader mode"
-                            @click="() => reader(!isReader)"
-                            v-if="osThemeRef != 'dark'"
-                        >
+                        <n-button title="Reader mode" @click="() => reader(!isReader)">
                             <template #icon>
                                 <n-icon>
-                                    <BookmarkOff v-if="isReader" />
-                                    <Bookmark v-else />
+                                    <DisableReaderIcon v-if="isReader" />
+                                    <EnableReaderIcon v-else />
                                 </n-icon>
                             </template>
                         </n-button>

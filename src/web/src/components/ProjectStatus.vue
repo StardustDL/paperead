@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NButton, NIcon, NSpace, NTime, NStatistic } from 'naive-ui'
+import { NIcon, NSpace, NTime, NStatistic } from 'naive-ui'
 import { BrandGithub, At, License, GitCommit, Clock } from '@vicons/tabler'
 import { Icon } from '@vicons/utils'
 

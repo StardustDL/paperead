@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NBreadcrumb, NButton, NBreadcrumbItem, NIcon, NSkeleton, NLayout, NLayoutContent, NResult, NLayoutHeader, NAvatar } from 'naive-ui'
-import { Home, AlertCircle } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { NButton, NIcon,  NResult } from 'naive-ui'
+import { AlertCircle } from '@vicons/tabler'
+import { HomeIcon } from '../components/icons'
+import { RouterLink, useRoute } from 'vue-router'
 import { useStore } from '../services/store'
 
-const store = useStore();
 const route = useRoute();
 
 const params = <{
@@ -18,7 +16,7 @@ const params = <{
 <script lang="ts">
 export default {
     components: {
-        Home,
+        HomeIcon,
         AlertCircle,
     }
 }
@@ -30,7 +28,7 @@ export default {
             <n-button>
                 <template #icon>
                     <n-icon>
-                        <home />
+                        <HomeIcon />
                     </n-icon>
                 </template>
                 <router-link to="/">Home</router-link>

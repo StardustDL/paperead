@@ -1,19 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch, h } from 'vue'
-import { useStore } from '../services/store'
-import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NAnchor, NAnchorLink } from 'naive-ui'
+import { onMounted, ref, watch} from 'vue'
+import { NAnchor } from 'naive-ui'
 import Vditor from 'vditor';
 import MarkdownPreviewOutlineItem from './MarkdownPreviewOutlineItem.vue';
 import { AnchorItem } from './AnchorItem'
 import "vditor/dist/index.css";
 
-const osThemeRef = useOsTheme();
-
 const props = defineProps<{
     element?: HTMLElement,
 }>();
-
-const target = computed(() => props.element);
 
 const result = ref<AnchorItem[]>();
 
@@ -30,7 +25,6 @@ function buildAnchorItem(element: HTMLLIElement) {
         let ul = element.children[1] as HTMLUListElement;
 
         for (let i = 0; i < ul.children.length; i++) {
-            // console.log(ul.children[i]);
             result.children.push(buildAnchorItem(ul.children[i] as HTMLLIElement))
         }
     }

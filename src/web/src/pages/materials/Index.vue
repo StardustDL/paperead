@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NPagination, NLayout, NLayoutFooter, NLayoutContent, NLayoutHeader, NAvatar } from 'naive-ui'
-import { Files } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { NPageHeader, NBreadcrumb, NIcon, NLayoutContent, NAvatar } from 'naive-ui'
+import { MaterialsIcon } from '../../components/icons'
 import PageLayout from '../../components/PageLayout.vue'
 import MaterialItem from '../../components/MaterialItem.vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useStore } from '../../services/store'
 import PaginationList from '../../components/PaginationList.vue'
+import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.vue'
+import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
 
 const store = useStore();
 const router = useRouter();
@@ -18,7 +18,7 @@ const items = await store.state.api.materials.all();
 <script lang="ts">
 export default {
     components: {
-        Files,
+        MaterialsIcon
     }
 }
 </script>
@@ -30,16 +30,14 @@ export default {
                 <template #title>Materials</template>
                 <template #header>
                     <n-breadcrumb>
-                        <n-breadcrumb-item>
-                            <router-link to="/">Paperead</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>Materials</n-breadcrumb-item>
+                        <HomeBreadcrumbItem />
+                        <MaterialsBreadcrumbItem />
                     </n-breadcrumb>
                 </template>
                 <template #avatar>
                     <n-avatar>
                         <n-icon>
-                            <files />
+                            <MaterialsIcon />
                         </n-icon>
                     </n-avatar>
                 </template>
@@ -48,7 +46,11 @@ export default {
                 >Totally {{ items.length }} material{{ items.length > 1 ? 's' : '' }}.</template>
             </n-page-header>
         </template>
-        <n-layout-content content-style="padding: 10px;" :native-scrollbar="false" style="height: 100%;">
+        <n-layout-content
+            content-style="padding: 10px;"
+            :native-scrollbar="false"
+            style="height: 100%;"
+        >
             <PaginationList :items="items">
                 <template v-slot:default="slotProps">
                     <MaterialItem :id="slotProps.item"></MaterialItem>

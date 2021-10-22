@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import { ref, h, computed } from 'vue'
-import { NPageHeader, NSpace, NBreadcrumb, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton } from 'naive-ui'
-import { Book, ArrowRight, ExternalLink, InfoSquare, Notes } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { h, computed } from 'vue'
+import { NSpace, NPopover, NDropdown, NTable, NIcon, NButton } from 'naive-ui'
+import { Book, ArrowRight, ExternalLink, InfoSquare } from '@vicons/tabler'
 import { BaseMetadata } from '../../models'
-import MetadataTimeViewer from './MetadataTimeViewer.vue'
-import MetadataTagViewer from './MetadataTagViewer.vue'
-import { useStore } from '../../services/store'
 import { isRelativeUrl } from '../../helpers'
-
-const store = useStore();
 
 const props = defineProps<{
     data: BaseMetadata,
@@ -43,7 +37,6 @@ export default {
         ArrowRight,
         ExternalLink,
         InfoSquare,
-        Notes,
     }
 }
 </script>
@@ -56,7 +49,7 @@ export default {
             v-if="Object.keys(data.extra).length > 0"
         >
             <template #trigger>
-                <n-button :bordered="false">
+                <n-button :bordered="false" size="large" title="Extra">
                     <template #icon>
                         <n-icon>
                             <info-square />
@@ -84,7 +77,7 @@ export default {
             placement="bottom-start"
             v-if="Object.keys(data.targets).length > 0"
         >
-            <n-button :bordered="false">
+            <n-button :bordered="false" size="large" title="Targets">
                 <template #icon>
                     <n-icon>
                         <external-link />

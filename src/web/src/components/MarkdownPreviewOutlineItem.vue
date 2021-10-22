@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch, h } from 'vue'
-import { useStore } from '../services/store'
-import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NAnchor, NAnchorLink } from 'naive-ui'
+import { NAnchorLink } from 'naive-ui'
 import { AnchorItem } from './AnchorItem'
-
-const osThemeRef = useOsTheme();
 
 const props = defineProps<{
     value: AnchorItem,

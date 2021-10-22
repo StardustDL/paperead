@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { NLayout, NLayoutContent, NLayoutHeader, NBackTop } from 'naive-ui'
 
 const props = defineProps<{ scroll?: boolean }>();

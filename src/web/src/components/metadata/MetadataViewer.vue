@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NIcon, NTime, NSpace, NTag } from 'naive-ui'
-import { Tag } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { NSpace } from 'naive-ui'
 import { BaseMetadata } from '../../models'
 import MetadataTimeViewer from './MetadataTimeViewer.vue'
 import MetadataTagViewer from './MetadataTagViewer.vue'

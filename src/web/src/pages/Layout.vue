@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <n-layout has-sider style="height: 100%;">
+    <!--<n-layout has-sider style="height: 100%;">
         <n-layout-sider
             collapse-mode="width"
             :collapsed-width="48"
@@ -72,13 +72,14 @@ export default {
                 </template>
             </suspense>
         </n-layout-content>
-    </n-layout>
-</template>
+    </n-layout>-->
 
-<style scoped>
-@media screen and (max-width: 960px) {
-    .status {
-        display: none;
-    }
-}
-</style>
+    <suspense>
+        <template #default>
+            <router-view></router-view>
+        </template>
+        <template #fallback>
+            <n-spin :size="80" id="loading-spin" style="width: 100%" />
+        </template>
+    </suspense>
+</template>

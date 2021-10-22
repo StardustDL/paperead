@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { ref, onMounted, onActivated } from 'vue'
-import { NPageHeader, NSpace, NBreadcrumb, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton } from 'naive-ui'
+import { NPageHeader, NBreadcrumb, NIcon, NSkeleton, NLayoutContent, NAvatar } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
-import { FileText } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { NoteIcon } from '../../components/icons'
 import PageLayout from '../../components/PageLayout.vue'
 import MarkdownPreview from '../../components/MarkdownPreview.vue'
 
 import { useStore } from '../../services/store'
 import MetadataViewer from '../../components/metadata/MetadataViewer.vue'
 import MetadataDetailViewer from '../../components/metadata/MetadataDetailViewer.vue'
+
+import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.vue'
+import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
+import MaterialBreadcrumbItem from '../../components/breadcrumbs/MaterialBreadcrumbItem.vue'
+import NotesBreadcrumbItem from '../../components/breadcrumbs/NotesBreadcrumbItem.vue'
+import NoteBreadcrumbItem from '../../components/breadcrumbs/NoteBreadcrumbItem.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -29,7 +33,7 @@ document.title = `${data.metadata.name} - Notes - ${material.metadata.name} - Ma
 <script lang="ts">
 export default {
     components: {
-        FileText,
+        NoteIcon,
     }
 }
 </script>
@@ -41,25 +45,17 @@ export default {
                 <template #title>{{ data.metadata.name }}</template>
                 <template #header>
                     <n-breadcrumb>
-                        <n-breadcrumb-item>
-                            <router-link to="/">Paperead</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>
-                            <router-link to="/materials">Materials</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>
-                            <router-link :to="`/materials/${params.id}`">{{ params.id }}</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>
-                            <router-link :to="`/materials/${params.id}/notes`">Notes</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>{{ data.id }}</n-breadcrumb-item>
+                        <HomeBreadcrumbItem />
+                        <MaterialsBreadcrumbItem />
+                        <MaterialBreadcrumbItem :id="params.id" />
+                        <NotesBreadcrumbItem :id="params.id" />
+                        <NoteBreadcrumbItem :id="params.id" :note-id="data.id" />
                     </n-breadcrumb>
                 </template>
                 <template #avatar>
                     <n-avatar>
                         <n-icon>
-                            <file-text />
+                            <NoteIcon />
                         </n-icon>
                     </n-avatar>
                 </template>

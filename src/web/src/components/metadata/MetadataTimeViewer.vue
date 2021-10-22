@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { NIcon, NTime, NSpace, NTooltip } from 'naive-ui'
-import { Book, Clock } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { Clock } from '@vicons/tabler'
 
 const props = defineProps<{
     creation: Date,
@@ -29,8 +27,10 @@ export default {
                 <n-time :time="props.creation" type="relative"></n-time>
             </n-space>
         </template>
-        <span>Creation:</span>&nbsp;<n-time :time="props.creation"></n-time>
+        <span>Creation:</span>&nbsp;
+        <n-time :time="props.creation"></n-time>
         <br />
-        <span>Modification:</span>&nbsp;<n-time :time="modification"></n-time>
+        <span>Modification:</span>&nbsp;
+        <n-time :time="modification"></n-time>
     </n-tooltip>
 </template>

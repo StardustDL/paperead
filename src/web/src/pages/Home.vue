@@ -1,15 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NText, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NStatistic, NCard } from 'naive-ui'
-import { Home, Notebook } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { ref, computed } from 'vue'
+import { NPageHeader, NSpace, NText, NBreadcrumb, NIcon, NLayoutContent, NAvatar, NStatistic, NCard, NButton, useOsTheme } from 'naive-ui'
+import { Notebook } from '@vicons/tabler'
+import { MaterialsIcon, EnableReaderIcon, DisableReaderIcon } from '../components/icons'
 import PageLayout from '../components/PageLayout.vue'
 import ProjectStatus from '../components/ProjectStatus.vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+import HomeBreadcrumbItem from '../components/breadcrumbs/HomeBreadcrumbItem.vue'
 import { useStore } from '../services/store'
 
 const store = useStore();
 const router = useRouter();
+
+const osThemeRef = useOsTheme();
+
+const isReader = computed(() => store.state.readerMode && osThemeRef.value != "dark");
+
+function reader(enable: boolean = true) {
+    store.commit("setReaderMode", enable);
+}
 
 const version = import.meta.env.PACKAGE_VERSION;
 const apiMetadata = await store.state.api.metadata();
@@ -18,8 +27,8 @@ const apiMetadata = await store.state.api.metadata();
 <script lang="ts">
 export default {
     components: {
-        Home,
-        Notebook
+        Notebook,
+        MaterialsIcon, EnableReaderIcon, DisableReaderIcon
     }
 }
 </script>
@@ -29,7 +38,7 @@ export default {
         <template #header>
             <n-page-header subtitle="阅读与笔记" @back="() => router.back()">
                 <template #avatar>
-                    <n-avatar size="large">
+                    <n-avatar>
                         <n-icon>
                             <notebook />
                         </n-icon>
@@ -41,8 +50,37 @@ export default {
                 </template>
                 <template #header>
                     <n-breadcrumb>
-                        <n-breadcrumb-item>Paperead</n-breadcrumb-item>
+                        <HomeBreadcrumbItem />
                     </n-breadcrumb>
+                </template>
+                <template #extra>
+                    <n-space>
+                        <n-button
+                            size="large"
+                            :bordered="false"
+                            @click="router.push(`/materials`)"
+                            title="Materials"
+                        >
+                            <template #icon>
+                                <n-icon>
+                                    <MaterialsIcon />
+                                </n-icon>
+                            </template>
+                        </n-button>
+                        <n-button
+                            size="large"
+                            :bordered="false"
+                            title="Reader mode"
+                            @click="() => reader(!isReader)"
+                        >
+                            <template #icon>
+                                <n-icon>
+                                    <DisableReaderIcon v-if="isReader" />
+                                    <EnableReaderIcon v-else />
+                                </n-icon>
+                            </template>
+                        </n-button>
+                    </n-space>
                 </template>
                 <template #footer>Welcome to Paperead.</template>
             </n-page-header>

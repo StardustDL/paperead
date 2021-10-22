@@ -36,7 +36,7 @@ The content is modified from Vditor's demo.
 
 ### 表情符号 Emoji
 
-支持大部分标准的表情符号，可使用输入法直接输入，也可手动输入字符格式。通过输入 `:` 触发自动完成，可在个人设置中[设置常用表情](https://ld246.com/settings/function)。
+支持大部分标准的表情符号，可使用输入法直接输入，也可手动输入字符格式。
 
 #### 一些表情例子
 
@@ -45,7 +45,7 @@ The content is modified from Vditor's demo.
 
 ### 大标题 - Heading 3
 
-你可以选择使用 H1 至 H6，使用 ##(N) 打头。建议帖子或回帖中的顶级标题使用 Heading 3，不要使用 1 或 2，因为 1 是系统站点级，2 是帖子标题级。
+你可以选择使用 H1 至 H6，使用 ##(N) 打头。
 
 > NOTE: 别忘了 # 后面需要有空格！
 

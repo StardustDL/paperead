@@ -4,7 +4,7 @@
 import Layout from './pages/Layout.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from './services/store'
-import { NGlobalStyle, NConfigProvider, NSpin, NBackTop, NMessageProvider, NSpace, NImage, useOsTheme, darkTheme } from 'naive-ui'
+import { NGlobalStyle, NConfigProvider, NSpin, NMessageProvider, useOsTheme, darkTheme } from 'naive-ui'
 import { zhCN, enUS, jaJP, ruRU, ukUA, dateEnUS, dateJaJP, dateRuRU, dateUkUA, dateZhCN } from 'naive-ui'
 import { watch, computed } from 'vue';
 

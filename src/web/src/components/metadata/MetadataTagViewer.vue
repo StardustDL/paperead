@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NIcon, NTime, NSpace, NTag } from 'naive-ui'
+import { NIcon, NSpace, NTag } from 'naive-ui'
 import { Tag } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
 
 const props = defineProps<{
     tags: string[]

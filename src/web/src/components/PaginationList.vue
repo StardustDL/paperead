@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { NThing, NIcon, NAvatar, NTime, NSpace, NCard, NEllipsis, NPagination, NSkeleton } from 'naive-ui'
-import { useRoute } from 'vue-router'
-import { Book, Clock } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
-
-import { useStore } from '../services/store'
-
-const store = useStore();
+import { NSpace, NPagination, NSkeleton } from 'naive-ui'
 
 const props = defineProps<{
     items: string[]
@@ -26,15 +19,6 @@ watch(currentPage, refreshItems);
 watch(currentPageSize, refreshItems);
 onMounted(refreshItems);
 watch(props, () => currentPage.value = 1);
-</script>
-
-<script lang="ts">
-export default {
-    components: {
-        Book,
-        Clock,
-    }
-}
 </script>
 
 <template>

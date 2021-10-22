@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { NPageHeader, NSpace, NThing, NBreadcrumb, NBreadcrumbItem, NIcon, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar } from 'naive-ui'
-import { Notes } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
+import { NPageHeader, NBreadcrumb, NIcon, NLayoutContent, NAvatar } from 'naive-ui'
+import { NotesIcon } from '../../components/icons'
 import PageLayout from '../../components/PageLayout.vue'
 import NoteItem from '../../components/NoteItem.vue'
-import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '../../services/store'
 import PaginationList from '../../components/PaginationList.vue'
+
+import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.vue'
+import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
+import MaterialBreadcrumbItem from '../../components/breadcrumbs/MaterialBreadcrumbItem.vue'
+import NotesBreadcrumbItem from '../../components/breadcrumbs/NotesBreadcrumbItem.vue'
 
 const store = useStore();
 const router = useRouter();
@@ -26,7 +29,7 @@ document.title = `Notes - ${material.metadata.name} - Materials - Paperead`
 <script lang="ts">
 export default {
     components: {
-        Notes,
+        NotesIcon,
     }
 }
 </script>
@@ -38,29 +41,27 @@ export default {
                 <template #title>Notes</template>
                 <template #header>
                     <n-breadcrumb>
-                        <n-breadcrumb-item>
-                            <router-link to="/">Paperead</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>
-                            <router-link to="/materials">Materials</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>
-                            <router-link :to="`/materials/${params.id}`">{{ params.id }}</router-link>
-                        </n-breadcrumb-item>
-                        <n-breadcrumb-item>Notes</n-breadcrumb-item>
+                        <HomeBreadcrumbItem />
+                        <MaterialsBreadcrumbItem />
+                        <MaterialBreadcrumbItem :id="params.id" />
+                        <NotesBreadcrumbItem :id="params.id" />
                     </n-breadcrumb>
                 </template>
                 <template #avatar>
                     <n-avatar>
                         <n-icon>
-                            <notes />
+                            <NotesIcon />
                         </n-icon>
                     </n-avatar>
                 </template>
                 <template #footer>Totally {{ items.length }} note{{ items.length > 1 ? 's' : '' }}.</template>
             </n-page-header>
         </template>
-        <n-layout-content content-style="padding: 10px;" :native-scrollbar="false" style="height: 100%;">
+        <n-layout-content
+            content-style="padding: 10px;"
+            :native-scrollbar="false"
+            style="height: 100%;"
+        >
             <PaginationList :items="items">
                 <template v-slot:default="slotProps">
                     <NoteItem :id="params.id" :noteId="slotProps.item"></NoteItem>
