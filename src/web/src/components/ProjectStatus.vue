@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NIcon, NSpace, NTime, NStatistic } from 'naive-ui'
 import { BrandGithub, At, License, GitCommit, Clock } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
 
 const buildStatus = await (await fetch("/build.json")).json();
 </script>
@@ -9,7 +8,6 @@ const buildStatus = await (await fetch("/build.json")).json();
 <script lang="ts">
 export default {
     components: {
-        Icon,
         BrandGithub,
         At,
         License,
@@ -24,9 +22,7 @@ export default {
         <n-statistic label="Author">
             <template #prefix>
                 <n-icon>
-                    <icon>
-                        <at />
-                    </icon>
+                    <at />
                 </n-icon>
             </template>
             <a
@@ -37,9 +33,7 @@ export default {
         <n-statistic label="License">
             <template #prefix>
                 <n-icon>
-                    <icon>
-                        <license />
-                    </icon>
+                    <license />
                 </n-icon>
             </template>
             <a
@@ -50,9 +44,7 @@ export default {
         <n-statistic label="Source Code">
             <template #prefix>
                 <n-icon>
-                    <icon>
-                        <brand-github />
-                    </icon>
+                    <brand-github />
                 </n-icon>
             </template>
             <a
@@ -63,9 +55,7 @@ export default {
         <n-statistic label="Commit">
             <template #prefix>
                 <n-icon>
-                    <icon>
-                        <git-commit />
-                    </icon>
+                    <git-commit />
                 </n-icon>
             </template>
             <a
@@ -76,9 +66,7 @@ export default {
         <n-statistic label="Build Date">
             <template #prefix>
                 <n-icon>
-                    <icon>
-                        <clock />
-                    </icon>
+                    <clock />
                 </n-icon>
             </template>
             <n-time :time="new Date(buildStatus.date)" type="relative"></n-time>

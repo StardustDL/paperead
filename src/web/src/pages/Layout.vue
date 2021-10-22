@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { ref, h } from 'vue'
-import { NGrid, NGi, NLayout, NLayoutSider, NLayoutContent, NLayoutHeader, NMenu, NPageHeader, NText, NIcon, NSpin, NAvatar } from 'naive-ui'
-import { Notebook, Home, Files } from '@vicons/tabler'
-import { Icon } from '@vicons/utils'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
-
-import ProjectStatus from '../components/ProjectStatus.vue'
-import { MaterialRepository } from '../services/repository'
+import { NIcon, NSpin } from 'naive-ui'
+import { Home, Files } from '@vicons/tabler'
+import { RouterView, useRouter } from 'vue-router'
 
 const router = useRouter();
 
@@ -33,15 +29,6 @@ const menuOptions = [
 
 async function onMenuClick(key: string, item: any) {
     await router.push(item.route);
-}
-</script>
-
-
-<script lang="ts">
-export default {
-    components: {
-        Notebook,
-    }
 }
 </script>
 
