@@ -9,14 +9,21 @@ import tornado.wsgi
 from flask import request, abort
 
 
-def serve(debug: bool = False):
+def buildApp():
     from . import app
-    from ..env import env
     from .api import build as apiBuild
     from .frontend import frontend
 
     app.register_blueprint(apiBuild(), url_prefix="/api")
     app.register_blueprint(frontend, url_prefix="/")
+
+    return app
+
+
+def serve(debug: bool = False):
+    from ..env import env
+    
+    app = buildApp()
 
     if env.serverConfig.auth:
         app.config["BASIC_AUTH_USERNAME"] = "admin"
@@ -65,6 +72,8 @@ def build():
     shutil.copytree(wwwroot, dist)
 
     click.echo("Generating data.")
+
+    app = buildApp()
 
     with app.test_client() as c:
         apidist = dist.joinpath("api")
