@@ -1,16 +1,18 @@
 from dataclasses import asdict
 
 from dateutil.parser import parse
-from flask import abort, json, jsonify, request, send_from_directory
+from flask import abort, json, jsonify, request, send_from_directory, Blueprint
 
 from paperead.repository.notes import Note, NoteMetadata
 
 from paperead.env import env
-from . import app
 
 
-@app.route("/api/materials/<id>/notes/")
-@app.route("/api/materials/<id>/notes/index.json")
+notes = Blueprint("notes", __name__)
+
+
+@notes.route("/<id>/notes/")
+@notes.route("/<id>/notes/index.json")
 def allNote(id: str):
     if id not in env.repo:
         abort(404)
@@ -18,8 +20,8 @@ def allNote(id: str):
     return jsonify([item for item in material.notes])
 
 
-@app.route("/api/materials/<id>/notes/<nid>/", methods=["GET"])
-@app.route("/api/materials/<id>/notes/<nid>/index.json", methods=["GET"])
+@notes.route("/<id>/notes/<nid>/", methods=["GET"])
+@notes.route("/<id>/notes/<nid>/index.json", methods=["GET"])
 def getNote(id: str, nid: str):
     if id not in env.repo:
         abort(404)
@@ -30,7 +32,7 @@ def getNote(id: str, nid: str):
     return jsonify(item)
 
 
-@app.route("/api/materials/<id>/notes/<nid>/", methods=["DELETE"])
+@notes.route("/<id>/notes/<nid>/", methods=["DELETE"])
 def deleteNote(id: str, nid: str):
     if id not in env.repo:
         abort(404)
@@ -41,7 +43,7 @@ def deleteNote(id: str, nid: str):
     return id
 
 
-@app.route("/api/materials/<id>/notes/", methods=["POST"])
+@notes.route("/<id>/notes/", methods=["POST"])
 def updateNote(id: str):
     if id not in env.repo:
         abort(404)

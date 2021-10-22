@@ -17,6 +17,8 @@ server:
   port: 3649
   # Password to protect the website (Basic Auth with username 'admin'), empty for public access
   auth: ""
+  # Readonly mode
+  readonly: false
   
 build:
   # Build output directory

@@ -1,10 +1,4 @@
 import pathlib
-from . import app
-from . import api
-from .api import materials
-from .api import notes
-from . import frontend
-from .frontend import wwwroot
 
 import click
 import os
@@ -12,21 +6,35 @@ import shutil
 import tornado.httpserver
 import tornado.ioloop
 import tornado.wsgi
+from flask import request, abort
 
 
 def serve(debug: bool = False):
+    from . import app
     from ..env import env
+    from .api import build as apiBuild
+    from .frontend import frontend
+
+    app.register_blueprint(apiBuild(), url_prefix="/api")
+    app.register_blueprint(frontend, url_prefix="/")
 
     if env.serverConfig.auth:
         app.config["BASIC_AUTH_USERNAME"] = "admin"
-        app.config["BASIC_AUTH_PASSWORD"] = env.serverConfig.auth
+        app.config["BASIC_AUTH_PASSWORD"] = str(env.serverConfig.auth)
         app.config["BASIC_AUTH_FORCE"] = True
 
         from flask_basicauth import BasicAuth
         BasicAuth(app)
 
+    if env.serverConfig.readonly:
+        @app.before_request
+        def readonly():
+            if request.method not in {"GET", "HEAD", "OPTIONS"}:
+                abort(403)
+
     if debug:
         app.run(host="0.0.0.0", port=env.serverConfig.port, debug=debug)
+
     else:
         click.echo(f"Listening on port {env.serverConfig.port}...")
         click.echo(
@@ -40,6 +48,7 @@ def serve(debug: bool = False):
 
 def build():
     from ..env import env
+    from .frontend import wwwroot
 
     repo = env.repo
 
@@ -112,7 +121,9 @@ def build():
         click.echo("Generating files for python host.")
         click.echo(f"Use 'python serve.py' in {dist} to serve.")
 
-        shutil.copyfile(staticPath.joinpath("__main__.py"), dist.joinpath("serve.py"))
+        shutil.copyfile(staticPath.joinpath("__main__.py"),
+                        dist.joinpath("serve.py"))
     elif env.buildConfig.host == 'netlify':
         click.echo("Generating files for netlify host.")
-        shutil.copyfile(staticPath.joinpath("netlify").joinpath("netlify.toml"), dist.joinpath("netlify.toml"))
+        shutil.copyfile(staticPath.joinpath("netlify").joinpath(
+            "netlify.toml"), dist.joinpath("netlify.toml"))

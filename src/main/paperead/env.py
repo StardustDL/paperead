@@ -13,6 +13,7 @@ DEFAULT_BUILD_HOST = "empty"
 class ServerConfig:
     port: int = DEFAULT_SERVER_PORT
     auth: str = ""
+    readonly: bool = False
 
 
 @dataclass
