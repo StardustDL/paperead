@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onActivated } from 'vue'
 import { NPageHeader, NSpace, NBreadcrumb, NTooltip, NPopover, NDropdown, NTable, NBreadcrumbItem, NIcon, NTime, NBackTop, NSkeleton, NLayout, NLayoutContent, NLayoutHeader, NAvatar, NLayoutSider, NButton } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
 import { FileText } from '@vicons/tabler'
@@ -19,11 +19,10 @@ const params = <{
     noteId: string,
 }>route.params;
 
-const headerHeight = 120;
-
 const data = await store.state.api.materials.notes(params.id).get(params.noteId);
 
 const material = await store.state.api.materials.get(params.id);
+
 document.title = `${data.metadata.name} - Notes - ${material.metadata.name} - Materials - Paperead`;
 </script>
 

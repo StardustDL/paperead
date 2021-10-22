@@ -62,6 +62,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
+    if (to.path == from.path) {
+        return true;
+    }
     document.title = (to.meta.title as any).toString();
     return true;
 });

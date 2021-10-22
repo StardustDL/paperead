@@ -46,57 +46,31 @@ export default {
 </script>
 
 <template>
-    <n-layout style="height: 100%">
-        <n-layout-header style="padding: 8px; height: 55px" bordered>
-            <n-page-header subtitle="阅读与笔记">
-                <template #extra>
-                    <div class="status">
-                        <suspense>
-                            <ProjectStatus />
-                        </suspense>
-                    </div>
+    <n-layout has-sider style="height: 100%;">
+        <n-layout-sider
+            collapse-mode="width"
+            :collapsed-width="48"
+            :width="180"
+            show-trigger="bar"
+            bordered
+            :default-collapsed="true"
+            :native-scrollbar="false"
+        >
+            <n-menu
+                v-model:value="menuActiveKey"
+                @update:value="onMenuClick"
+                :options="menuOptions"
+            />
+        </n-layout-sider>
+        <n-layout-content>
+            <suspense>
+                <template #default>
+                    <router-view></router-view>
                 </template>
-                <template #avatar>
-                    <n-avatar size="large">
-                        <n-icon>
-                            <notebook />
-                        </n-icon>
-                    </n-avatar>
+                <template #fallback>
+                    <n-spin :size="80" id="loading-spin" style="width: 100%" />
                 </template>
-                <template #title>
-                    <n-text type="info">Reading</n-text>&nbsp;and
-                    <n-text type="success">Notes</n-text>
-                </template>
-            </n-page-header>
-        </n-layout-header>
-        <n-layout-content style="height: calc(100% - 55px);">
-            <n-layout has-sider style="height: 100%;">
-                <n-layout-sider
-                    collapse-mode="width"
-                    :collapsed-width="48"
-                    :width="180"
-                    show-trigger="bar"
-                    bordered
-                    :default-collapsed="true"
-                    :native-scrollbar="false"
-                >
-                    <n-menu
-                        v-model:value="menuActiveKey"
-                        @update:value="onMenuClick"
-                        :options="menuOptions"
-                    />
-                </n-layout-sider>
-                <n-layout-content>
-                    <suspense>
-                        <template #default>
-                            <router-view></router-view>
-                        </template>
-                        <template #fallback>
-                            <n-spin :size="80" id="loading-spin" style="width: 100%" />
-                        </template>
-                    </suspense>
-                </n-layout-content>
-            </n-layout>
+            </suspense>
         </n-layout-content>
     </n-layout>
 </template>

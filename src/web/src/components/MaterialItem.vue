@@ -36,7 +36,7 @@ export default {
 </script>
 
 <template>
-    <n-card v-if="data">
+    <n-card v-if="data" hoverable>
         <template #header>
             <router-link :to="`/materials/${data.id}`">{{ data.metadata.name }}</router-link>
         </template>

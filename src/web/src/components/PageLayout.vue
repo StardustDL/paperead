@@ -2,15 +2,14 @@
 import { computed, onMounted, ref } from 'vue'
 import { NLayout, NLayoutContent, NLayoutHeader, NBackTop } from 'naive-ui'
 
-const props = defineProps<{ headerHeight?: number, scroll?: boolean }>();
+const props = defineProps<{ scroll?: boolean }>();
 
-const headerHeight = computed(() => props.headerHeight ?? 140);
 const scroll = computed(() => props.scroll ?? false);
 </script>
 
 <template>
     <n-layout style="height: 100%;" v-if="scroll" :native-scrollbar="false">
-        <n-layout-header bordered :style="{ height: `${headerHeight}px`, padding: '10px', }">
+        <n-layout-header bordered class="page-header">
             <slot name="header"></slot>
         </n-layout-header>
         <n-layout-content>
@@ -19,12 +18,10 @@ const scroll = computed(() => props.scroll ?? false);
         <n-back-top :right="100"></n-back-top>
     </n-layout>
     <n-layout style="height: 100%;" v-else>
-        <n-layout-header bordered :style="{ height: `${headerHeight}px`, padding: '10px', }">
+        <n-layout-header bordered class="page-header">
             <slot name="header"></slot>
         </n-layout-header>
-        <n-layout-content
-            :style="{ height: `calc(100% - ${headerHeight}px)` }"
-        >
+        <n-layout-content class="page-content-scroll">
             <slot name="default"></slot>
         </n-layout-content>
     </n-layout>
@@ -34,5 +31,24 @@ const scroll = computed(() => props.scroll ?? false);
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.page-header {
+    height: 140px;
+    padding: 10px;
+}
+
+.page-content-scroll {
+    height: calc(100% - 140px);
+}
+
+@media screen and (max-width: 960px) {
+    .page-header {
+        height: 160px;
+    }
+
+    .page-content-scroll {
+        height: calc(100% - 160px);
+    }
 }
 </style>

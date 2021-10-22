@@ -18,8 +18,6 @@ const params = <{
     id: string
 }>route.params;
 
-const headerHeight = 120;
-
 const data = await store.state.api.materials.get(params.id);
 
 document.title = `${data.metadata.name} - Materials - Paperead`;
