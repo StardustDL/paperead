@@ -1,8 +1,6 @@
-import { isRelativeUrl } from '../helpers';
-import { ApiMetadata } from '../models';
-import { Material, MaterialDto, MaterialMetadata } from '../models/materials'
-import { Note, NoteDto, NoteMetadata, NoteMetadataDto } from '../models/notes'
-import { MaterialRepository } from './repository';
+import { isRelativeUrl } from '../helpers'
+import { ApiMetadata } from '../models'
+import { MaterialRepository } from './repository'
 
 export class Api {
     baseUrl: string;

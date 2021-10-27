@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { NIcon, NBreadcrumbItem } from 'naive-ui'
 import { NotesIcon } from '../icons'
 import { RouterLink } from 'vue-router'

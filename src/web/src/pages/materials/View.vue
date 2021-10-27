@@ -3,7 +3,6 @@ import { NPageHeader, NSpace, NBreadcrumb, NIcon, NSkeleton, NLayoutContent, NAv
 import { useRoute, useRouter } from 'vue-router'
 import { MaterialIcon, NotesIcon } from '../../components/icons'
 import PageLayout from '../../components/PageLayout.vue'
-import MarkdownPreview from '../../components/MarkdownPreview.vue'
 
 import { useStore } from '../../services/store'
 import MetadataViewer from '../../components/metadata/MetadataViewer.vue'
@@ -11,6 +10,7 @@ import MetadataDetailViewer from '../../components/metadata/MetadataDetailViewer
 import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.vue'
 import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
 import MaterialBreadcrumbItem from '../../components/breadcrumbs/MaterialBreadcrumbItem.vue'
+import SchemaSwitcher from '../../schemas/SchemaSwitcher.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -36,7 +36,7 @@ export default {
 <template>
     <PageLayout>
         <template #header>
-            <n-page-header :subtitle="data.id" @back="() => router.back()">
+            <n-page-header @back="() => router.back()">
                 <template #title>{{ data.metadata.name }}</template>
                 <template #header>
                     <n-breadcrumb>
@@ -66,10 +66,7 @@ export default {
                                 </n-icon>
                             </template>
                         </n-button>
-                        <MetadataDetailViewer
-                            :target-base-url="store.state.api.materials.resolveRelativeUrl(data.id)"
-                            :data="data.metadata"
-                        />
+                        <MetadataDetailViewer :data="data" />
                     </n-space>
                 </template>
                 <template #footer>
@@ -80,10 +77,7 @@ export default {
         <n-layout-content style="height: 100%;">
             <suspense>
                 <template #default>
-                    <MarkdownPreview
-                        :value="data.content"
-                        :base-url="store.state.api.materials.resolveRelativeUrl(data.id)"
-                    />
+                    <SchemaSwitcher :data="data" />
                 </template>
                 <template #fallback>
                     <n-skeleton text :repeat="10" />

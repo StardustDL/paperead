@@ -1,12 +1,10 @@
 from dataclasses import asdict
 
-from dateutil.parser import parse
 from flask import abort, json, jsonify, request, send_from_directory, Blueprint
 
-from paperead.repository.materials import Material, MaterialMetadata
-
 from paperead.env import env
-from . import api
+from paperead.repository.materials import Material
+from . import buildDocument
 
 
 materials = Blueprint("materials", __name__)
@@ -38,13 +36,7 @@ def deleteMaterial(id: str):
 
 @materials.route("/", methods=["POST"])
 def updateMaterial():
-    data: dict = request.get_json()
-    metadata = data.pop("metadata")
-    metadata["creation"] = parse(metadata["creation"])          # isoformat
-    metadata["modification"] = parse(metadata["modification"])  # isoformat
-
-    metaobj = MaterialMetadata(**metadata)
-    obj = Material(metaobj, **data)
+    obj = buildDocument(Material, request.get_json())
 
     env.repo.update(obj)
     return obj.id

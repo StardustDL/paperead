@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { NSpace } from 'naive-ui'
-import { BaseMetadata } from '../../models'
+import { DocumentMetadata } from '../../models'
 import MetadataTimeViewer from './MetadataTimeViewer.vue'
 import MetadataTagViewer from './MetadataTagViewer.vue'
 
 const props = defineProps<{
-    data: BaseMetadata
+    data: DocumentMetadata
 }>();
 
 </script>

@@ -1,19 +1,7 @@
-import { BaseMetadata, BaseMetadataDto } from "."
+import { DocumentDto, Document } from ".";
 
-export interface MaterialMetadataDto extends BaseMetadataDto {
+export interface MaterialDto extends DocumentDto {
 }
 
-export interface MaterialDto {
-    id: string;
-    content: string;
-    metadata: MaterialMetadataDto;
-}
-
-export interface MaterialMetadata extends BaseMetadata {
-}
-
-export interface Material {
-    id: string;
-    content: string;
-    metadata: MaterialMetadata;
+export interface Material extends Document {
 }

@@ -2,12 +2,11 @@
 import { h, computed } from 'vue'
 import { NSpace, NPopover, NDropdown, NTable, NIcon, NButton } from 'naive-ui'
 import { Book, ArrowRight, ExternalLink, InfoSquare } from '@vicons/tabler'
-import { BaseMetadata } from '../../models'
+import { Document } from '../../models'
 import { isRelativeUrl } from '../../helpers'
 
 const props = defineProps<{
-    data: BaseMetadata,
-    targetBaseUrl: string,
+    data: Document,
 }>();
 
 const targetOptions = computed(() => {
@@ -15,9 +14,9 @@ const targetOptions = computed(() => {
         label: any,
         key: string
     }[] = [];
-    for (let key in props.data.targets) {
-        let target = props.data.targets[key];
-        let href = isRelativeUrl(target) ? `${props.targetBaseUrl}/${target}` : target;
+    for (let key in props.data.metadata.targets) {
+        let target = props.data.metadata.targets[key];
+        let href = isRelativeUrl(target) ? `${props.data.dataUrl}/${target}` : target;
         result.push({
             label: () => h("a", {
                 target: "_blank",
@@ -46,7 +45,7 @@ export default {
         <n-popover
             placement="bottom-start"
             trigger="hover"
-            v-if="Object.keys(data.extra).length > 0"
+            v-if="Object.keys(data.metadata.extra).length > 0"
         >
             <template #trigger>
                 <n-button :bordered="false" size="large" title="Extra">
@@ -65,7 +64,7 @@ export default {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, key) in data.extra" :key="key">
+                    <tr v-for="(item, key) in data.metadata.extra" :key="key">
                         <td>{{ key }}</td>
                         <td>{{ item }}</td>
                     </tr>
@@ -75,7 +74,7 @@ export default {
         <n-dropdown
             :options="targetOptions"
             placement="bottom-start"
-            v-if="Object.keys(data.targets).length > 0"
+            v-if="Object.keys(data.metadata.targets).length > 0"
         >
             <n-button :bordered="false" size="large" title="Targets">
                 <template #icon>

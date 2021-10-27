@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, computed, watch } from 'vue'
-import { useStore } from '../services/store'
-import MarkdownPreviewOutline from './MarkdownPreviewOutline.vue';
+import { useStore } from '../../services/store'
+import MarkdownPreviewOutline from './MarkdownPreviewOutline.vue'
 import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NBackTop, NButton, NSpace, NIcon, NButtonGroup } from 'naive-ui'
 import { Maximize, Minimize } from '@vicons/tabler'
-import { EnableReaderIcon, DisableReaderIcon } from './icons';
-import Vditor from 'vditor';
-import "vditor/dist/index.css";
+import { EnableReaderIcon, DisableReaderIcon } from '../icons'
+import Vditor from 'vditor'
+import "vditor/dist/index.css"
 
 const store = useStore();
 

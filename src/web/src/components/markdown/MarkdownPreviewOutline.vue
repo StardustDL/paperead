@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref, watch} from 'vue'
 import { NAnchor } from 'naive-ui'
-import Vditor from 'vditor';
-import MarkdownPreviewOutlineItem from './MarkdownPreviewOutlineItem.vue';
-import { AnchorItem } from './AnchorItem'
-import "vditor/dist/index.css";
+import Vditor from 'vditor'
+import MarkdownPreviewOutlineItem from './MarkdownPreviewOutlineItem.vue'
+import { AnchorItem } from '../AnchorItem'
 
 const props = defineProps<{
     element?: HTMLElement,

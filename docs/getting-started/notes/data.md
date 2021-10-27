@@ -31,6 +31,7 @@ Paperead works in a data directory. The directory's structure is like the follow
 name: Name
 creation: 2021-09-26 09:00:00+00:00
 modification: 2021-09-26 09:00:00+00:00
+schema: ""
 targets:
   image: "./assets/image.png"
 tags:

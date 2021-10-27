@@ -1,4 +1,4 @@
-export interface BaseMetadataDto {
+export interface DocumentMetadataDto {
     creation: string;
     modification: string;
     name: string;
@@ -8,7 +8,7 @@ export interface BaseMetadataDto {
     extra: { [key: string]: string };
 }
 
-export interface BaseMetadata {
+export interface DocumentMetadata {
     creation: Date;
     modification: Date;
     name: string;
@@ -16,6 +16,20 @@ export interface BaseMetadata {
     schema: string;
     targets: { [key: string]: string };
     extra: { [key: string]: string };
+}
+
+
+export interface DocumentDto {
+    id: string;
+    content: string;
+    metadata: DocumentMetadataDto;
+}
+
+export interface Document {
+    id: string;
+    content: string;
+    dataUrl: string;
+    metadata: DocumentMetadata;
 }
 
 export interface ApiMetadata {

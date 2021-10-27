@@ -8,32 +8,21 @@ from typing import Dict, Iterator, Optional
 import yaml
 from dateutil.tz import tzlocal
 
-from . import Description, DescriptionRepository
-from .base import BaseMetadata
+from . import Document, DocumentMetadata, DocumentRepository
 
 
 @dataclass
-class NoteMetadata(BaseMetadata):
+class Note(Document):
     pass
 
 
-@dataclass
-class Note(Description[NoteMetadata]):
-    @classmethod
-    def __metadata__(cls, name: str = "", text: Optional[str] = None) -> NoteMetadata:
-        if text:
-            return NoteMetadata.fromText(text)
-        else:
-            return NoteMetadata(name)
-
-
-class NoteRepository(DescriptionRepository[Note]):
+class NoteRepository(DocumentRepository[Note]):
     def __init__(self, root: pathlib.Path) -> None:
         super().__init__(root)
 
     @classmethod
-    def __description__(cls, id: str, text: Optional[str] = None) -> Note:
+    def __document__(cls, id: str, text: Optional[str] = None) -> Note:
         if text:
             return Note.fromText(id, text)
         else:
-            return Note(NoteMetadata(id), id)
+            return Note(DocumentMetadata(id), id)

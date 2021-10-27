@@ -1,10 +1,11 @@
 import { isRelativeUrl } from '../helpers';
-import { ApiMetadata } from '../models';
-import { Material, MaterialDto, MaterialMetadata } from '../models/materials'
-import { Note, NoteDto, NoteMetadata, NoteMetadataDto } from '../models/notes'
+import { ApiMetadata, Document, DocumentMetadata, DocumentMetadataDto } from '../models';
+import { Material, MaterialDto } from '../models/materials'
+import { Note, NoteDto } from '../models/notes'
 
 export class MaterialRepository {
-    baseUrl: string
+    baseUrl: string;
+
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
@@ -25,12 +26,13 @@ export class MaterialRepository {
                 creation: new Date(raw.metadata.creation.toString()),
                 modification: new Date(raw.metadata.modification.toString()),
             },
+            dataUrl: this.resolveRelativeUrl(id)
         };
         return item;
     }
 
     notes(id: string) {
-        return new NoteRepository(`${this.baseUrl}/${id}/notes`);
+        return new NoteRepository(`${this.baseUrl}/${id}/notes`, this.resolveRelativeUrl(id, "./notes"));
     }
 
     async update(value: Material) {
@@ -66,9 +68,12 @@ export class MaterialRepository {
 }
 
 export class NoteRepository {
-    baseUrl: string
-    constructor(baseUrl: string) {
+    baseUrl: string;
+    dataUrl: string;
+
+    constructor(baseUrl: string, dataUrl: string) {
         this.baseUrl = baseUrl;
+        this.dataUrl = dataUrl;
     }
 
     async all() {
@@ -87,6 +92,7 @@ export class NoteRepository {
                 creation: new Date(raw.metadata.creation.toString()),
                 modification: new Date(raw.metadata.modification.toString()),
             },
+            dataUrl: this.dataUrl
         };
         return item;
     }

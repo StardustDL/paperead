@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { NAnchorLink } from 'naive-ui'
-import { AnchorItem } from './AnchorItem'
+import { AnchorItem } from '../AnchorItem'
 
 const props = defineProps<{
     value: AnchorItem,
 }>();
 </script>
-
 
 <template>
     <n-anchor-link :title="props.value.title" :href="props.value.href">

@@ -10,25 +10,12 @@ import yaml
 from dateutil.tz import tzlocal
 
 from .. import fsutils
-from . import Description, DescriptionRepository
-from .base import BaseMetadata
+from . import Document, DocumentMetadata, DocumentRepository
 from .notes import NoteRepository
 
 
 @dataclass
-class MaterialMetadata(BaseMetadata):
-    pass
-
-
-@dataclass
-class Material(Description[MaterialMetadata]):
-    @classmethod
-    def __metadata__(cls, name: str = "", text: Optional[str] = None) -> MaterialMetadata:
-        if text:
-            return MaterialMetadata.fromText(text)
-        else:
-            return MaterialMetadata(name)
-
+class Material(Document):
     @property
     def notes(self) -> Optional[NoteRepository]:
         if hasattr(self, '_notes'):
@@ -52,21 +39,21 @@ class Material(Description[MaterialMetadata]):
         self._assets = value
 
 
-class MaterialRepository(DescriptionRepository[Material]):
+class MaterialRepository(DocumentRepository[Material]):
     def __init__(self, root: pathlib.Path) -> None:
         super().__init__(root)
 
     @classmethod
-    def __description__(cls, id: str, text: Optional[str] = None) -> Material:
+    def __document__(cls, id: str, text: Optional[str] = None) -> Material:
         if text:
             return Material.fromText(id, text)
         else:
-            return Material(MaterialMetadata(id), id)
+            return Material(DocumentMetadata(id), id)
 
-    def __descriptionPath__(self, id: str) -> pathlib.Path:
+    def __documentPath__(self, id: str) -> pathlib.Path:
         return self.root.joinpath(id.strip()).joinpath("description.md")
 
-    def __descriptionGlob__(self) -> str:
+    def __documentGlob__(self) -> str:
         return "*/description.md"
 
     def __oniter__(self, path: pathlib.Path) -> str:

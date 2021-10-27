@@ -4,7 +4,7 @@ import os
 import pathlib
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass, field
-from typing import Any, Generic, Iterator, Optional, TypeVar
+from typing import Any, Generic, Iterator, Optional, TypeVar, Dict, List
 
 import yaml
 from dateutil.tz import tzlocal
@@ -13,12 +13,16 @@ from .. import fsutils
 
 
 @dataclass
-class DescriptionMetadata(ABC):
+class DocumentMetadata:
     name: str
     creation: datetime.datetime = field(
         default_factory=lambda: datetime.datetime.now(tzlocal()))
     modification: datetime.datetime = field(
         default_factory=lambda: datetime.datetime.now(tzlocal()))
+    targets: Dict[str, str] = field(default_factory=dict)
+    tags: List[str] = field(default_factory=list)
+    extra: Dict[str, str] = field(default_factory=dict)
+    schema: str = ""
 
     def toText(self) -> str:
         return yaml.safe_dump(asdict(self), sort_keys=False).strip()
@@ -29,19 +33,18 @@ class DescriptionMetadata(ABC):
         return cls(**data)
 
 
-TM = TypeVar("TM", bound=DescriptionMetadata)
-
-
 @dataclass
-class Description(ABC, Generic[TM]):
-    metadata: TM
+class Document(ABC):
+    metadata: DocumentMetadata
     id: str = ""
     content: str = ""
 
     @classmethod
-    @abstractmethod
-    def __metadata__(cls, name: str = "", text: Optional[str] = None) -> TM:
-        pass
+    def __metadata__(cls, name: str = "", text: Optional[str] = None) -> DocumentMetadata:
+        if text:
+            return DocumentMetadata.fromText(text)
+        else:
+            return DocumentMetadata(name)
 
     def toText(self) -> str:
         return "\n".join(["---", self.metadata.toText(), "---", self.content])
@@ -64,22 +67,22 @@ class Description(ABC, Generic[TM]):
         return cls(id=id, metadata=metadata, content=content)
 
 
-TD = TypeVar("TD", bound=Description)
+TD = TypeVar("TD", bound=Document)
 
 
-class DescriptionRepository(ABC, Generic[TD]):
+class DocumentRepository(ABC, Generic[TD]):
     def __init__(self, root: pathlib.Path) -> None:
         self.root = root
 
     @classmethod
     @abstractmethod
-    def __description__(cls, id: str, text: Optional[str] = None) -> TD:
+    def __document__(cls, id: str, text: Optional[str] = None) -> TD:
         pass
 
-    def __descriptionPath__(self, id: str) -> pathlib.Path:
+    def __documentPath__(self, id: str) -> pathlib.Path:
         return self.root.joinpath(f"{id.strip()}.md")
 
-    def __descriptionGlob__(self) -> str:
+    def __documentGlob__(self) -> str:
         return "*.md"
 
     def __postget__(self, path: pathlib.Path, item: TD) -> None:
@@ -95,13 +98,13 @@ class DescriptionRepository(ABC, Generic[TD]):
         return path.stem
 
     def __contains__(self, item: str) -> bool:
-        path = self.__descriptionPath__(item)
+        path = self.__documentPath__(item)
         return path.exists() and path.is_file()
 
     def __getitem__(self, key: str) -> TD:
         if key in self:
-            path = self.__descriptionPath__(key)
-            result = self.__description__(
+            path = self.__documentPath__(key)
+            result = self.__document__(
                 key, path.read_text(encoding="utf-8"))
             self.__postget__(path, result)
             return result
@@ -117,25 +120,25 @@ class DescriptionRepository(ABC, Generic[TD]):
 
     def __delitem__(self, key: str) -> None:
         if key in self:
-            path = self.__descriptionPath__(key)
+            path = self.__documentPath__(key)
             os.remove(path)
             self.__postdel__(key, path)
 
     def __iter__(self) -> Iterator[str]:
-        for item in self.root.glob(self.__descriptionGlob__()):
+        for item in self.root.glob(self.__documentGlob__()):
             yield self.__oniter__(item)
 
     def __len__(self) -> int:
-        return sum((1 for _ in self.root.glob(self.__descriptionGlob__())))
+        return sum((1 for _ in self.root.glob(self.__documentGlob__())))
 
     def create(self, id: str) -> None:
         if id in self:
-            raise Exception(f"Description with id '{id}' exists.")
-        result = self.__description__(id)
+            raise Exception(f"Document with id '{id}' exists.")
+        result = self.__document__(id)
         self.update(result)
 
     def update(self, item: TD) -> None:
-        path = self.__descriptionPath__(item.id)
+        path = self.__documentPath__(item.id)
         text = item.toText()
         fsutils.ensureFile(path, text)
         self.__postset__(path, item)
