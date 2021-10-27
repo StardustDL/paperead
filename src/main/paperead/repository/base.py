@@ -19,3 +19,4 @@ class BaseMetadata(DescriptionMetadata):
     targets: Dict[str, str] = field(default_factory=dict)
     tags: List[str] = field(default_factory=list)
     extra: Dict[str, str] = field(default_factory=dict)
+    schema: str = ""

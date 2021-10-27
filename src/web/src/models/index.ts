@@ -3,6 +3,7 @@ export interface BaseMetadataDto {
     modification: string;
     name: string;
     tags: string[];
+    schema: string;
     targets: { [key: string]: string };
     extra: { [key: string]: string };
 }
@@ -12,6 +13,7 @@ export interface BaseMetadata {
     modification: Date;
     name: string;
     tags: string[];
+    schema: string;
     targets: { [key: string]: string };
     extra: { [key: string]: string };
 }
