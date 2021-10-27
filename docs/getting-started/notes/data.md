@@ -47,6 +47,11 @@ Description in Markdown.
 
 - Do **NOT** use space in material ID.
 
+Possible values for `schema`:
+
+- `slides` Slides powered by Reveal.js
+- Otherwise take the contents as a normal Markdown.
+
 ## Notes
 
 `<materialId>/notes/<noteId>.md` contains the metadata (the structure is as same as material's description) and the content for the note for the material.

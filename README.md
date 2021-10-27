@@ -19,6 +19,7 @@
   - Code highlighting
   - Lists and tables
   - Graphs
+  - Slides powered by reveal.js
 - Builtin web server
   - Basic authentication
   - Readonly mode
