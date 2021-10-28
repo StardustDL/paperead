@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from 'vue'
+import { onMounted, ref, computed, watch, onBeforeUnmount } from 'vue'
 import { useStore } from '../../services/store'
 import MarkdownPreviewOutline from './MarkdownPreviewOutline.vue'
 import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NBackTop, NButton, NSpace, NIcon, NButtonGroup } from 'naive-ui'
