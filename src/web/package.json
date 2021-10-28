@@ -1,6 +1,6 @@
 {
   "name": "paperead-web",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

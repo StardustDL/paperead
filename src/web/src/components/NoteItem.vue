@@ -29,7 +29,7 @@ watch(props, loadData);
 <template>
     <n-card v-if="data" hoverable>
         <template #header>
-            <router-link :to="`/materials/${props.id}/${data.id}`">{{ data.metadata.name }}</router-link>
+            <router-link :to="`/${props.id}/${data.id}`">{{ data.metadata.name }}</router-link>
         </template>
         <n-ellipsis
             :tooltip="false"
