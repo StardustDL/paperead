@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { NCard, NEllipsis } from 'naive-ui'
+import { renderToPlainText } from '../helpers'
 import MetadataViewer from './metadata/MetadataViewer.vue'
 
 import { useStore } from '../services/store'
@@ -34,7 +35,7 @@ watch(props, loadData);
             :tooltip="false"
             :line-clamp="5"
             v-if="data.content.length > 0"
-        >{{ data.content }}</n-ellipsis>
+        >{{ renderToPlainText(data.content) }}</n-ellipsis>
         <template #action>
             <MetadataViewer :data="data.metadata" />
         </template>
