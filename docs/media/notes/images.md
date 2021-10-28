@@ -10,42 +10,42 @@ schema: 'image'
 
 # Image 1
 
-![](https://github.com/StardustDL/own-staticfile-hosting/raw/master/schemdule/terminal.png)
+![url](https://github.com/StardustDL/own-staticfile-hosting/raw/master/schemdule/terminal.png)
 
 Some description
 
 # Image 2
 
-![](https://github.com/StardustDL/own-staticfile-hosting/raw/master/acblog/images/preview-archive.png)
+![url](https://github.com/StardustDL/own-staticfile-hosting/raw/master/acblog/images/preview-archive.png)
 
 Some description
 
 # Image 3
 
-![](../assets/logo.svg)
+![url](../assets/logo.svg)
 
 Some description
 
 # Image 1
 
-![](https://github.com/StardustDL/own-staticfile-hosting/raw/master/schemdule/terminal.png)
+![url](https://github.com/StardustDL/own-staticfile-hosting/raw/master/schemdule/terminal.png)
 
 Some description
 
 # Image 2
 
-![](https://github.com/StardustDL/own-staticfile-hosting/raw/master/acblog/images/preview-archive.png)
+![url](https://github.com/StardustDL/own-staticfile-hosting/raw/master/acblog/images/preview-archive.png)
 
 Some description
 
 # Image 1
 
-![](https://github.com/StardustDL/own-staticfile-hosting/raw/master/schemdule/terminal.png)
+![url](https://github.com/StardustDL/own-staticfile-hosting/raw/master/schemdule/terminal.png)
 
 Some description
 
 # Image 2
 
-![](https://github.com/StardustDL/own-staticfile-hosting/raw/master/acblog/images/preview-archive.png)
+![url](https://github.com/StardustDL/own-staticfile-hosting/raw/master/acblog/images/preview-archive.png)
 
 Some description

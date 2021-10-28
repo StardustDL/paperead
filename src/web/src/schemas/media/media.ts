@@ -4,15 +4,13 @@ import { isRelativeUrl } from '../../helpers';
 
 export class Media {
     title: string;
-    url: string;
-    description: string;
+    url: string = "";
+    description: string = "";
+    cover: string = "";
     renderedDescription: string = "";
 
-    constructor(title: string, url: string, description: string = "") {
-        this.url = url;
+    constructor(title: string) {
         this.title = title;
-        this.description = description;
-        this.renderedDescription = description;
     }
 }
 
@@ -32,33 +30,46 @@ export function parse(data: Document) {
             index++;
         }
         if (title != null) {
-            let url = null;
-            let description = "";
+            let media = new Media(title);
             while (index < tokens.length) { // detect url & description
                 let token = tokens[index];
                 if (token.type == "heading" && token.depth == 1) {
                     break;
                 }
 
-                let isUrl = false;
-                if (url == null) {
-                    if (token.type == "paragraph" && token.tokens.length == 1) {
-                        let subtoken = token.tokens[0];
-                        if (subtoken.type == "image") {
-                            isUrl = true;
-                            url = subtoken.href;
-                            if (isRelativeUrl(url)) {
-                                url = `${data.dataUrl}/${url}`;
+                let isMetadata = false;
+                if (token.type == "paragraph") {
+                    for (let subtoken of token.tokens) {
+                        if (subtoken.type == "image" || subtoken.type == "link") {
+                            let href = subtoken.href;
+
+                            if (isRelativeUrl(href)) {
+                                href = `${data.dataUrl}/${href}`;
+                            }
+
+                            switch (subtoken.text) {
+                                case "url":
+                                    if (media.url == "") {
+                                        media.url = href;
+                                        isMetadata = true;
+                                    }
+                                    break;
+                                case "cover":
+                                    if (media.cover == "") {
+                                        media.cover = href;
+                                        isMetadata = true;
+                                    }
+                                    break;
                             }
                         }
                     }
                 }
-                if (!isUrl)
-                    description += token.raw;
+                if (!isMetadata)
+                    media.description += token.raw;
                 index++;
             }
 
-            let media = new Media(title, url, description);
+
             media.renderedDescription = marked(media.description, {
                 baseUrl: data.dataUrl,
                 headerIds: false,

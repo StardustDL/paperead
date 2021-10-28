@@ -10,10 +10,11 @@ schema: 'media'
 
 # Video 1 720p
 
-![](https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4)
+[url](https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4)
+![cover](../assets/logo.svg)
 
 Some description for 720p.
 
 # Audio
 
-![](https://sample-videos.com/audio/mp3/crowd-cheering.mp3)
+[url](https://sample-videos.com/audio/mp3/crowd-cheering.mp3)

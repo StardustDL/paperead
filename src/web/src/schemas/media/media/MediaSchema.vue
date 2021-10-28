@@ -32,6 +32,7 @@ function loadVideo() {
 
   dplayer.value!.switchVideo({
     url: current.url,
+    pic: current.cover,
   }, undefined as unknown as DPlayerDanmaku);
 }
 
