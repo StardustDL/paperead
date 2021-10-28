@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DPlayer, { DPlayerDanmaku } from 'dplayer'
+import DPlayer, { DPlayerDanmaku, DPlayerEvents } from 'dplayer'
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { isRelativeUrl } from '../../../helpers'
 import { Document } from '../../../models'
@@ -20,7 +20,7 @@ const currentIndex = ref(0);
 
 const dplayer = ref<DPlayer>();
 
-function loadVideo() {
+function loadVideo(play: boolean = false) {
   if (media.value.length == 0)
     return;
 
@@ -30,33 +30,50 @@ function loadVideo() {
 
   let current = media.value[currentIndex.value];
 
-  dplayer.value!.switchVideo({
+  dplayer.value?.switchVideo({
     url: current.url,
     pic: current.cover,
   }, undefined as unknown as DPlayerDanmaku);
+
+  if (play) {
+    dplayer.value?.play();
+  }
 }
 
 function onClickVideo(names: string[]) {
   if (names.length == 0)
     return;
   currentIndex.value = parseInt(names[0]);
+  loadVideo();
 }
 
 onMounted(() => {
   dplayer.value = new DPlayer({
     container: container.value!,
+    screenshot: true,
     video: {
       url: ""
     },
   });
+  dplayer.value.on("ended" as unknown as DPlayerEvents, () => {
+    return;
+    if (media.value.length > 0) {
+      if (currentIndex.value + 1 >= media.value.length) {
+        currentIndex.value = 0;
+      }
+      else {
+        currentIndex.value = currentIndex.value + 1;
+      }
+      loadVideo(true);
+    }
+  });
   media.value = parse(props.data);
+  loadVideo();
 });
-watch(media, loadVideo);
-watch(currentIndex, loadVideo);
 onBeforeUnmount(() => {
   if (dplayer.value != null)
     dplayer.value.destroy();
-})
+});
 </script>
 
 <template>
