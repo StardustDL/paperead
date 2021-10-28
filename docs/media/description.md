@@ -12,4 +12,22 @@ schema: ''
 
 - `media` for videos & audios
 - `image` for images.
+- `pdf` for pdfs.
 
+# Content
+
+```markdown
+# Item 1 Title
+
+[url](url to the file)
+![cover](url to the cover image file, only for video and audio.)
+
+Other description...
+
+# Item 2 Title
+
+[url](url to the file)
+![cover](url to the cover image file, only for video and audio.)
+
+Other description...
+```

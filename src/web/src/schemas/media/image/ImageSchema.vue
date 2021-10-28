@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-import { isRelativeUrl } from '../../../helpers'
 import { Document } from '../../../models'
-import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NCollapse, NCollapseItem, NCarousel, NImage, NCard, NSpace } from 'naive-ui'
+import { ExternalLink } from '@vicons/tabler'
+import { useOsTheme, NLayoutContent, NImage, NCard, NSpace, NButton, NIcon } from 'naive-ui'
 import { parse, Media } from '../media'
 
 const osThemeRef = useOsTheme();
@@ -45,6 +45,15 @@ watch(images, loadVideo);
 watch(currentIndex, loadVideo);
 </script>
 
+
+<script lang="ts">
+export default {
+  components: {
+    ExternalLink,
+  }
+}
+</script>
+
 <template>
   <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="padding: 20px;">
     <n-space style="justify-content: center;">
@@ -58,6 +67,15 @@ watch(currentIndex, loadVideo);
       >
         <template #cover>
           <n-image object-fit="cover" :alt="item.title" :src="item.url"></n-image>
+        </template>
+        <template #header-extra>
+          <n-button :bordered="false" size="large" :href="item.url" tag="a" target="_blank">
+            <template #icon>
+              <n-icon>
+                <external-link />
+              </n-icon>
+            </template>
+          </n-button>
         </template>
         <div v-html="item.renderedDescription"></div>
       </n-card>
