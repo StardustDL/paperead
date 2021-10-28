@@ -97,7 +97,7 @@ export default {
 </script>
 
 <template>
-    <n-layout :class="(isFullscreen ? 'fullscreen' : 'normal')" has-sider sider-placement="right">
+    <n-layout :class="(isFullscreen ? 'fullscreen' : 'normal')" has-sider sider-placement="right" style="height: 100%; background-color: inherit;" :native-scrollbar="false">
         <n-layout-content
             style="height: 100%; background-color: inherit;"
             :native-scrollbar="false"

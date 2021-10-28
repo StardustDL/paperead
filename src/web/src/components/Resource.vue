@@ -33,18 +33,3 @@ onMounted(apply);
 watch(props, apply);
 onBeforeUnmount(reset);
 </script>
-
-<template>
-  <div class="reveal" ref="element">
-    <div class="slides">
-      <section
-        data-markdown
-        data-separator="^\r?\n===\r?\n$"
-        data-separator-vertical="^\r?\n---\r?\n$"
-        data-separator-notes="notes?:"
-      >
-        <textarea data-template>{{ data.content }}</textarea>
-      </section>
-    </div>
-  </div>
-</template>

@@ -2,6 +2,8 @@
 import { Document } from '../models'
 import MarkdownSchema from './markdown/MarkdownSchema.vue'
 import SlidesSchema from './slides/SlidesSchema.vue'
+import MediaSchema from './media/media/MediaSchema.vue';
+import ImageSchema from './media/image/ImageSchema.vue';
 
 const props = defineProps<{
     data: Document,
@@ -11,5 +13,7 @@ const props = defineProps<{
 <template>
     <span v-if="data.metadata.schema == 'empty'">Empty data</span>
     <SlidesSchema v-else-if="data.metadata.schema == 'slides'" :data="data"/>
+    <MediaSchema v-else-if="data.metadata.schema == 'media'" :data="data"/>
+    <ImageSchema v-else-if="data.metadata.schema == 'image'" :data="data"/>
     <MarkdownSchema v-else :data="data" />
 </template>

@@ -25,6 +25,8 @@ schema: 'slides'
 
 ## Usage
 
+Set `schema` to `slides`.
+
 All you need to know is markdown
 
 with three additional rules

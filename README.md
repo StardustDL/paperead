@@ -20,6 +20,7 @@
   - Lists and tables
   - Graphs
   - Slides powered by reveal.js
+- Image, audio, and video pages.
 - Builtin web server
   - Basic authentication
   - Readonly mode

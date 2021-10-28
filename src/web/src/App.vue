@@ -5,7 +5,7 @@ import Layout from './pages/Layout.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from './services/store'
 import { NGlobalStyle, NConfigProvider, NSpin, NMessageProvider, useOsTheme, darkTheme } from 'naive-ui'
-import { zhCN, enUS, jaJP, ruRU, ukUA, dateEnUS, dateJaJP, dateRuRU, dateUkUA, dateZhCN } from 'naive-ui'
+import { zhCN, enUS, jaJP, ruRU, ukUA, idID, dateEnUS, dateJaJP, dateRuRU, dateUkUA, dateZhCN, dateIdID } from 'naive-ui'
 import { watch, computed } from 'vue';
 
 const route = useRoute();
@@ -60,6 +60,12 @@ const language = computed(() => {
     return {
       lang: jaJP,
       date: dateJaJP,
+    };
+  }
+  if (lang.indexOf("id") != -1) {
+    return {
+      lang: idID,
+      date: dateIdID,
     };
   }
   return {
