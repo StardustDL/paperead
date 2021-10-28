@@ -6,7 +6,6 @@ import { store, key } from './services/store'
 import App from './App.vue'
 import Home from './pages/Home.vue'
 import NotFound from './pages/NotFound.vue'
-import MaterialIndex from './pages/materials/Index.vue'
 import MaterialView from './pages/materials/View.vue'
 import NoteView from './pages/notes/View.vue'
 
@@ -19,24 +18,17 @@ const routes = [
         }
     },
     {
-        path: '/materials',
-        component: MaterialIndex,
-        meta: {
-            title: 'Materials - Paperead'
-        }
-    },
-    {
-        path: '/materials/:id',
+        path: '/:id',
         component: MaterialView,
         meta: {
-            title: 'Loading... - Materials - Paperead'
+            title: 'Loading... - Paperead'
         }
     },
     {
-        path: '/materials/:id/:noteId',
+        path: '/:id/:noteId',
         component: NoteView,
         meta: {
-            title: 'Loading... - Loading... - Materials - Paperead'
+            title: 'Loading... - Loading... - Paperead'
         }
     },
     {

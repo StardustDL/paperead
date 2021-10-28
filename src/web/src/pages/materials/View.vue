@@ -8,7 +8,6 @@ import { useStore } from '../../services/store'
 import MetadataViewer from '../../components/metadata/MetadataViewer.vue'
 import MetadataDetailViewer from '../../components/metadata/MetadataDetailViewer.vue'
 import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.vue'
-import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
 import MaterialBreadcrumbItem from '../../components/breadcrumbs/MaterialBreadcrumbItem.vue'
 import SchemaSwitcher from '../../schemas/SchemaSwitcher.vue'
 import NoteIndex from '../notes/NoteIndex.vue'
@@ -21,7 +20,7 @@ const params = <{
 }>route.params;
 
 const data = await store.state.api.materials.get(params.id);
-document.title = `${data.metadata.name} - Materials - Paperead`;
+document.title = `${data.metadata.name} - Paperead`;
 </script>
 
 <script lang="ts">
@@ -41,7 +40,6 @@ export default {
                 <template #header>
                     <n-breadcrumb>
                         <HomeBreadcrumbItem />
-                        <MaterialsBreadcrumbItem />
                         <MaterialBreadcrumbItem :id="data.id" />
                     </n-breadcrumb>
                 </template>
@@ -72,7 +70,7 @@ export default {
                         </template>
                     </suspense>
                 </n-tab-pane>
-                <n-tab-pane name="notes" tab="Notes">
+                <n-tab-pane name="notes" tab="Notes" style="height: calc(100% - 52px);">
                     <NoteIndex :id="params.id"></NoteIndex>
                 </n-tab-pane>
             </n-tabs>

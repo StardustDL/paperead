@@ -1,24 +1,12 @@
 <script setup lang="ts">
 import { NLayoutContent } from 'naive-ui'
-import { NotesIcon } from '../../components/icons'
-import NoteItem from '../../components/NoteItem.vue'
+import MaterialItem from '../../components/MaterialItem.vue'
 import { useStore } from '../../services/store'
 import PaginationList from '../../components/PaginationList.vue'
 
 const store = useStore();
-const props = defineProps<{
-    id: string
-}>();
 
-const items = await store.state.api.materials.notes(props.id).all();
-</script>
-
-<script lang="ts">
-export default {
-    components: {
-        NotesIcon,
-    }
-}
+const items = await store.state.api.materials.all();
 </script>
 
 <template>
@@ -29,7 +17,7 @@ export default {
     >
         <PaginationList :items="items">
             <template v-slot:default="slotProps">
-                <NoteItem :id="id" :noteId="slotProps.item"></NoteItem>
+                <MaterialItem :id="slotProps.item"></MaterialItem>
             </template>
         </PaginationList>
     </n-layout-content>

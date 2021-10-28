@@ -20,7 +20,7 @@ export default {
 
 <template>
     <n-breadcrumb-item>
-        <router-link :to="`/materials/${id}`">
+        <router-link :to="`/${id}`">
             <n-icon>
                 <MaterialIcon />
             </n-icon>

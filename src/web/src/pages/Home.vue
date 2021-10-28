@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { NPageHeader, NSpace, NText, NBreadcrumb, NIcon, NLayoutContent, NAvatar, NStatistic, NCard, NButton, useOsTheme } from 'naive-ui'
+import { NPageHeader, NSpace, NText, NBreadcrumb, NIcon, NLayoutContent, NAvatar, NStatistic, NTabs, NTabPane, NCard, NButton, useOsTheme } from 'naive-ui'
 import { Notebook } from '@vicons/tabler'
 import { MaterialsIcon, EnableReaderIcon, DisableReaderIcon } from '../components/icons'
 import PageLayout from '../components/PageLayout.vue'
@@ -8,6 +8,7 @@ import ProjectStatus from '../components/ProjectStatus.vue'
 import { useRouter } from 'vue-router'
 import HomeBreadcrumbItem from '../components/breadcrumbs/HomeBreadcrumbItem.vue'
 import { useStore } from '../services/store'
+import MaterialIndex from './materials/MaterialIndex.vue'
 
 const store = useStore();
 const router = useRouter();
@@ -54,62 +55,59 @@ export default {
                     </n-breadcrumb>
                 </template>
                 <template #extra>
-                    <n-space>
-                        <n-button
-                            size="large"
-                            :bordered="false"
-                            @click="router.push(`/materials`)"
-                            title="Materials"
-                        >
-                            <template #icon>
-                                <n-icon>
-                                    <MaterialsIcon />
-                                </n-icon>
-                            </template>
-                        </n-button>
-                        <n-button
-                            size="large"
-                            :bordered="false"
-                            title="Reader mode"
-                            @click="() => reader(!isReader)"
-                        >
-                            <template #icon>
-                                <n-icon>
-                                    <DisableReaderIcon v-if="isReader" />
-                                    <EnableReaderIcon v-else />
-                                </n-icon>
-                            </template>
-                        </n-button>
-                    </n-space>
+                    <n-button
+                        size="large"
+                        :bordered="false"
+                        title="Reader mode"
+                        @click="() => reader(!isReader)"
+                    >
+                        <template #icon>
+                            <n-icon>
+                                <DisableReaderIcon v-if="isReader" />
+                                <EnableReaderIcon v-else />
+                            </n-icon>
+                        </template>
+                    </n-button>
                 </template>
                 <template #footer>Welcome to Paperead.</template>
             </n-page-header>
         </template>
-        <n-layout-content content-style="padding: 10px;">
-            <n-space vertical size="large">
-                <n-card title="Server Information" hoverable embedded>
-                    <n-space size="large">
-                        <n-statistic label="Server Endpoint">
-                            <a :href="store.state.api.baseUrl">{{ store.state.api.baseUrl }}</a>
-                        </n-statistic>
-                        <n-statistic label="Server Version">
-                            <a
-                                :href="`https://github.com/StardustDL/paperead/releases/tag/v${apiMetadata.version}`"
-                            >{{ apiMetadata.version }}</a>
-                        </n-statistic>
-                        <n-statistic label="Client Version">
-                            <a
-                                :href="`https://github.com/StardustDL/paperead/releases/tag/v${version}`"
-                            >{{ version }}</a>
-                        </n-statistic>
-                    </n-space>
-                </n-card>
-                <n-card title="Paperead Information" hoverable embedded>
-                    <suspense>
-                        <ProjectStatus />
-                    </suspense>
-                </n-card>
-            </n-space>
+        <n-layout-content style="height: 100%;">
+            <n-tabs type="segment" style="height: 100%;">
+                <n-tab-pane name="info" tab="Information" style="height: calc(100% - 52px);">
+                    <n-layout-content content-style="padding: 10px;" style="height: 100%;" :native-scrollbar="false">
+                        <n-space vertical size="large">
+                            <n-card title="Server" hoverable embedded>
+                                <n-space size="large">
+                                    <n-statistic label="Server Endpoint">
+                                        <a
+                                            :href="store.state.api.baseUrl"
+                                        >{{ store.state.api.baseUrl }}</a>
+                                    </n-statistic>
+                                    <n-statistic label="Server Version">
+                                        <a
+                                            :href="`https://github.com/StardustDL/paperead/releases/tag/v${apiMetadata.version}`"
+                                        >{{ apiMetadata.version }}</a>
+                                    </n-statistic>
+                                    <n-statistic label="Client Version">
+                                        <a
+                                            :href="`https://github.com/StardustDL/paperead/releases/tag/v${version}`"
+                                        >{{ version }}</a>
+                                    </n-statistic>
+                                </n-space>
+                            </n-card>
+                            <n-card title="Paperead" hoverable embedded>
+                                <suspense>
+                                    <ProjectStatus />
+                                </suspense>
+                            </n-card>
+                        </n-space>
+                    </n-layout-content>
+                </n-tab-pane>
+                <n-tab-pane name="materials" tab="Materials" style="height: calc(100% - 52px);">
+                    <MaterialIndex></MaterialIndex>
+                </n-tab-pane>
+            </n-tabs>
         </n-layout-content>
     </PageLayout>
 </template>
