@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NPageHeader, NSpace, NBreadcrumb, NIcon, NSkeleton, NLayoutContent, NAvatar, NButton } from 'naive-ui'
+import { NPageHeader, NSpace, NBreadcrumb, NIcon, NSkeleton, NLayoutContent, NAvatar, NButton, NTabs, NTabPane } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
 import { MaterialIcon, NotesIcon } from '../../components/icons'
 import PageLayout from '../../components/PageLayout.vue'
@@ -11,6 +11,7 @@ import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.
 import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
 import MaterialBreadcrumbItem from '../../components/breadcrumbs/MaterialBreadcrumbItem.vue'
 import SchemaSwitcher from '../../schemas/SchemaSwitcher.vue'
+import NoteIndex from '../notes/NoteIndex.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -20,7 +21,6 @@ const params = <{
 }>route.params;
 
 const data = await store.state.api.materials.get(params.id);
-
 document.title = `${data.metadata.name} - Materials - Paperead`;
 </script>
 
@@ -53,21 +53,7 @@ export default {
                     </n-avatar>
                 </template>
                 <template #extra>
-                    <n-space>
-                        <n-button
-                            size="large"
-                            :bordered="false"
-                            @click="router.push(`/materials/${data.id}/notes`)"
-                            title="Notes"
-                        >
-                            <template #icon>
-                                <n-icon>
-                                    <NotesIcon />
-                                </n-icon>
-                            </template>
-                        </n-button>
-                        <MetadataDetailViewer :data="data" />
-                    </n-space>
+                    <MetadataDetailViewer :data="data" />
                 </template>
                 <template #footer>
                     <MetadataViewer :data="data.metadata" />
@@ -75,14 +61,21 @@ export default {
             </n-page-header>
         </template>
         <n-layout-content style="height: 100%;">
-            <suspense>
-                <template #default>
-                    <SchemaSwitcher :data="data" />
-                </template>
-                <template #fallback>
-                    <n-skeleton text :repeat="10" />
-                </template>
-            </suspense>
+            <n-tabs type="segment" style="height: 100%;">
+                <n-tab-pane name="description" tab="Description" style="height: calc(100% - 52px);">
+                    <suspense>
+                        <template #default>
+                            <SchemaSwitcher :data="data" />
+                        </template>
+                        <template #fallback>
+                            <n-skeleton text :repeat="10" />
+                        </template>
+                    </suspense>
+                </n-tab-pane>
+                <n-tab-pane name="notes" tab="Notes">
+                    <NoteIndex :id="params.id"></NoteIndex>
+                </n-tab-pane>
+            </n-tabs>
         </n-layout-content>
     </PageLayout>
 </template>

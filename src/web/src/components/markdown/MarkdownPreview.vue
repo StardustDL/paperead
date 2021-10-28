@@ -97,9 +97,9 @@ export default {
 </script>
 
 <template>
-    <n-layout :class="(isFullscreen ? 'fullscreen' : 'normal')" has-sider sider-placement="right" style="height: 100%; background-color: inherit;" :native-scrollbar="false">
+    <n-layout :class="(isFullscreen ? 'fullscreen' : 'normal')" has-sider sider-placement="right" style="height: 100%; ">
         <n-layout-content
-            style="height: 100%; background-color: inherit;"
+            style="height: 100%;"
             :native-scrollbar="false"
         >
             <article ref="element" style="padding-bottom: 200px;"></article>
@@ -109,7 +109,7 @@ export default {
             ></n-back-top>
         </n-layout-content>
         <n-layout-sider
-            style="height: 100%; background-color: inherit;"
+            style="height: 100%;"
             collapse-mode="width"
             :collapsed-width="0"
             :width="200"

@@ -1,4 +1,3 @@
-// @ts-ignore
 import marked from 'marked'
 import { Document } from '../../models';
 import { isRelativeUrl } from '../../helpers';
@@ -13,7 +12,7 @@ export class Media {
         this.url = url;
         this.title = title;
         this.description = description;
-        this.renderedDescription = marked(this.description);
+        this.renderedDescription = description;
     }
 }
 
@@ -59,7 +58,14 @@ export function parse(data: Document) {
                 index++;
             }
 
-            results.push(new Media(title, url, description));
+            let media = new Media(title, url, description);
+            media.renderedDescription = marked(media.description, {
+                baseUrl: data.dataUrl,
+                headerIds: false,
+                smartLists: true,
+                smartypants: true,
+            })
+            results.push(media);
         }
     }
 

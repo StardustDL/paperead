@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
-// @ts-ignore
-import DPlayer from 'dplayer'
+import DPlayer, { DPlayerDanmaku } from 'dplayer'
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { isRelativeUrl } from '../../../helpers'
 import { Document } from '../../../models'
@@ -32,9 +30,9 @@ function loadVideo() {
 
   let current = media.value[currentIndex.value];
 
-  dplayer.value.switchVideo({
-    url: current.url
-  });
+  dplayer.value!.switchVideo({
+    url: current.url,
+  }, undefined as unknown as DPlayerDanmaku);
 }
 
 function onClickVideo(names: string[]) {
@@ -45,8 +43,10 @@ function onClickVideo(names: string[]) {
 
 onMounted(() => {
   dplayer.value = new DPlayer({
-    container: container.value,
-    video: {}
+    container: container.value!,
+    video: {
+      url: ""
+    },
   });
   media.value = parse(props.data);
 });
@@ -59,7 +59,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <n-layout has-sider sider-placement="right" style="height: 100%;" :native-scrollbar="false">
+  <n-layout has-sider sider-placement="right" style="height: 100%;">
     <n-layout-content style="height: 100%;" :native-scrollbar="false">
       <div ref="container"></div>
     </n-layout-content>

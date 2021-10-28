@@ -8,7 +8,6 @@ import Home from './pages/Home.vue'
 import NotFound from './pages/NotFound.vue'
 import MaterialIndex from './pages/materials/Index.vue'
 import MaterialView from './pages/materials/View.vue'
-import NoteIndex from './pages/notes/Index.vue'
 import NoteView from './pages/notes/View.vue'
 
 const routes = [
@@ -34,17 +33,10 @@ const routes = [
         }
     },
     {
-        path: '/materials/:id/notes',
-        component: NoteIndex,
-        meta: {
-            title: 'Notes - Loading... - Materials - Paperead'
-        }
-    },
-    {
-        path: '/materials/:id/notes/:noteId',
+        path: '/materials/:id/:noteId',
         component: NoteView,
         meta: {
-            title: 'Loading... - Notes - Loading... - Materials - Paperead'
+            title: 'Loading... - Loading... - Materials - Paperead'
         }
     },
     {

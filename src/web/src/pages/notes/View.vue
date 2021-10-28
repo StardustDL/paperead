@@ -11,7 +11,6 @@ import MetadataDetailViewer from '../../components/metadata/MetadataDetailViewer
 import HomeBreadcrumbItem from '../../components/breadcrumbs/HomeBreadcrumbItem.vue'
 import MaterialsBreadcrumbItem from '../../components/breadcrumbs/MaterialsBreadcrumbItem.vue'
 import MaterialBreadcrumbItem from '../../components/breadcrumbs/MaterialBreadcrumbItem.vue'
-import NotesBreadcrumbItem from '../../components/breadcrumbs/NotesBreadcrumbItem.vue'
 import NoteBreadcrumbItem from '../../components/breadcrumbs/NoteBreadcrumbItem.vue'
 import SchemaSwitcher from '../../schemas/SchemaSwitcher.vue'
 
@@ -27,7 +26,7 @@ const data = await store.state.api.materials.notes(params.id).get(params.noteId)
 
 const material = await store.state.api.materials.get(params.id);
 
-document.title = `${data.metadata.name} - Notes - ${material.metadata.name} - Materials - Paperead`;
+document.title = `${data.metadata.name} - ${material.metadata.name} - Materials - Paperead`;
 </script>
 
 <script lang="ts">
@@ -48,7 +47,6 @@ export default {
                         <HomeBreadcrumbItem />
                         <MaterialsBreadcrumbItem />
                         <MaterialBreadcrumbItem :id="params.id" />
-                        <NotesBreadcrumbItem :id="params.id" />
                         <NoteBreadcrumbItem :id="params.id" :note-id="data.id" />
                     </n-breadcrumb>
                 </template>

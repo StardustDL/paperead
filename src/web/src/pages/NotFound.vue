@@ -11,6 +11,8 @@ const params = <{
     path: string[]
 }>route.params;
 
+console.log("NotFound")
+
 </script>
 
 <script lang="ts">
@@ -23,7 +25,7 @@ export default {
 </script>
 
 <template>
-    <n-result :status="'404'" title="Not Found" :description="`Path: /${params.path.join('/')}`">
+    <n-result :status="'404'" title="Not Found" :description="`Path: /${params.path.join('/')}`" style="margin: 50px;">
         <template #footer>
             <n-button>
                 <template #icon>
