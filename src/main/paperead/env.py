@@ -10,6 +10,13 @@ DEFAULT_BUILD_HOST = "empty"
 
 
 @dataclass
+class SiteConfig:
+    title: str = ""
+    subtitle: str = ""
+    description: str = ""
+
+
+@dataclass
 class ServerConfig:
     port: int = DEFAULT_SERVER_PORT
     auth: str = ""
@@ -33,6 +40,7 @@ class Environment:
         self.configPath = self.path.joinpath(".paperead.yml")
         self.serverConfig = ServerConfig()
         self.buildConfig = BuildConfig()
+        self.siteConfig = SiteConfig()
 
         if self.configPath.exists() and self.configPath.is_file():
             text = self.configPath.read_text(encoding="utf-8")
@@ -42,11 +50,14 @@ class Environment:
                 self.serverConfig = ServerConfig(**raw["server"])
             if "build" in raw:
                 self.buildConfig = BuildConfig(**raw["build"])
+            if "site" in raw:
+                self.siteConfig = SiteConfig(**raw["site"])
 
     def generateConfigFile(self):
         self.configPath.write_text(yaml.safe_dump({
             "server": asdict(ServerConfig()),
-            "build": asdict(BuildConfig())
+            "build": asdict(BuildConfig()),
+            "site": asdict(SiteConfig())
         }))
 
 

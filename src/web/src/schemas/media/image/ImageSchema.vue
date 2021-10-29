@@ -2,7 +2,7 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { Document } from '../../../models'
 import { ExternalLink } from '@vicons/tabler'
-import { useOsTheme, NLayoutContent, NImage, NCard, NSpace, NButton, NIcon } from 'naive-ui'
+import { useOsTheme, NLayoutContent, NImage, NCard, NSpace, NButton, NIcon, NBackTop } from 'naive-ui'
 import { parse, Media } from '../media'
 
 const osThemeRef = useOsTheme();
@@ -80,5 +80,6 @@ export default {
         <div v-html="item.renderedDescription"></div>
       </n-card>
     </n-space>
+    <n-back-top right="100"></n-back-top>
   </n-layout-content>
 </template>

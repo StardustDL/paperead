@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-    <n-space>
+    <n-space size="small">
         <n-icon size="large">
             <tag />
         </n-icon>

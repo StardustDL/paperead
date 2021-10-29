@@ -12,6 +12,11 @@ extra: {}
 `.paperead.yml` under the data directory contains configuration. If it is not existed, default configuration will be used.
 
 ```yml
+site:
+  subtitle: ''
+  title: ''
+  description: ''
+
 server:
   # Port to serve
   port: 3649

@@ -20,7 +20,7 @@ export default {
 <template>
     <n-tooltip>
         <template #trigger>
-            <n-space>
+            <n-space size="small">
                 <n-icon size="large">
                     <clock />
                 </n-icon>

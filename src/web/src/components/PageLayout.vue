@@ -21,7 +21,7 @@ const scroll = computed(() => props.scroll ?? false);
         <n-layout-header bordered class="page-header">
             <slot name="header"></slot>
         </n-layout-header>
-        <n-layout-content class="page-content-scroll">
+        <n-layout-content class="page-content-scroll" content-style="height: 100%;" :native-scrollbar="false">
             <slot name="default"></slot>
         </n-layout-content>
     </n-layout>

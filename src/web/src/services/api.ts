@@ -15,4 +15,9 @@ export class Api {
         let results = await fetch(`${this.baseUrl}/index.json`);
         return <ApiMetadata>(await results.json());
     }
+
+    async title() {
+        let result = (await this.metadata()).site.title;
+        return result == "" ? "Paperead" : result;
+    }
 }

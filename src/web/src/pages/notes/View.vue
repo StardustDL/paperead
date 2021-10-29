@@ -25,7 +25,7 @@ const data = await store.state.api.materials.notes(params.id).get(params.noteId)
 
 const material = await store.state.api.materials.get(params.id);
 
-document.title = `${data.metadata.name} - ${material.metadata.name} - Paperead`;
+document.title = `${data.metadata.name} - ${material.metadata.name} - ${await store.state.api.title()}`;
 </script>
 
 <script lang="ts">
@@ -59,7 +59,7 @@ export default {
                     <MetadataDetailViewer :data="data" />
                 </template>
                 <template #footer>
-                    <MetadataViewer :data="data.metadata" />
+                    <MetadataViewer :data="data" />
                 </template>
             </n-page-header>
         </template>

@@ -4,6 +4,25 @@ export function isRelativeUrl(url: string) {
     return url?.startsWith("./") || url?.startsWith("../") || url == "." || url == "..";
 }
 
+
+function counter(content: string) {
+    const cn = (content.match(/[\u4E00-\u9FA5]/g) || []).length;
+    const en = (content.replace(/[\u4E00-\u9FA5]/g, '').match(/[a-zA-Z0-9_\u0392-\u03c9\u0400-\u04FF]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af\u0400-\u04FF]+|[\u00E4\u00C4\u00E5\u00C5\u00F6\u00D6]+|\w+/g) || []).length;
+    return [cn, en];
+};
+
+export function min2read(content: string, { cn = 300, en = 160 } = {}) {
+    var len = counter(content);
+    var readingTime = len[0] / cn + len[1] / en;
+    return readingTime;
+};
+
+export function wordcount(content: string) {
+    var len = counter(content);
+    var count = len[0] + len[1];
+    return count;
+};
+
 function htmlEscapeToText(text: string) {
 
     return text.replace(/\&\#[0-9]*;|&amp;/g, function (escapeCode: string) {

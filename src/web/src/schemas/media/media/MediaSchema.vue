@@ -41,7 +41,7 @@ function loadVideo(play: boolean = false) {
   }
 }
 
-function onClickVideo(names: string[]) {
+function onClickItem(names: string[]) {
   if (names.length == 0)
     return;
   currentIndex.value = parseInt(names[0]);
@@ -88,7 +88,7 @@ export default {
 
 <template>
   <n-layout has-sider sider-placement="right" style="height: 100%;">
-    <n-layout-content style="height: 100%;" :native-scrollbar="false">
+    <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
       <div ref="container"></div>
     </n-layout-content>
     <n-layout-sider
@@ -109,7 +109,7 @@ export default {
           :accordion="true"
           arrow-placement="right"
           :expanded-names="currentIndex.toString()"
-          @update-expanded-names="onClickVideo"
+          @update-expanded-names="onClickItem"
         >
           <n-collapse-item
             v-for="(item, index) in media"

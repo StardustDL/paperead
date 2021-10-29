@@ -1,2 +1,7 @@
+site:
+  subtitle: 'Documents'
+  title: 'Paperead'
+  description: "Welcome to Paperead's Documents."
+
 build:
   host: netlify

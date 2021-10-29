@@ -36,7 +36,7 @@ watch(props, loadData);
             v-if="data.content.length > 0"
         >{{ renderToPlainText(data.content) }}</n-ellipsis>
         <template #action>
-            <MetadataViewer :data="data.metadata" />
+            <MetadataViewer :data="data" />
         </template>
     </n-card>
 </template>

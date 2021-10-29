@@ -19,12 +19,6 @@ const menuOptions = [
         icon: renderIcon(Home),
         route: "/"
     },
-    {
-        label: "Materials",
-        key: "materials",
-        icon: renderIcon(Files),
-        route: "/materials"
-    },
 ];
 
 async function onMenuClick(key: string, item: any) {

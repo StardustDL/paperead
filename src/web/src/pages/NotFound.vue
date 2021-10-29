@@ -5,13 +5,14 @@ import { HomeIcon } from '../components/icons'
 import { RouterLink, useRoute } from 'vue-router'
 import { useStore } from '../services/store'
 
+const store = useStore();
 const route = useRoute();
 
 const params = <{
     path: string[]
 }>route.params;
 
-console.log("NotFound")
+document.title = `Not Found - ${await store.state.api.title()}`;
 
 </script>
 

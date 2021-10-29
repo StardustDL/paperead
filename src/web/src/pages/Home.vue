@@ -23,6 +23,10 @@ function reader(enable: boolean = true) {
 
 const version = import.meta.env.PACKAGE_VERSION;
 const apiMetadata = await store.state.api.metadata();
+const subtitle = apiMetadata.site.subtitle != '' ? apiMetadata.site.subtitle : "阅读与笔记";
+const description = apiMetadata.site.description != '' ? apiMetadata.site.description : `Welcome to ${await store.state.api.title()}.`;
+
+document.title = await store.state.api.title();
 </script>
 
 <script lang="ts">
@@ -37,7 +41,7 @@ export default {
 <template>
     <PageLayout>
         <template #header>
-            <n-page-header subtitle="阅读与笔记" @back="() => router.back()">
+            <n-page-header :subtitle="subtitle" @back="() => router.back()">
                 <template #avatar>
                     <n-avatar>
                         <n-icon>
@@ -46,8 +50,11 @@ export default {
                     </n-avatar>
                 </template>
                 <template #title>
-                    <n-text type="info">Reading</n-text>&nbsp;and
-                    <n-text type="success">Notes</n-text>
+                    <span v-if="apiMetadata.site.title == ''">
+                        <n-text type="info">Reading</n-text>&nbsp;and
+                        <n-text type="success">Notes</n-text>
+                    </span>
+                    <span v-else>{{ apiMetadata.site.title }}</span>
                 </template>
                 <template #header>
                     <n-breadcrumb>
@@ -69,46 +76,52 @@ export default {
                         </template>
                     </n-button>
                 </template>
-                <template #footer>Welcome to Paperead.</template>
+                <template #footer>{{ description }}</template>
             </n-page-header>
         </template>
-        <n-layout-content style="height: 100%;">
-            <n-tabs type="segment" style="height: 100%;">
-                <n-tab-pane name="info" tab="Information" style="height: calc(100% - 52px);">
-                    <n-layout-content content-style="padding: 10px;" style="height: 100%;" :native-scrollbar="false">
-                        <n-space vertical size="large">
-                            <n-card title="Server" hoverable embedded>
-                                <n-space size="large">
-                                    <n-statistic label="Server Endpoint">
-                                        <a
-                                            :href="store.state.api.baseUrl"
-                                        >{{ store.state.api.baseUrl }}</a>
-                                    </n-statistic>
-                                    <n-statistic label="Server Version">
-                                        <a
-                                            :href="`https://github.com/StardustDL/paperead/releases/tag/v${apiMetadata.version}`"
-                                        >{{ apiMetadata.version }}</a>
-                                    </n-statistic>
-                                    <n-statistic label="Client Version">
-                                        <a
-                                            :href="`https://github.com/StardustDL/paperead/releases/tag/v${version}`"
-                                        >{{ version }}</a>
-                                    </n-statistic>
-                                </n-space>
-                            </n-card>
-                            <n-card title="Paperead" hoverable embedded>
-                                <suspense>
-                                    <ProjectStatus />
-                                </suspense>
-                            </n-card>
-                        </n-space>
-                    </n-layout-content>
-                </n-tab-pane>
-                <n-tab-pane name="materials" tab="Materials" style="height: calc(100% - 52px);">
+        <n-tabs type="segment" style="height: 100%;">
+            <n-tab-pane name="info" tab="Information" style="height: calc(100% - 52px);">
+                <n-layout-content
+                    content-style="padding: 10px;"
+                    style="height: 100%;"
+                    :native-scrollbar="false"
+                >
+                    <n-space vertical size="large">
+                        <n-card title="Server" hoverable embedded>
+                            <n-space size="large">
+                                <n-statistic label="Server Endpoint">
+                                    <a :href="store.state.api.baseUrl">{{ store.state.api.baseUrl }}</a>
+                                </n-statistic>
+                                <n-statistic label="Server Version">
+                                    <a
+                                        :href="`https://github.com/StardustDL/paperead/releases/tag/v${apiMetadata.version}`"
+                                    >{{ apiMetadata.version }}</a>
+                                </n-statistic>
+                                <n-statistic label="Client Version">
+                                    <a
+                                        :href="`https://github.com/StardustDL/paperead/releases/tag/v${version}`"
+                                    >{{ version }}</a>
+                                </n-statistic>
+                            </n-space>
+                        </n-card>
+                        <n-card title="Paperead" hoverable embedded>
+                            <suspense>
+                                <ProjectStatus />
+                            </suspense>
+                        </n-card>
+                    </n-space>
+                </n-layout-content>
+            </n-tab-pane>
+            <n-tab-pane name="materials" tab="Materials" style="height: calc(100% - 52px);">
+                <n-layout-content
+                    content-style="padding: 10px;"
+                    style="height: 100%;"
+                    :native-scrollbar="false"
+                >
                     <MaterialIndex></MaterialIndex>
-                </n-tab-pane>
-            </n-tabs>
-        </n-layout-content>
+                </n-layout-content>
+            </n-tab-pane>
+        </n-tabs>
     </PageLayout>
 </template>
 

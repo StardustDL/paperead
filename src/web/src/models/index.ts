@@ -34,4 +34,9 @@ export interface Document {
 
 export interface ApiMetadata {
     version: string;
+    site: {
+        title: string;
+        subtitle: string;
+        description: string;
+    }
 }

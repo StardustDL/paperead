@@ -10,15 +10,9 @@ const items = await store.state.api.materials.all();
 </script>
 
 <template>
-    <n-layout-content
-        content-style="padding: 10px;"
-        :native-scrollbar="false"
-        style="height: 100%;"
-    >
-        <PaginationList :items="items">
-            <template v-slot:default="slotProps">
-                <MaterialItem :id="slotProps.item"></MaterialItem>
-            </template>
-        </PaginationList>
-    </n-layout-content>
+    <PaginationList :items="items">
+        <template v-slot:default="slotProps">
+            <MaterialItem :id="slotProps.item"></MaterialItem>
+        </template>
+    </PaginationList>
 </template>
