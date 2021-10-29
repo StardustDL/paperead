@@ -26,7 +26,7 @@ const apiMetadata = await store.state.api.metadata();
 const subtitle = apiMetadata.site.subtitle != '' ? apiMetadata.site.subtitle : "阅读与笔记";
 const description = apiMetadata.site.description != '' ? apiMetadata.site.description : `Welcome to ${await store.state.api.title()}.`;
 
-document.title = await store.state.api.title();
+document.title = `Home - ${await store.state.api.title()}`;
 </script>
 
 <script lang="ts">

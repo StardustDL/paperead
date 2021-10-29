@@ -44,11 +44,11 @@ a {
 
 @media screen and (max-width: 960px) {
     .page-header {
-        height: 160px;
+        height: 150px;
     }
 
     .page-content-scroll {
-        height: calc(100% - 160px);
+        height: calc(100% - 150px);
     }
 }
 </style>
