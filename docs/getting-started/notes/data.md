@@ -43,6 +43,12 @@ extra:
 ---
 
 Description in Markdown.
+
+[Link to other material](/<meterialId>)
+
+[Link to other note](/<materialId>/<nodeId>)
+
+[Link to assets](./assets/something)
 ```
 
 - Do **NOT** use space in material ID.
@@ -64,4 +70,4 @@ Possible values for `schema`:
 ## Assets
 
 `<materialId>/assets/` contains all additional files for the material, this will be directly served as static files,
-and all `.md` files for the material can access these files by using `./assets/...` or `../assets/...` (just relative path).
+and all `.md` files for the material can access these files by using `./assets/...` or `../assets/...` (just relative path, **can not** omit `./` or `../`).

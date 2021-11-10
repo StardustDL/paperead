@@ -19,9 +19,12 @@
   - Code highlighting
   - Lists and tables
   - Graphs
+- Rich pages
   - Slides powered by reveal.js
-- Image, audio, and video pages.
-- PDF pages.
+  - Image, audio, and video.
+  - PDF.
+  - Dynamic generated (use Python script).
+  - Raw HTML.
 - Builtin web server
   - Basic authentication
   - Readonly mode
@@ -58,11 +61,13 @@ paperead serve
 # Run backend
 
 cd src/main
+pip install -r requirements.txt
 python -m paperead -D "path/to/dataDir" serve
 # endpoint: http://localhost:3649/api
 
 # Run frontend
 cd src/web
+npm install
 npm run dev
 # endpoint: http://localhost:3000
 ```
