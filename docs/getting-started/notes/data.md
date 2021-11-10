@@ -49,7 +49,10 @@ Description in Markdown.
 
 Possible values for `schema`:
 
-- `slides` Slides powered by Reveal.js
+- Raw HTML text (see [here](/html) for details)
+- Slides powered by Reveal.js (see [here](/slides) for details)
+- Multimedia (see [here](/media) for details)
+- Dynamic generated content (see [here](/dynamic) for details)
 - Otherwise take the contents as a normal Markdown.
 
 ## Notes

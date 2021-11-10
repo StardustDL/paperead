@@ -1,4 +1,4 @@
-import marked from 'marked'
+import { marked } from "marked"
 import { Document } from '../../models';
 import { isRelativeUrl } from '../../helpers';
 

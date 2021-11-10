@@ -9,6 +9,8 @@ from typing import Any, Generic, Iterator, Optional, TypeVar, Dict, List
 import yaml
 from dateutil.tz import tzlocal
 
+from paperead.repository.schema import resolveSchema
+
 from .. import fsutils
 
 
@@ -106,6 +108,9 @@ class DocumentRepository(ABC, Generic[TD]):
             path = self.__documentPath__(key)
             result = self.__document__(
                 key, path.read_text(encoding="utf-8"))
+            resolved = resolveSchema(result.metadata.schema, result.content, path.parent)
+            result.metadata.schema = resolved.schema
+            result.content = resolved.content
             self.__postget__(path, result)
             return result
         else:

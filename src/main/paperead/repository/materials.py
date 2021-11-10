@@ -9,6 +9,8 @@ from typing import Dict, Iterator, List, Optional
 import yaml
 from dateutil.tz import tzlocal
 
+from paperead.repository.schema import resolveSchema
+
 from .. import fsutils
 from . import Document, DocumentMetadata, DocumentRepository
 from .notes import NoteRepository
