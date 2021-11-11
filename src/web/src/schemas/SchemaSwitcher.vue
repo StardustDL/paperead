@@ -2,7 +2,6 @@
 import { Document } from '../models'
 import MarkdownSchema from './markdown/MarkdownSchema.vue'
 import SlidesSchema from './slides/SlidesSchema.vue'
-import MediaSchema from './media/media/MediaSchema.vue';
 import ImageSchema from './media/image/ImageSchema.vue';
 import LinkSchema from './media/link/LinkSchema.vue';
 import HtmlSchema from './html/HtmlSchema.vue';

@@ -72,9 +72,9 @@ export default {
 <template>
   <Resource :css="['https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css']"></Resource>
   <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
-    <n-space vertical style="margin: 10px;">
+    <n-space vertical style="padding: 10px;">
       <div ref="container"></div>
-      <n-thing v-if="current" style="margin: 10px;">
+      <n-thing v-if="current" style="padding: 10px;">
         <template #avatar>
           <n-avatar size="large" :src="current.cover"></n-avatar>
         </template>
