@@ -54,7 +54,7 @@ extra:
 |`raw`|Raw HTML text|[💡](/writing/raw)|[✨](/demo/raw)|
 |`html`|HTML document|[💡](/writing/html)|[✨](/demo/html)|
 |`slides`|Slides|[💡](/writing/slides)|[✨](/demo/slides)|
-|`media`,`image`,`link`|Multimedia|[💡](/writing/media)|[✨](/demo/media-media)[✨](/demo/media-image)[✨](/demo/media-link)|
+|`video`,`audio`,`image`,`link`|Multimedia|[💡](/writing/media)|[✨](/demo/media-video)[✨](/demo/media-audio)[✨](/demo/media-image)[✨](/demo/media-link)|
 |`dynamic:`|Dynamic generated content|[💡](/writing/dynamic)|[✨](/demo/dynamic)|
 |otherwise|Normal Markdown|[💡](/markdown)|[✨](/markdown)|
 

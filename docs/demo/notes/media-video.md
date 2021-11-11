@@ -1,11 +1,11 @@
 ---
-name: Video & Audio
+name: Video
 creation: 2021-10-28 11:33:45.830416+08:00
 modification: 2021-10-28 11:33:45.830416+08:00
 targets: {}
 tags: []
 extra: {}
-schema: 'media'
+schema: 'video'
 ---
 
 # Video 1 720p
@@ -15,6 +15,9 @@ schema: 'media'
 
 Some description for 720p.
 
-# Audio
+# Video 2 720p
 
-[url](https://sample-videos.com/audio/mp3/crowd-cheering.mp3)
+[url](https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4)
+![cover](../assets/logo.svg)
+
+Some description for 720p.

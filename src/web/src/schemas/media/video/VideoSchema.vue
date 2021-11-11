@@ -80,9 +80,9 @@ onBeforeUnmount(() => {
 
 <script lang="ts">
 export default {
-    components: {
-        ExternalLink,
-    }
+  components: {
+    ExternalLink,
+  }
 }
 </script>
 

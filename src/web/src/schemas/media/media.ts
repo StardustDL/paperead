@@ -7,6 +7,8 @@ export class Media {
     url: string = "";
     description: string = "";
     cover: string = "";
+    lrc: string = "";
+    author: string = "";
     renderedDescription: string = "";
 
     constructor(title: string) {
@@ -42,21 +44,34 @@ export function parse(data: Document) {
                     for (let subtoken of token.tokens) {
                         if (subtoken.type == "image" || subtoken.type == "link") {
                             let href = subtoken.href;
+                            let resolvedHref = href;
 
-                            if (isRelativeUrl(href)) {
-                                href = `${data.dataUrl}/${href}`;
+                            if (isRelativeUrl(resolvedHref)) {
+                                resolvedHref = `${data.dataUrl}/${resolvedHref}`;
                             }
 
                             switch (subtoken.text) {
                                 case "url":
                                     if (media.url == "") {
-                                        media.url = href;
+                                        media.url = resolvedHref;
                                         isMetadata = true;
                                     }
                                     break;
                                 case "cover":
                                     if (media.cover == "") {
-                                        media.cover = href;
+                                        media.cover = resolvedHref;
+                                        isMetadata = true;
+                                    }
+                                    break;
+                                case "lrc":
+                                    if (media.lrc == "") {
+                                        media.lrc = resolvedHref;
+                                        isMetadata = true;
+                                    }
+                                    break;
+                                case "author":
+                                    if (media.author == "") {
+                                        media.author = href;
                                         isMetadata = true;
                                     }
                                     break;
