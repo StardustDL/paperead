@@ -22,7 +22,7 @@
 - Rich pages
   - Slides powered by reveal.js
   - Image, audio, and video.
-  - PDF.
+  - PDF and links.
   - Dynamic generated (use Python script).
   - Raw HTML.
 - Builtin web server
@@ -69,5 +69,5 @@ python -m paperead -D "path/to/dataDir" serve
 cd src/web
 npm install
 npm run dev
-# endpoint: http://localhost:3000
+# endpoint: http://localhost:3600
 ```

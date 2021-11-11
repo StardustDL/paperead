@@ -29,37 +29,13 @@ Paperead works in a data directory. The directory's structure is like the follow
 ---
 # Metadata in YAML
 name: Name
-creation: 2021-09-26 09:00:00+00:00
-modification: 2021-09-26 09:00:00+00:00
-schema: ""
-targets:
-  image: "./assets/image.png"
-tags:
-- tag1
-- tag2
-extra:
-  key1: "value1"
-  key2: "value2"
 ---
 
-Description in Markdown.
-
-[Link to other material](/<meterialId>)
-
-[Link to other note](/<materialId>/<nodeId>)
-
-[Link to assets](./assets/something)
+Content.
 ```
 
 - Do **NOT** use space in material ID.
-
-Possible values for `schema`:
-
-- Raw HTML text (see [here](/html) for details)
-- Slides powered by Reveal.js (see [here](/slides) for details)
-- Multimedia (see [here](/media) for details)
-- Dynamic generated content (see [here](/dynamic) for details)
-- Otherwise take the contents as a normal Markdown.
+- See details at [How to write](/writing)
 
 ## Notes
 

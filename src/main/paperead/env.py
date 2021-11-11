@@ -21,6 +21,7 @@ class ServerConfig:
     port: int = DEFAULT_SERVER_PORT
     auth: str = ""
     readonly: bool = False
+    dynamicTimeout: float = 60.0
 
 
 @dataclass

@@ -8,5 +8,8 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000,
     brotliSize: false,
+  },
+  server: {
+    port: 3600
   }
 })

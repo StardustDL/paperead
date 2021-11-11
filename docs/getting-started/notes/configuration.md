@@ -24,6 +24,8 @@ server:
   auth: ""
   # Readonly mode
   readonly: false
+  # Timeout in seconds for dynamic content resolving
+  dynamicTimeout: 60.0
   
 build:
   # Build output directory

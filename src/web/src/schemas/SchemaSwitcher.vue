@@ -4,8 +4,9 @@ import MarkdownSchema from './markdown/MarkdownSchema.vue'
 import SlidesSchema from './slides/SlidesSchema.vue'
 import MediaSchema from './media/media/MediaSchema.vue';
 import ImageSchema from './media/image/ImageSchema.vue';
-import PdfSchema from './media/pdf/PdfSchema.vue';
+import LinkSchema from './media/link/LinkSchema.vue';
 import HtmlSchema from './html/HtmlSchema.vue';
+import RawSchema from './raw/RawSchema.vue';
 
 const props = defineProps<{
     data: Document,
@@ -17,7 +18,8 @@ const props = defineProps<{
     <SlidesSchema v-else-if="data.metadata.schema == 'slides'" :data="data"/>
     <MediaSchema v-else-if="data.metadata.schema == 'media'" :data="data"/>
     <ImageSchema v-else-if="data.metadata.schema == 'image'" :data="data"/>
-    <PdfSchema v-else-if="data.metadata.schema == 'pdf'" :data="data"/>
+    <LinkSchema v-else-if="data.metadata.schema == 'link'" :data="data"/>
     <HtmlSchema v-else-if="data.metadata.schema == 'html'" :data="data"/>
+    <RawSchema v-else-if="data.metadata.schema == 'raw'" :data="data"/>
     <MarkdownSchema v-else :data="data" />
 </template>

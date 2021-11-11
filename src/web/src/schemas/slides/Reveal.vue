@@ -48,6 +48,7 @@ onMounted(() => {
     slideNumber: "c/t",
     hash: true,
     embedded: true,
+    transitionSpeed: "fast",
   });
   deck.initialize();
 });
