@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Document } from '../../../models'
 import { ExternalLink } from '@vicons/tabler'
 import { useOsTheme, NLayoutContent, NImage, NCard, NSpace, NButton, NIcon, NBackTop } from 'naive-ui'
 import { parse, Media } from '../media'
+import Resource from '../../../components/Resource.vue'
 
 const osThemeRef = useOsTheme();
 
@@ -11,38 +12,11 @@ const props = defineProps<{
   data: Document,
 }>();
 
-const container = ref<HTMLDivElement>();
-
 const images = ref<Media[]>([]);
-
-const current = ref<Media>();
-
-const currentIndex = ref(0);
-
-function loadVideo() {
-  if (images.value.length == 0) {
-    current.value = undefined;
-    return;
-  }
-
-  if (currentIndex.value >= images.value.length) {
-    currentIndex.value = images.value.length - 1;
-  }
-
-  current.value = images.value[currentIndex.value];
-}
-
-function onClickVideo(names: string[]) {
-  if (names.length == 0)
-    return;
-  currentIndex.value = parseInt(names[0]);
-}
 
 onMounted(() => {
   images.value = parse(props.data);
 });
-watch(images, loadVideo);
-watch(currentIndex, loadVideo);
 </script>
 
 
@@ -55,6 +29,9 @@ export default {
 </script>
 
 <template>
+  <Resource
+    :css="['https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown.min.css']"
+  ></Resource>
   <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="padding: 20px;">
     <n-space style="justify-content: center;">
       <n-card
@@ -77,7 +54,7 @@ export default {
             </template>
           </n-button>
         </template>
-        <div v-html="item.renderedDescription"></div>
+        <article v-html="item.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
       </n-card>
     </n-space>
     <n-back-top right="100"></n-back-top>

@@ -6,6 +6,7 @@ import { Document } from '../../../models'
 import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NCollapse, NCollapseItem, NButton, NIcon } from 'naive-ui'
 import { ExternalLink } from '@vicons/tabler'
 import { parse, Media } from '../media'
+import Resource from '../../../components/Resource.vue'
 
 const osThemeRef = useOsTheme();
 
@@ -30,16 +31,25 @@ onMounted(() => {
 
 <script lang="ts">
 export default {
-    components: {
-        ExternalLink,
-    }
+  components: {
+    ExternalLink,
+  }
 }
 </script>
 
 <template>
+  <Resource
+    :css="['https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown.min.css']"
+  ></Resource>
   <n-layout has-sider sider-placement="right" style="height: 100%;">
     <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
-      <iframe height="100%" width="100%" v-if="currentIndex < media.length" :src="media[currentIndex].url" style="border:0;"></iframe>
+      <iframe
+        height="100%"
+        width="100%"
+        v-if="currentIndex < media.length"
+        :src="media[currentIndex].url"
+        style="border:0;"
+      ></iframe>
     </n-layout-content>
     <n-layout-sider
       style="height: 100%;"
@@ -75,7 +85,7 @@ export default {
                 </template>
               </n-button>
             </template>
-            <div v-html="item.renderedDescription"></div>
+            <article v-html="item.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
           </n-collapse-item>
         </n-collapse>
       </n-layout-content>

@@ -3,7 +3,7 @@ import os
 import pathlib
 import click
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 
 def get_app_directory():

@@ -48,6 +48,7 @@ onMounted(() => {
   player.value = new APlayer({
     container: container.value!,
     audio: audios,
+    lrcType: 3,
   });
 
   player.value.on("listswitch", (item: { index: number }) => {
@@ -70,6 +71,7 @@ export default {
 </script>
 
 <template>
+  <Resource :css="['https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown.min.css']"></Resource>
   <Resource :css="['https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css']"></Resource>
   <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
     <n-space vertical style="padding: 10px;">
@@ -88,7 +90,7 @@ export default {
             </template>
           </n-button>
         </template>
-        <div v-html="current.renderedDescription"></div>
+        <article v-html="current.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
       </n-thing>
     </n-space>
   </n-layout-content>

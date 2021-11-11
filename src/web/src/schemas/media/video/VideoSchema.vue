@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import DPlayer, { DPlayerDanmaku, DPlayerEvents } from 'dplayer'
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-import { isRelativeUrl } from '../../../helpers'
+import DPlayer, { DPlayerDanmaku } from 'dplayer'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { Document } from '../../../models'
 import { ExternalLink } from '@vicons/tabler'
 import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NCollapse, NCollapseItem, NButton, NIcon } from 'naive-ui'
 import { parse, Media } from '../media'
+import Resource from '../../../components/Resource.vue'
 
 const osThemeRef = useOsTheme();
 
@@ -19,7 +19,7 @@ const media = ref<Media[]>([]);
 
 const currentIndex = ref(0);
 
-const dplayer = ref<DPlayer>();
+const player = ref<DPlayer>();
 
 function loadVideo(play: boolean = false) {
   if (media.value.length == 0)
@@ -31,13 +31,13 @@ function loadVideo(play: boolean = false) {
 
   let current = media.value[currentIndex.value];
 
-  dplayer.value?.switchVideo({
+  player.value?.switchVideo({
     url: current.url,
     pic: current.cover,
   }, undefined as unknown as DPlayerDanmaku);
 
   if (play) {
-    dplayer.value?.play();
+    player.value?.play();
   }
 }
 
@@ -49,31 +49,19 @@ function onClickItem(names: string[]) {
 }
 
 onMounted(() => {
-  dplayer.value = new DPlayer({
+  player.value = new DPlayer({
     container: container.value!,
     screenshot: true,
     video: {
       url: ""
     },
   });
-  dplayer.value.on("ended" as unknown as DPlayerEvents, () => {
-    return;
-    if (media.value.length > 0) {
-      if (currentIndex.value + 1 >= media.value.length) {
-        currentIndex.value = 0;
-      }
-      else {
-        currentIndex.value = currentIndex.value + 1;
-      }
-      loadVideo(true);
-    }
-  });
   media.value = parse(props.data);
   loadVideo();
 });
 onBeforeUnmount(() => {
-  if (dplayer.value != null)
-    dplayer.value.destroy();
+  if (player.value != null)
+    player.value.destroy();
 });
 </script>
 
@@ -87,6 +75,7 @@ export default {
 </script>
 
 <template>
+  <Resource :css="['https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown.min.css']"></Resource>
   <n-layout has-sider sider-placement="right" style="height: 100%;">
     <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
       <div ref="container"></div>
@@ -125,7 +114,7 @@ export default {
                 </template>
               </n-button>
             </template>
-            <div v-html="item.renderedDescription"></div>
+            <article v-html="item.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
           </n-collapse-item>
         </n-collapse>
       </n-layout-content>
