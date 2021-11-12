@@ -68,6 +68,7 @@ python -m paperead -D "path/to/dataDir" serve
 # Run frontend
 cd src/web
 npm install
+npm run restore
 npm run dev
 # endpoint: http://localhost:3600
 ```

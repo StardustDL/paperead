@@ -29,9 +29,7 @@ export default {
 </script>
 
 <template>
-  <Resource
-    :css="['https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown.min.css']"
-  ></Resource>
+  <Resource :css="['/static/css/github-markdown.min.css']"></Resource>
   <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="padding: 20px;">
     <n-space style="justify-content: center;">
       <n-card
@@ -54,7 +52,11 @@ export default {
             </template>
           </n-button>
         </template>
-        <article v-html="item.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
+        <article
+          v-html="item.renderedDescription"
+          class="markdown-body"
+          style="background-color: inherit;"
+        ></article>
       </n-card>
     </n-space>
     <n-back-top right="100"></n-back-top>

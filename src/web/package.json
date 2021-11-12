@@ -1,10 +1,11 @@
 {
   "name": "paperead-web",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "restore": "pwsh -c restore.ps1"
   },
   "dependencies": {
     "aplayer": "^1.10.1",

@@ -38,9 +38,7 @@ export default {
 </script>
 
 <template>
-  <Resource
-    :css="['https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.0.0/github-markdown.min.css']"
-  ></Resource>
+  <Resource :css="['/static/css/github-markdown.min.css']"></Resource>
   <n-layout has-sider sider-placement="right" style="height: 100%;">
     <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
       <iframe
@@ -85,7 +83,11 @@ export default {
                 </template>
               </n-button>
             </template>
-            <article v-html="item.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
+            <article
+              v-html="item.renderedDescription"
+              class="markdown-body"
+              style="background-color: inherit;"
+            ></article>
           </n-collapse-item>
         </n-collapse>
       </n-layout-content>

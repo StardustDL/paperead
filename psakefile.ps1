@@ -4,6 +4,7 @@ Task Restore {
     Exec { python -m pip install --upgrade build twine }
     Set-Location src/web
     Exec { npm ci }
+    Exec { npm run restore }
     Set-Location ../..
 }
 

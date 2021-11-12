@@ -28,12 +28,12 @@ const osThemeRef = useOsTheme();
 const element = ref<HTMLDivElement>();
 
 const whiteTheme = [
-  "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.2/theme/white.min.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github.min.css"
+  "/static/css/reveal-white.min.css",
+  "/static/css/highlight-white.min.css",
 ];
 const darkTheme = [
-  "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.2/theme/black.min.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/monokai.min.css"
+  "/static/css/reveal-black.min.css",
+  "/static/css/highlight-black.min.css",
 ];
 
 onMounted(() => {
