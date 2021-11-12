@@ -10,5 +10,5 @@ mimetypes.add_type("text/css", ".css")
 mimetypes.add_type("text/javascript", ".js")
 mimetypes.add_type("text/javascript", ".mjs")
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="wwwroot/static")
 CORS(app)
