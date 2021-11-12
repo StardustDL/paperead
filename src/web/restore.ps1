@@ -1,3 +1,6 @@
+if(-not (Test-Path ./public/static)){
+    mkdir ./public/static
+}
 if(-not (Test-Path ./public/static/css)){
     mkdir ./public/static/css
 }

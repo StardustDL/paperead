@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "restore": "pwsh -c restore.ps1"
+    "restore": "pwsh -c ./restore.ps1"
   },
   "dependencies": {
     "aplayer": "^1.10.1",
@@ -27,6 +27,6 @@
     "typescript": "^4.4.4",
     "vite": "^2.6.14",
     "vite-plugin-package-version": "^1.0.2",
-    "vue-tsc": "^0.29.3"
+    "vue-tsc": "^0.29.4"
   }
 }
