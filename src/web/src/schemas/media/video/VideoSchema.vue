@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DPlayer, { DPlayerDanmaku } from 'dplayer'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import Artplayer from 'artplayer'
 import { Document } from '../../../models'
 import { ExternalLink } from '@vicons/tabler'
 import { useOsTheme, NLayout, NLayoutContent, NLayoutSider, NCollapse, NCollapseItem, NButton, NIcon } from 'naive-ui'
@@ -19,9 +19,36 @@ const media = ref<Media[]>([]);
 
 const currentIndex = ref(0);
 
-const player = ref<DPlayer>();
+const player = ref<Artplayer>();
 
-function loadVideo(play: boolean = false) {
+const options = computed(() => {
+  if (media.value.length == 0)
+    return;
+
+  if (currentIndex.value >= media.value.length) {
+    currentIndex.value = media.value.length - 1;
+  }
+  let current = media.value[currentIndex.value];
+  return {
+    url: current.url,
+    poster: current.cover,
+    title: current.title,
+    subtitle: {
+      url: current.subtitle,
+      encoding: 'utf-8',
+      bilingual: true,
+    },
+    thumbnails: {
+      url: current.thumbnails,
+      number: 100,
+      width: 160,
+      height: 90,
+      column: 10,
+    },
+  };
+})
+
+function loadVideo() {
   if (media.value.length == 0)
     return;
 
@@ -29,16 +56,40 @@ function loadVideo(play: boolean = false) {
     currentIndex.value = media.value.length - 1;
   }
 
-  let current = media.value[currentIndex.value];
-
-  player.value?.switchVideo({
-    url: current.url,
-    pic: current.cover,
-  }, undefined as unknown as DPlayerDanmaku);
-
-  if (play) {
-    player.value?.play();
+  if (player.value != undefined) {
+    // @ts-ignore
+    player.value.destroy();
+    player.value = undefined;
   }
+
+  // @ts-ignore
+  player.value = new Artplayer({
+    container: container.value!,
+    pip: true,
+    autoMini: true,
+    screenshot: true,
+    setting: true,
+    loop: true,
+    flip: true,
+    rotate: true,
+    playbackRate: true,
+    aspectRatio: true,
+    fullscreen: true,
+    fullscreenWeb: true,
+    subtitleOffset: true,
+    miniProgressBar: true,
+    localVideo: true,
+    localSubtitle: true,
+    networkMonitor: false,
+    mutex: true,
+    light: true,
+    backdrop: true,
+    log: true,
+    theme: '#ffad00',
+    // @ts-ignore
+    lang: navigator.language.toLowerCase(),
+    ...options.value
+  });
 }
 
 function onClickItem(names: string[]) {
@@ -49,18 +100,12 @@ function onClickItem(names: string[]) {
 }
 
 onMounted(() => {
-  player.value = new DPlayer({
-    container: container.value!,
-    screenshot: true,
-    video: {
-      url: ""
-    },
-  });
   media.value = parse(props.data);
   loadVideo();
 });
 onBeforeUnmount(() => {
-  if (player.value != null)
+  if (player.value != undefined)
+    // @ts-ignore
     player.value.destroy();
 });
 </script>
@@ -78,10 +123,10 @@ export default {
   <Resource :css="['/static/css/github-markdown.min.css']"></Resource>
   <n-layout has-sider sider-placement="right" style="height: 100%;">
     <n-layout-content style="height: 100%;" :native-scrollbar="false" content-style="height: 100%;">
-      <div ref="container"></div>
+      <div ref="container" style="height: 100%;"></div>
     </n-layout-content>
     <n-layout-sider
-      style="height: 100%;"
+      style="height: 100%; z-index: 100;"
       collapse-mode="width"
       :collapsed-width="0"
       :width="200"
@@ -114,7 +159,11 @@ export default {
                 </template>
               </n-button>
             </template>
-            <article v-html="item.renderedDescription" class="markdown-body" style="background-color: inherit;"></article>
+            <article
+              v-html="item.renderedDescription"
+              class="markdown-body"
+              style="background-color: inherit;"
+            ></article>
           </n-collapse-item>
         </n-collapse>
       </n-layout-content>

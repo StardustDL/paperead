@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DPlayer, { DPlayerDanmaku, DPlayerEvents } from 'dplayer'
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { isRelativeUrl } from '../../../helpers'
 import { Document } from '../../../models'

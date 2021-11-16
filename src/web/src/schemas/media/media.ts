@@ -8,6 +8,8 @@ export class Media {
     description: string = "";
     cover: string = "";
     lrc: string = "";
+    thumbnails: string = "";
+    subtitle: string = "";
     author: string = "";
     renderedDescription: string = "";
 
@@ -66,6 +68,19 @@ export function parse(data: Document) {
                                 case "lrc":
                                     if (media.lrc == "") {
                                         media.lrc = resolvedHref;
+                                        isMetadata = true;
+                                    }
+                                    break;
+
+                                case "thumbnails":
+                                    if (media.thumbnails == "") {
+                                        media.thumbnails = resolvedHref;
+                                        isMetadata = true;
+                                    }
+                                    break;
+                                case "subtitle":
+                                    if (media.subtitle == "") {
+                                        media.subtitle = resolvedHref;
                                         isMetadata = true;
                                     }
                                     break;

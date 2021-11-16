@@ -25,16 +25,30 @@ schema: ''
 # Item 1 Title
 
 [url](url to the target)
-![cover](url to the cover image file, only for video and audio.)
-[lrc](url to the lyric file, only for audio.)
-[author](Author name, only for audio.)
 
 Other description...
 
 # Item 2 Title
 
 [url](url to the target)
-![cover](url to the cover image file, only for video and audio.)
 
 Other description...
+```
+
+## Extra metadata
+
+### Video
+
+```markdown
+![cover](url to the cover image file.)
+[subtitle](url to the subtitle file (.srt).)
+[thumbnails](url to the thumbnails image file.)
+```
+
+### Audio
+
+```markdown
+![cover](url to the cover image file.)
+[lrc](url to the lyric file (.lrc).)
+[author](Author name.)
 ```
