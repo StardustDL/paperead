@@ -19,7 +19,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@types/marked": "^4.0.0",
+    "@types/marked": "^4.0.3",
     "@vicons/tabler": "^0.11.0",
     "@vicons/utils": "^0.1.4",
     "@vitejs/plugin-vue": "^1.9.4",
