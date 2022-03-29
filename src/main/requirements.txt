@@ -1,4 +1,4 @@
-click==8.0.3
+click==8.1.0
 Flask==2.0.2
 PyYaml==6.0
 flask-cors==3.0.10
