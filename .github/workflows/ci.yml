@@ -26,7 +26,7 @@ jobs:
       run: |
         Invoke-psake build
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: dist
         path: ./dist
@@ -90,7 +90,7 @@ jobs:
       run: |
         Invoke-psake docs
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: docs
         path: ./docs/dist
