@@ -14,28 +14,28 @@ const routes = [
         path: '/',
         component: Home,
         meta: {
-            title: 'Home - Paperead'
+            title: 'Home'
         }
     },
     {
         path: '/:id',
         component: MaterialView,
         meta: {
-            title: 'Loading... - Paperead'
+            title: 'Loading...'
         }
     },
     {
         path: '/:id/:noteId',
         component: NoteView,
         meta: {
-            title: 'Loading... - Loading... - Paperead'
+            title: 'Loading...'
         }
     },
     {
         path: '/:path*',
         component: NotFound,
         meta: {
-            title: 'Not found - Paperead'
+            title: 'Not found'
         }
     }
 ];

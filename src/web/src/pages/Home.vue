@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { NPageHeader, NSpace, NText, NBreadcrumb, NIcon, NLayoutContent, NAvatar, NStatistic, NTabs, NTabPane, NCard, NButton, useOsTheme } from 'naive-ui'
+import { ref, computed, onMounted } from 'vue'
+import { NPageHeader, NSpace, NText, NBreadcrumb, NIcon, NLayoutContent, NAvatar, NStatistic, NTabs, NTabPane, NCard, NButton, useOsTheme, useMessage } from 'naive-ui'
 import { Notebook } from '@vicons/tabler'
 import { MaterialsIcon, EnableReaderIcon, DisableReaderIcon } from '../components/icons'
 import PageLayout from '../components/PageLayout.vue'
-import ProjectStatus from '../components/ProjectStatus.vue'
 import { useRouter } from 'vue-router'
 import HomeBreadcrumbItem from '../components/breadcrumbs/HomeBreadcrumbItem.vue'
+import SchemaSwitcher from '../schemas/SchemaSwitcher.vue'
 import { useStore } from '../services/store'
 import MaterialIndex from './materials/MaterialIndex.vue'
+import { Note } from '../models/notes'
 
 const store = useStore();
 const router = useRouter();
+const message = useMessage();
 
 const osThemeRef = useOsTheme();
 
@@ -23,10 +25,20 @@ function reader(enable: boolean = true) {
 
 const version = import.meta.env.PACKAGE_VERSION;
 const apiMetadata = await store.state.api.metadata();
-const subtitle = apiMetadata.site.subtitle != '' ? apiMetadata.site.subtitle : "阅读与笔记";
+const subtitle = apiMetadata.site.subtitle != '' ? apiMetadata.site.subtitle : "";
 const description = apiMetadata.site.description != '' ? apiMetadata.site.description : `Welcome to ${await store.state.api.title()}.`;
 
 document.title = `Home - ${await store.state.api.title()}`;
+
+const data = ref<Note>();
+
+onMounted(async () => {
+    try {
+        data.value = await store.state.api.materials.builtins().home();
+    }
+    catch {
+    }
+});
 </script>
 
 <script lang="ts">
@@ -62,12 +74,7 @@ export default {
                     </n-breadcrumb>
                 </template>
                 <template #extra>
-                    <n-button
-                        size="large"
-                        :bordered="false"
-                        title="Reader mode"
-                        @click="() => reader(!isReader)"
-                    >
+                    <n-button size="large" :bordered="false" title="Reader mode" @click="() => reader(!isReader)">
                         <template #icon>
                             <n-icon>
                                 <DisableReaderIcon v-if="isReader" />
@@ -81,11 +88,9 @@ export default {
         </template>
         <n-tabs type="segment" style="height: 100%;">
             <n-tab-pane name="info" tab="Information" style="height: calc(100% - 52px);">
-                <n-layout-content
-                    content-style="padding: 10px;"
-                    style="height: 100%;"
-                    :native-scrollbar="false"
-                >
+                <n-layout-content content-style="padding: 10px;" style="height: 100%;" :native-scrollbar="false">
+                    <SchemaSwitcher v-if="data" :data="data" />
+                    <!--
                     <n-space vertical size="large">
                         <n-card title="Server" hoverable embedded>
                             <n-space size="large">
@@ -110,14 +115,11 @@ export default {
                             </suspense>
                         </n-card>
                     </n-space>
+                    -->
                 </n-layout-content>
             </n-tab-pane>
             <n-tab-pane name="materials" tab="Materials" style="height: calc(100% - 52px);">
-                <n-layout-content
-                    content-style="padding: 10px;"
-                    style="height: 100%;"
-                    :native-scrollbar="false"
-                >
+                <n-layout-content content-style="padding: 10px;" style="height: 100%;" :native-scrollbar="false">
                     <MaterialIndex></MaterialIndex>
                 </n-layout-content>
             </n-tab-pane>

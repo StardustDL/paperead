@@ -1,6 +1,6 @@
 {
   "name": "paperead-web",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -9,23 +9,23 @@
   },
   "dependencies": {
     "aplayer": "^1.10.1",
-    "artplayer": "^3.5.31",
-    "marked": "^4.0.3",
-    "naive-ui": "^2.20.3",
-    "reveal.js": "^4.2.0",
-    "vditor": "^3.8.7",
-    "vue": "^3.2.21",
-    "vue-router": "^4.0.12",
+    "artplayer": "^4.3.23",
+    "marked": "^4.0.15",
+    "naive-ui": "^2.28.2",
+    "reveal.js": "^4.3.1",
+    "vditor": "^3.8.13",
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.15",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@types/marked": "^4.0.0",
-    "@vicons/tabler": "^0.11.0",
+    "@types/marked": "^4.0.3",
+    "@vicons/tabler": "^0.12.0",
     "@vicons/utils": "^0.1.4",
-    "@vitejs/plugin-vue": "^1.9.4",
-    "typescript": "^4.4.4",
-    "vite": "^2.6.14",
+    "@vitejs/plugin-vue": "^2.3.2",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.8",
     "vite-plugin-package-version": "^1.0.2",
-    "vue-tsc": "^0.29.5"
+    "vue-tsc": "^0.34.11"
   }
 }

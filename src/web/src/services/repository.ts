@@ -12,7 +12,7 @@ export class MaterialRepository {
 
     async all() {
         let results = await fetch(`${this.baseUrl}/index.json`);
-        return <string[]>(await results.json());
+        return (<string[]>(await results.json())).filter(x => x != "builtins");
     }
 
     async get(id: string) {
@@ -29,6 +29,10 @@ export class MaterialRepository {
             dataUrl: this.resolveRelativeUrl(id)
         };
         return item;
+    }
+
+    builtins() {
+        return new BuiltinNoteRepository(this.notes("builtins"));
     }
 
     notes(id: string) {
@@ -120,5 +124,15 @@ export class NoteRepository {
         await fetch(`${this.baseUrl}/${id}/`, {
             method: "DELETE"
         });
+    }
+}
+
+export class BuiltinNoteRepository extends NoteRepository {
+    constructor(raw: NoteRepository) {
+        super(raw.baseUrl, raw.dataUrl);
+    }
+
+    home() {
+        return this.get("home");
     }
 }
