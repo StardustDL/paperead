@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3
       with:
         persist-credentials: false
-    - uses: actions/setup-python@v3.1.1
+    - uses: actions/setup-python@v3
       with:
         python-version: '3.7'
         architecture: 'x64'
@@ -46,10 +46,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3
       with:
         persist-credentials: false
-    - uses: actions/setup-python@v3.1.1
+    - uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python }}
         architecture: 'x64'
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3
       with:
         persist-credentials: false
     - uses: actions/setup-python@v3

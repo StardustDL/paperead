@@ -32,7 +32,7 @@ async function renderMarkdown() {
     await Vditor.preview(element.value!, props.value, {
         mode: theme.value,
         speech: {
-            enable: true
+            enable: false
         },
         hljs: {
             lineNumber: true,
