@@ -1,8 +1,8 @@
-import pathlib
+from pathlib import Path
 
 from flask import send_file, send_from_directory, Blueprint
 
-wwwroot = pathlib.Path(__file__).parent.joinpath("wwwroot")
+wwwroot = Path(__file__).parent.joinpath("wwwroot")
 
 frontend = Blueprint("frontend", __name__)
 

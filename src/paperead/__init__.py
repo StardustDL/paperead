@@ -1,10 +1,10 @@
 import logging
 import os
-import pathlib
+from pathlib import Path
 import click
 
 __version__ = "0.2.6"
 
 
-def get_app_directory():
-    return pathlib.Path(__file__).parent
+def get_app_directory() -> Path:
+    return Path(__file__).parent

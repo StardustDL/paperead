@@ -1,7 +1,6 @@
 import logging
 import pathlib
 import time
-from typing import Optional
 
 import click
 from click import BadArgumentUsage, BadOptionUsage, BadParameter
@@ -22,7 +21,7 @@ def setWorkingDirectory(wdir: pathlib.Path):
 @click.option("-a", "--auth", default=None, help="Password to protect the website (Basic Auth with username 'admin'), empty for public access.")
 @click.option("--readonly/--no-readonly", default=None, help="Readonly mode.")
 @click.option("-d", "--debug", is_flag=True, default=False, help="Debug mode.")
-def serve(port: Optional[int] = None, auth: Optional[str] = None, readonly: Optional[bool] = False, debug: bool = False) -> None:
+def serve(port: int | None = None, auth: str | None = None, readonly: bool | None = False, debug: bool = False) -> None:
     """Serve websites."""
     from .server import entrypoint
     if port:
@@ -37,7 +36,7 @@ def serve(port: Optional[int] = None, auth: Optional[str] = None, readonly: Opti
 @click.command()
 @click.option("-h", "--host", default=None, type=click.Choice(["empty", "python", "netlify"]), help="Host for the static website.")
 @click.option("-d", "--dist", default=None, help="Directory for building output.")
-def build(host: Optional[str] = None, dist: Optional[str] = None) -> None:
+def build(host: str | None = None, dist: str | None = None) -> None:
     """Build static website."""
     from .server import entrypoint
     if host:
@@ -129,7 +128,7 @@ def list(id: str = "") -> None:
 @click.group(invoke_without_command=True)
 @click.pass_context
 @click.option('-D', '--directory', type=click.Path(exists=True, file_okay=False, resolve_path=True, path_type=pathlib.Path), default=".", help="Path to working directory.")
-@click.option('-v', '--verbose', count=True, default=0, type=click.IntRange(0, 4))
+@click.option('-v', '--verbose', count=True, default=0, type=click.IntRange(0, 5))
 @click.option("--version", is_flag=True, default=False, help="Show the version.")
 def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: bool = False) -> None:
     """Paperead (https://github.com/StardustDL/paperead)"""
@@ -141,11 +140,12 @@ def main(ctx=None, directory: pathlib.Path = ".", verbose: int = 0, version: boo
     logger = logging.getLogger("Cli-Main")
 
     loggingLevel = {
-        0: logging.ERROR,
-        1: logging.WARNING,
-        2: logging.INFO,
-        3: logging.DEBUG,
-        4: logging.NOTSET
+        0: logging.CRITICAL,
+        1: logging.ERROR,
+        2: logging.WARNING,
+        3: logging.INFO,
+        4: logging.DEBUG,
+        5: logging.NOTSET
     }[verbose]
 
     logging.basicConfig(level=loggingLevel)
