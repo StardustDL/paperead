@@ -20,9 +20,9 @@ const route = useRoute();
 const router = useRouter();
 const message = useMessage();
 const store = useStore();
-const params = <{
+const params = route.params as {
     id: string
-}>route.params;
+};
 
 const data = ref<Material>();
 const error = ref<boolean>(false);

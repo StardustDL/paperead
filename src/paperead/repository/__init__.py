@@ -1,10 +1,9 @@
-import datetime
-import itertools
+from datetime import datetime
 import os
-import pathlib
+from pathlib import Path
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass, field
-from typing import Any, Generic, Iterator, Optional, TypeVar, Dict, List
+from typing import Any, Generic, Iterator, TypeVar
 
 import yaml
 from dateutil.tz import tzlocal
@@ -17,13 +16,13 @@ from .. import fsutils
 @dataclass
 class DocumentMetadata:
     name: str
-    creation: datetime.datetime = field(
-        default_factory=lambda: datetime.datetime.now(tzlocal()))
-    modification: datetime.datetime = field(
-        default_factory=lambda: datetime.datetime.now(tzlocal()))
-    targets: Dict[str, str] = field(default_factory=dict)
-    tags: List[str] = field(default_factory=list)
-    extra: Dict[str, str] = field(default_factory=dict)
+    creation: datetime = field(
+        default_factory=lambda: datetime.now(tzlocal()))
+    modification: datetime = field(
+        default_factory=lambda: datetime.now(tzlocal()))
+    targets: dict[str, str] = field(default_factory=dict)
+    tags: list[str] = field(default_factory=list)
+    extra: dict[str, str] = field(default_factory=dict)
     schema: str = ""
 
     def toText(self) -> str:
@@ -42,7 +41,7 @@ class Document(ABC):
     content: str = ""
 
     @classmethod
-    def __metadata__(cls, name: str = "", text: Optional[str] = None) -> DocumentMetadata:
+    def __metadata__(cls, name: str = "", text: str | None = None) -> DocumentMetadata:
         if text:
             return DocumentMetadata.fromText(text)
         else:
@@ -73,30 +72,30 @@ TD = TypeVar("TD", bound=Document)
 
 
 class DocumentRepository(ABC, Generic[TD]):
-    def __init__(self, root: pathlib.Path) -> None:
+    def __init__(self, root: Path) -> None:
         self.root = root
 
     @classmethod
     @abstractmethod
-    def __document__(cls, id: str, text: Optional[str] = None) -> TD:
+    def __document__(cls, id: str, text: str | None = None) -> TD:
         pass
 
-    def __documentPath__(self, id: str) -> pathlib.Path:
+    def __documentPath__(self, id: str) -> Path:
         return self.root.joinpath(f"{id.strip()}.md")
 
     def __documentGlob__(self) -> str:
         return "*.md"
 
-    def __postget__(self, path: pathlib.Path, item: TD) -> None:
+    def __postget__(self, path: Path, item: TD) -> None:
         pass
 
-    def __postset__(self, path: pathlib.Path, item: TD) -> None:
+    def __postset__(self, path: Path, item: TD) -> None:
         pass
 
-    def __postdel__(self, id: str, path: pathlib.Path) -> None:
+    def __postdel__(self, id: str, path: Path) -> None:
         pass
 
-    def __oniter__(self, path: pathlib.Path) -> str:
+    def __oniter__(self, path: Path) -> str:
         return path.stem
 
     def __contains__(self, item: str) -> bool:
@@ -116,7 +115,7 @@ class DocumentRepository(ABC, Generic[TD]):
         else:
             raise KeyError(key)
 
-    def __setitem__(self, key: str, value: Optional[TD]) -> None:
+    def __setitem__(self, key: str, value: TD | None) -> None:
         if value:
             value.id = key
             self.update(value)

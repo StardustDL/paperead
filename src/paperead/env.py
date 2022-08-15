@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field, asdict
-import pathlib
-from typing import Optional
+from pathlib import Path
 from .repository.materials import MaterialRepository
 import yaml
 
@@ -31,10 +30,10 @@ class BuildConfig:
 
 
 class Environment:
-    def __init__(self, path: pathlib.Path) -> None:
+    def __init__(self, path: Path) -> None:
         self.setPath(path)
 
-    def setPath(self, path: pathlib.Path) -> None:
+    def setPath(self, path: Path) -> None:
         self.path = path
         self.repo = MaterialRepository(path)
 
@@ -62,9 +61,9 @@ class Environment:
         }))
 
 
-env: Environment = Environment(pathlib.Path("."))
+env: Environment = Environment(Path("."))
 
 if __name__ == "__main__":
-    env.setPath(pathlib.Path(
+    env.setPath(Path(
         __file__).parent.parent.parent.parent.joinpath("temp/materials"))
     print(env.serverConfig)

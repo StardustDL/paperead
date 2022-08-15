@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-import pathlib
+from pathlib import Path
 import sys
 import subprocess
-from typing import Optional
 import marko
 import logging
 import os
@@ -14,7 +13,7 @@ class ResolvedSchema:
     content: str
 
 
-def resolveDynamic(content: str, inputFile: pathlib.Path) -> Optional[str]:
+def resolveDynamic(content: str, inputFile: Path) -> str | None:
     doc = marko.parse(content)
     for item in doc.children:
         if not isinstance(item, marko.parser.block.FencedCode):
@@ -30,7 +29,7 @@ def resolveDynamic(content: str, inputFile: pathlib.Path) -> Optional[str]:
             return None
 
 
-def resolveSchema(schema: str, content: str, inputFile: pathlib.Path) -> ResolvedSchema:
+def resolveSchema(schema: str, content: str, inputFile: Path) -> ResolvedSchema:
     if schema.startswith("dynamic:"):
         newContent = resolveDynamic(content, inputFile)
         content = newContent if newContent is not None else ""

@@ -1,4 +1,4 @@
-import pathlib
+from pathlib import Path
 
 import click
 import os
@@ -59,9 +59,9 @@ def build():
 
     repo = env.repo
 
-    dist = pathlib.Path(env.buildConfig.dist)
+    dist = Path(env.buildConfig.dist)
     if not dist.is_absolute():
-        dist = pathlib.Path(env.path).joinpath(dist)
+        dist = Path(env.path).joinpath(dist)
 
     if dist.exists() and dist.is_dir():
         click.echo(f"Delete existed dist at {dist.absolute()}.")
@@ -124,7 +124,7 @@ def build():
                 ndir.joinpath("index.json").write_bytes(
                     c.get(f"/api/materials/{mid}/notes/{nid}/").data)
 
-    staticPath = pathlib.Path(__file__).parent.joinpath("static")
+    staticPath = Path(__file__).parent.joinpath("static")
 
     if env.buildConfig.host == 'python':
         click.echo("Generating files for python host.")

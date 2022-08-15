@@ -1,6 +1,5 @@
 import mimetypes
 import pathlib
-from typing import Optional
 
 from flask import Flask
 
