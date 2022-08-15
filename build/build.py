@@ -54,4 +54,4 @@ def build_web():
     run(["npm", "ci"], cwd=Path("src").joinpath("web"))
     run(["npm", "run", "build"], cwd=Path("src").joinpath("web"))
     shutil.copytree(Path("src") / "web" / "dist", Path("src") /
-                    "aexpy"/"serving"/"server"/"wwwroot")
+                    "paperead"/"server"/"wwwroot")
