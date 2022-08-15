@@ -22,11 +22,12 @@ jobs:
         architecture: 'x64'
     - name: Setup coxbuild
       run: pip install coxbuild
-    - name: Build
-      run: |
-        coxbuild build:web
-        coxbuild build:package
-        coxbuild installBuilt
+    - name: Build Web
+      run: coxbuild build:web
+    - name: Build Package
+      run: coxbuild build:package
+    - name: Install Package
+      run: coxbuild installBuilt
     - name: Upload package artifacts
       uses: actions/upload-artifact@v3
       with:

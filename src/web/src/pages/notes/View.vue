@@ -22,10 +22,10 @@ const route = useRoute();
 const message = useMessage();
 const router = useRouter();
 const store = useStore();
-const params = <{
+const params = route.params as {
     id: string,
     noteId: string,
-}>route.params;
+};
 
 const data = ref<Note>();
 const material = ref<Material>();
